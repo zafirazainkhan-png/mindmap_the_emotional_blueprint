@@ -1,44 +1,87 @@
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f0f8ff;
-    color: #333;
-    text-align: center;
-    padding: 2rem;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background-color: #f5f0e6; /* Soft beige */
+    color: #2e2e2e;
     margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #d8e3dc;
+    padding: 2rem;
+    text-align: center;
+    color: #2e2e2e;
 }
 
 header h1 {
-    font-size: 2.5rem;
-    color: #5eaaa8;
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
-nav {
-    margin: 2rem 0;
-}
-
-nav a {
-    margin: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background-color: #a3d2ca;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-nav a:hover {
-    background-color: #5eaaa8;
+.tagline {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #4f4f4f;
 }
 
 .intro {
-    max-width: 600px;
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    background-color: #fcfcfa;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.intro h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #3e3e3e;
+}
+
+.main-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1000px;
     margin: 0 auto;
+}
+
+.main-nav a {
+    display: block;
+    background-color: #e7f6f2;
     padding: 1rem;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #2e2e2e;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+
+.main-nav a:hover {
+    transform: translateY(-3px);
+    background-color: #d0ebe4;
+}
+
+.main-nav h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #5eaaa8;
+}
+
+.main-nav p {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #4f4f4f;
 }
 
 footer {
-    margin-top: 3rem;
+    background-color: #dcedc1;
+    padding: 1rem;
+    text-align: center;
     font-size: 0.9rem;
-    color: #777;
+    color: #3e3e3e;
 }
-
