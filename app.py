@@ -23,4 +23,6 @@ def managing_emotions():
     return render_template('Managing your emotions.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5003)
+
+
