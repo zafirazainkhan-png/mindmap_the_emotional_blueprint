@@ -1,44 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MindMap: Mapping Feelings</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <header>
-        <h1>MindMap: Mapping Feelings</h1>
-        <p class="tagline">A calm space to understand your emotions and the brain behind them.</p>
-    </header>
+body {
+    font-family: 'Averia Serif Libre', serif;
+    background-color: #f5f0e6;
+    color: #2e2e2e;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
 
-    <section class="intro">
-        <h2>Welcome to MindMap</h2>
-        <p>
-            This is your space to explore how your brain and emotions connect. If you've ever felt anxious before a test, overwhelmed by a tough day, or unsure why your mood suddenly shifted, you're not alone. MindMap helps you understand the science behind those feelings and gives you tools to navigate them with confidence. Through simple visuals, relatable examples, and calming design, you'll learn how different brain regions influence your emotions—and how to manage them in everyday life.
-        </p>
-    </section>
+/* Header */
+header {
+    text-align: center;
+    padding: 2rem;
+    background-color: #ffffff;
+}
 
-    <nav class="main-nav">
-        <a href="/templates/Why%20am%20I%20feeling?.html">
-            <h3>Why am I feeling?</h3>
-            <p>Discover how your brain reacts to stress, excitement, or fear.</p>
-        </a>
-        <a href="/templates/What%20am%20I%20feeling?.html">
-            <h3>What am I feeling?</h3>
-            <p>Use our glossary to decode tricky emotional terms.</p>
-        </a>
-        <a href="/templates/Mood%20Messengers.html">
-            <h3>Mood Messengers</h3>
-            <p>Learn how different brain regions send emotional signals.</p>
-        </a>
-        <a href="/templates/Managing%20your%20emotions.html">
-            <h3>Managing Your Emotion</h3>
-            <p>Try breathing exercises, journaling prompts, and calming techniques.</p>
-        </a>
-    </nav>
+header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+    color: #2e2e2e;
+}
 
-    <footer>
-        <p>For any assistance or complaints mail zafira.khan@akadha.org </p>
-    </footer>
-</body>
-</html>
+.tagline {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #4f4f4f;
+    margin-top: 0.5rem;
+}
+
+/* Welcome section */
+.welcome {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fcfcfa;
+    border-left: 6px solid #b2d8d8;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.welcome h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: #2e2e2e;
+}
+
+.welcome p {
+    font-size: 1rem;
+    color: #3e3e3e;
+    line-height: 1.7;
+}
+
+/* Grid layout */
+.grid-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid-box {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    width: 250px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    text-decoration: none;
+    color: #2e2e2e;
+    flex-grow: 1;
+    flex-basis: 250px;
+}
+
+.grid-box:hover {
+    transform: translateY(-3px);
+    border-color: #b2d8d8;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.grid-box h3 {
+    margin: 0.5rem 0 0;
+    font-size: 1.3rem;
+    color: #5eaaa8;
+}
+
+.grid-box p {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #4f4f4f;
+}
+
+.emoji {
+    font-size: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.grid-box:hover .emoji {
+    transform: scale(1.2);
+}
+
+/* Emotion tracker */
+.emotion-tracker {
+    text-align: center;
+    margin: 2rem auto;
+}
+
+.emotion-tracker h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.emotion-options button {
+    background-color: #ffffff;
+    border: 1px solid #b2d8d8;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    margin: 0.3rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.emotion-options button:hover {
+    background-color: #b2d8d8;
+    color: #ffffff;
+}
+
+/* Did you know */
+.did-you-know {
+    text-align: center;
+    padding: 1rem;
+    font-size: 1rem;
+    color: #3e3e3e;
+    background-color: #fcfcfa;
+    margin: 2rem auto;
+    max-width: 700px;
+    border-top: 1px solid #dcdcdc;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    background-color: #ffffff;
+    color: #3e3e3e;
+}
+
+footer a {
+    color: #5eaaa8;
+    text-decoration: none;
+}

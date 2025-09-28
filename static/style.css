@@ -1,87 +1,110 @@
+/* Base styles */
 body {
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    background-color: #f5f0e6; /* Soft beige */
+    font-family: 'Averia Serif Libre', serif;
+    background-color: #f5f0e6;
     color: #2e2e2e;
     margin: 0;
     padding: 0;
     line-height: 1.6;
 }
 
+/* Header */
 header {
-    background-color: #d8e3dc;
-    padding: 2rem;
     text-align: center;
-    color: #2e2e2e;
+    padding: 2rem;
+    background-color: #ffffff;
 }
 
 header h1 {
     font-size: 2.8rem;
-    font-weight: 600;
     margin-bottom: 0.5rem;
+    color: #2e2e2e;
 }
 
 .tagline {
     font-size: 1.2rem;
     font-style: italic;
     color: #4f4f4f;
+    margin-top: 0.5rem;
 }
 
-.intro {
-    max-width: 700px;
+/* Welcome section */
+.welcome {
+    max-width: 800px;
     margin: 2rem auto;
-    padding: 1rem 2rem;
+    padding: 1.5rem;
     background-color: #fcfcfa;
+    border-left: 6px solid #b2d8d8;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.intro h2 {
-    font-size: 1.8rem;
+.welcome h2 {
+    font-size: 1.6rem;
     margin-bottom: 1rem;
-    color: #3e3e3e;
+    color: #2e2e2e;
 }
 
-.main-nav {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+.welcome p {
+    font-size: 1rem;
+    color: #3e3e3e;
+    line-height: 1.7;
+}
+
+/* Grid layout */
+.grid-container {
+    display: flex;
+    justify-content: center;
     gap: 1.5rem;
     padding: 2rem;
-    max-width: 1000px;
+    flex-wrap: wrap;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-.main-nav a {
-    display: block;
-    background-color: #e7f6f2;
-    padding: 1rem;
+.grid-box {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
     border-radius: 10px;
+    width: 250px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, border-color 0.2s ease;
     text-decoration: none;
     color: #2e2e2e;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease;
+    flex-grow: 1;
+    flex-basis: 250px;
 }
 
-.main-nav a:hover {
+.grid-box:hover {
     transform: translateY(-3px);
-    background-color: #d0ebe4;
+    border-color: #b2d8d8;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.main-nav h3 {
+.grid-box h3 {
     margin: 0;
     font-size: 1.3rem;
     color: #5eaaa8;
 }
 
-.main-nav p {
+.grid-box p {
     margin-top: 0.5rem;
     font-size: 1rem;
     color: #4f4f4f;
 }
 
+/* Footer */
 footer {
-    background-color: #dcedc1;
-    padding: 1rem;
     text-align: center;
+    padding: 1rem;
     font-size: 0.9rem;
+    background-color: #ffffff;
     color: #3e3e3e;
+}
+
+footer a {
+    color: #5eaaa8;
+    text-decoration: none;
 }
