@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thalamus Simulator</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+    :root {
+        --bg-start: #f0f8ff;
+        --bg-end: #d3e0ec;
+        --text-color: #2f4f4f;
+        --topbar-bg: #ffffffcc;
+        --topbar-border: #6a5acd;
+        --speech-bubble-bg: #f9fbfd;
+        --speech-bubble-border: #6a5acd;
+        --speech-bubble-text: #2f4f4f;
+        --cta-bg: #6a5acd;
+        --cta-hover-bg: #5d4b9e;
+        --cta-text: #fff;
+        --footer-bg: #fff;
+        --footer-border: #6a5acd;
+        --dot-bg: #fff;
+        --dot-text: #6a5acd;
+        --dot-active-bg: #6a5acd;
+        --dot-active-text: #fff;
+        --spinner-bg: rgba(0, 0, 0, 0.3);
+        --spinner-border: #f3f3f3;
+        --spinner-active: #6a5acd;
+    }
+    [data-theme="dark"] {
+      --bg-start: #1a2a44;
+      --bg-end: #2e4057;
+      --text-color: #e0e0e0;
+      --topbar-bg: #2d2d3d;
+      --topbar-border: #9370db;
+      --speech-bubble-bg: #2a4066;
+      --speech-bubble-border: #9370db;
+      --speech-bubble-text: #d0d0d0;
+      --cta-bg: #9370db;
+      --cta-hover-bg: #7a61c1;
+      --cta-text: #e0e0e0;
+      --footer-bg: #2d2d3d;
+      --footer-border: #9370db;
+      --dot-bg: #2d2d3d;
+      --dot-text: #e0e0e0;
+      --dot-active-bg: #9370db;
+      --dot-active-text: #2d2d3d;
+      --spinner-bg: rgba(0, 0, 0, 0.7);
+      --spinner-border: #555566;
+      --spinner-active: #9370db;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+      color: var(--text-color);
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    .top-dock {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      background: var(--topbar-bg);
+      border-bottom: 2px solid var(--topbar-border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .dark-mode-btn {
+      font-size: 20px;
+      padding: 5px;
+      border: none;
+      background: none;
+      color: var(--cta-bg);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .dark-mode-btn:hover {
+      color: var(--cta-text);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--cta-bg);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      background: var(--topbar-bg);
+      transition: background 0.3s, color 0.3s;
+    }
+    .nav-links a:hover {
+      background: var(--cta-bg);
+      color: var(--cta-text);
+    }
+
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .audio-controls #volume {
+      width: 80px;
+    }
+    .audio-controls button {
+      font-size: 18px;
+      padding: 3px;
+      border: none;
+      background: none;
+      color: var(--cta-bg);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .audio-controls button:hover {
+      color: var(--cta-text);
+    }
+
+    .simulator-container {
+      padding: 2rem;
+    }
+    .brain-image {
+      max-width: 350px;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: opacity 0.3s;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: var(--cta-bg);
+      font-weight: 600;
+    }
+    .instructions {
+      background: var(--speech-bubble-bg);
+      border-left: 4px solid var(--speech-bubble-border);
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 0 auto 1rem;
+      max-width: 500px;
+      font-size: 1rem;
+      color: var(--speech-bubble-text);
+      text-align: left;
+    }
+    .info-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 160px;
+      gap: 1rem;
+    }
+    .section-1, .section-4, .section-5 {
+      background: var(--speech-bubble-bg);
+      border-left: 6px solid var(--speech-bubble-border);
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      margin: 0.5rem 0;
+      max-width: 500px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      text-align: left;
+      height: 70px;
+      overflow: hidden;
+    }
+    .section-4 {
+      height: 70px;
+    }
+    .swirl-visual {
+      margin: 14px 0 6px;
+    }
+    #brainImage {
+      width: 250px;
+      display: block;
+      margin: 12px auto;
+      z-index: 10;
+    }
+    .zoom-effect {
+      animation: zoomToFull 1000ms cubic-bezier(0.2, 0.9, 0.25, 1) forwards;
+      z-index: 1000;
+      position: relative;
+    }
+    @keyframes zoomToFull {
+      from {
+        transform: scale(1.5) rotate(0deg);
+        opacity: 1;
+      }
+      to {
+        transform: scale(3.4) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .carousel {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      height: auto;
+      min-height: 200px;
+    }
+    .carousel-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      background: var(--speech-bubble-bg);
+      border-left: 6px solid var(--speech-bubble-border);
+      padding: 1.2rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
+      min-height: 80px;
+    }
+    .carousel-item.active {
+      opacity: 1;
+      position: relative;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--cta-bg);
+      color: var(--cta-text);
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    .carousel-btn:hover {
+      background: var(--cta-hover-bg);
+    }
+    .carousel-btn.prev {
+      left: -50px;
+    }
+    .carousel-btn.next {
+      right: -50px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      max-width: 500px;
+      margin: 1rem auto;
+    }
+    .nav-button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 20px;
+      background: var(--cta-bg);
+      color: var(--cta-text);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    .nav-button:hover {
+      background: var(--cta-hover-bg);
+    }
+    .restart-button {
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 25px;
+      background: #c1d3e0;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 1rem auto;
+      display: block;
+    }
+    .restart-button:hover {
+      background: #a8c0d1;
+    }
+    [data-theme="dark"] .restart-button {
+      background: #5e7d8c;
+    }
+    [data-theme="dark"] .restart-button:hover {
+      background: #4a6060;
+    }
+    .continue-button {
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 25px;
+      background: var(--cta-bg);
+      color: var(--cta-text);
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 1rem auto;
+      display: block;
+    }
+    .continue-button:hover {
+      background: var(--cta-hover-bg);
+    }
+    footer.progress-dock {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      background: var(--footer-bg);
+      border-top: 1px solid var(--footer-border);
+      padding: 0.5rem 0;
+      position: sticky;
+      bottom: 0;
+    }
+    .step {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--dot-text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 600;
+      color: var(--dot-text);
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .step.active, .step:hover {
+      background: var(--dot-active-bg);
+      color: var(--dot-active-text);
+    }
+    .section-progress {
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      color: var(--text-color);
+    }
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--spinner-bg);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    .spinner {
+      border: 4px solid var(--spinner-border);
+      border-top: 4px solid var(--spinner-active);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @media (max-width: 760px) {
+      .simulator-container {
+        padding: 1rem;
+      }
+      .brain-image {
+        max-width: 250px;
+      }
+      h2 {
+        font-size: 1.4rem;
+      }
+      .instructions {
+        max-width: 90%;
+      }
+      .section-1, .swirl-visual, .carousel {
+        max-width: 95%;
+      }
+      .nav-buttons {
+        max-width: 90%;
+      }
+      .top-dock {
+        flex-direction: column;
+        padding: 0.3rem;
+      }
+      .nav-links {
+        margin: 0.3rem 0;
+      }
+      .audio-controls {
+        margin-top: 0.3rem;
+      }
+      .carousel-btn.prev {
+        left: -20px;
+      }
+      .carousel-btn.next {
+        right: -20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-dock">
+    <button id="darkModeToggle" class="dark-mode-btn">🌙</button>
+    <div class="nav-links">
+      <a href="/homepage">Home</a>
+      <a href="/why_am_i_feeling">Why am I feeling?</a>
+      <a href="/what_am_i_feeling">What am I feeling?</a>
+      <a href="/managing_emotions">Managing emotions</a>
+      <a href="/mood_messengers">Mood Messengers</a>
+    </div>
+    <div class="audio-controls">
+      <audio id="bg-music" autoplay loop>
+        <source src="/static/background.mp3" type="audio/mpeg">
+      </audio>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+      <button id="muteBtn">🔊</button>
+    </div>
+  </header>
+
+  <div class="simulator-container">
+    <div class="swirl-visual">
+      <img id="brainImage" src="/static/Thalamus.png" alt="Swirling brain (thalamus)" loading="lazy">
+    </div>
+    <div class="instructions">
+      <p>Follow these steps to explore:</p>
+      <ul>
+        <li>Click anywhere to move to the next point in a section.</li>
+        <li>Use the 'Back' button to go to the previous point or section.</li>
+        <li>Use the 'Next' button to jump to the next point or section.</li>
+        <li>Click 'Restart' to start over from the beginning.</li>
+        <li>Check out all five sections to learn how the limbic system affects emotions.</li>
+      </ul>
+    </div>
+    <h2 id="sectionTitle">Thalamus Introduction</h2>
+    <div class="section-progress">
+      <span id="sectionProgress"></span>
+    </div>
+    <div id="infoContainer" class="info-container" aria-live="polite"></div>
+    <div class="nav-buttons">
+      <button id="backBtn" class="nav-button" style="display: none;">Back</button>
+      <button id="nextBtn" class="nav-button">Next</button>
+    </div>
+    <button id="restartBtn" class="restart-button">Restart</button>
+    <p style="font-style: italic; color: var(--text-color);">Click anywhere to go to the next point.</p>
+  </div>
+
+  <footer class="progress-dock">
+    <a href="/amygdala" class="step">1</a>
+    <a href="/hippocampus" class="step">2</a>
+    <a href="/hypothalamus" class="step">3</a>
+    <a href="/thalamus" class="step active">4</a>
+    <a href="/cingulate_gyrus" class="step">5</a>
+  </footer>
+
+  <div id="loading" class="loading" style="display: none;">
+    <div class="spinner"></div>
+  </div>
+
+  <script>
+    (function() {
+      const toggleButton = document.getElementById('darkModeToggle');
+      const html = document.documentElement;
+      const brainImage = document.getElementById('brainImage');
+
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', savedTheme);
+      updateImage();
+
+      toggleButton.addEventListener('click', () => {
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        updateImage();
+      });
+
+      function updateImage() {
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        brainImage.src = isDark
+          ? '/static/Thalamus Dark Mode.png'
+          : '/static/Thalamus.png';
+      }
+    })();
+
+    (function() {
+      const audio = document.getElementById('bg-music');
+      const volumeControl = document.getElementById('volume');
+      const muteBtn = document.getElementById('muteBtn');
+
+      const savedVolume = localStorage.getItem('volume') || 0.5;
+      const savedMuted = localStorage.getItem('muted') === 'true';
+      const savedTime = localStorage.getItem('musicTime') || 0;
+
+      audio.volume = savedVolume;
+      audio.muted = savedMuted;
+      audio.currentTime = savedTime;
+      if (!savedMuted) audio.play().catch(e => console.log('Audio play failed:', e));
+      muteBtn.textContent = savedMuted ? '🔇' : '🔊';
+
+      volumeControl.value = savedVolume;
+      volumeControl.addEventListener('input', (e) => {
+        audio.volume = e.target.value;
+        localStorage.setItem('volume', e.target.value);
+      });
+
+      muteBtn.addEventListener('click', () => {
+        audio.muted = !audio.muted;
+        muteBtn.textContent = audio.muted ? '🔇' : '🔊';
+        localStorage.setItem('muted', audio.muted);
+        if (!audio.muted) audio.play().catch(e => console.log('Audio play failed:', e));
+      });
+
+      window.addEventListener('beforeunload', () => {
+        localStorage.setItem('volume', audio.volume);
+        localStorage.setItem('muted', audio.muted);
+        if (!audio.paused) localStorage.setItem('musicTime', audio.currentTime);
+      });
+    })();
+
+    const infoContainer = document.getElementById("infoContainer");
+    const sectionTitle = document.getElementById("sectionTitle");
+    const backBtn = document.getElementById("backBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const progressSpan = document.getElementById("sectionProgress");
+    const loading = document.getElementById("loading");
+    const brainImage = document.getElementById("brainImage");
+
+    let carouselItems = null;
+
+      const sections = [
+  {
+    title: "Thalamus Introduction",
+    className: "section-1",
+    points: [
+      "The thalamus is a small, egg-shaped structure deep in the center of your brain.",
+      "It acts as the brain’s relay station, receiving and directing sensory information to the correct areas."
+    ]
+  },
+  {
+    title: "What Does it Do?",
+    className: "section-1",
+    points: [
+      "The thalamus receives sensory information like sight, sound, touch, and taste, filtering what’s important to focus on.",
+      "It sends signals to the correct brain regions so you can process and react appropriately.",
+      "It helps you concentrate on tasks by tuning out distractions from your environment.",
+      "It also plays a key role in regulating sleep, alertness, and general awareness."
+    ]
+  },
+  {
+    title: "Why Does it Matter?",
+    className: "carousel",
+    points: [
+      "The thalamus ensures that sensory signals reach the right brain areas, keeping perception accurate and organized.",
+      "Without it, attention, memory, and processing sensory information would be chaotic and confusing.",
+      "It helps you respond quickly to your surroundings and maintain focus in daily life.",
+      "Problems in the thalamus can affect sleep patterns, alertness, and the way you interpret sensory input."
+    ]
+  },
+  {
+    title: "How Do I Calm it Down?",
+    className: "section-4",
+    points: [
+      "🍃 I can practice mindfulness or meditation so my thalamus filters distractions more effectively. 🍃",
+      "🍃 I can get enough sleep to recharge my thalamus for better focus and awareness. 🍃",
+      "🍃 I can reduce sensory overload by seeking quiet spaces or dim lighting when overwhelmed. 🍃"
+    ]
+  },
+  {
+    title: "Fun Fact",
+    className: "section-5",
+    points: [
+      "🤔 Did you know? The thalamus acts like a traffic controller, deciding which sensory signals reach the rest of your brain.",
+      "🎵 Bonus fact: Sounds and music pass through your thalamus before reaching your brain’s emotional centers."
+    ]
+  }
+];
+
+    let currentSection = 0;
+    let currentPoint = 0;
+    let carouselIndex = 0;
+
+    function updateProgress() {
+      const section = sections[currentSection];
+      let pointText;
+      if (section.className === "carousel") {
+        pointText = `Item ${carouselIndex + 1}/${section.points.length}`;
+      } else {
+        pointText = `Points ${currentPoint + 1}/${section.points.length}`;
+      }
+      if (progressSpan) {
+        progressSpan.textContent = `Section ${currentSection + 1}/${sections.length}, ${pointText}`;
+      }
+    }
+
+    function navigateWithLoading(url) {
+      if (loading) {
+        loading.style.display = 'flex';
+        setTimeout(() => { window.location.href = url; }, 500);
+      }
+    }
+
+    function setCarouselActive(index) {
+      if (carouselItems) {
+        carouselItems.forEach((item, i) => {
+          item.classList.toggle('active', i === index);
+        });
+      }
+    }
+
+    function updateButtons() {
+      const section = sections[currentSection];
+      let hasBack = currentSection > 0 || currentPoint > 0 || (section.className === "carousel" && carouselIndex > 0);
+      backBtn.style.display = hasBack ? "inline-block" : "none";
+
+      let hasNext = false;
+      if (section.className === "carousel") {
+        hasNext = carouselIndex < section.points.length - 1 || currentSection < sections.length - 1;
+      } else {
+        hasNext = currentPoint < section.points.length - 1 || currentSection < sections.length - 1;
+      }
+      nextBtn.style.display = hasNext ? "inline-block" : "none";
+
+      const existingContinue = infoContainer.querySelector('.continue-button');
+      if (existingContinue) existingContinue.remove();
+
+      const showContinue = currentSection === sections.length - 1 &&
+        ((section.className === "carousel" && carouselIndex === section.points.length - 1) ||
+         (section.className !== "carousel" && currentPoint === section.points.length - 1));
+      if (showContinue) {
+        const continueBtn = document.createElement("button");
+        continueBtn.className = "continue-button";
+        continueBtn.textContent = "Click to Continue With the Experience";
+        continueBtn.addEventListener("click", () => {
+          brainImage.classList.add('zoom-effect');
+          setTimeout(() => {
+            navigateWithLoading("/cingulate_gyrus");
+          }, 600);
+        });
+        infoContainer.appendChild(continueBtn);
+      }
+    }
+
+    function displayContent() {
+      const section = sections[currentSection];
+      sectionTitle.textContent = section.title;
+
+      if (section.className !== "carousel") {
+        infoContainer.innerHTML = "";
+        for (let i = 0; i <= currentPoint; i++) {
+          const box = document.createElement("div");
+          box.className = section.className;
+          box.innerHTML = section.points[i];
+          infoContainer.appendChild(box);
+        }
+      } else {
+        if (carouselItems === null) {
+          infoContainer.innerHTML = "";
+          const carousel = document.createElement("div");
+          carousel.className = "carousel";
+          carouselItems = [];
+          section.points.forEach((point, index) => {
+            const item = document.createElement("div");
+            item.className = "carousel-item";
+            item.innerHTML = point;
+            carousel.appendChild(item);
+            carouselItems.push(item);
+          });
+          const prevBtn = document.createElement("button");
+          prevBtn.className = "carousel-btn prev";
+          prevBtn.innerHTML = "←";
+          prevBtn.addEventListener("click", handleCarouselPrev);
+          const nextBtnCarousel = document.createElement("button");
+          nextBtnCarousel.className = "carousel-btn next";
+          nextBtnCarousel.innerHTML = "→";
+          nextBtnCarousel.addEventListener("click", handleCarouselNext);
+          carousel.appendChild(prevBtn);
+          carousel.appendChild(nextBtnCarousel);
+          infoContainer.appendChild(carousel);
+          setCarouselActive(carouselIndex);
+        } else {
+          setCarouselActive(carouselIndex);
+        }
+      }
+
+      updateProgress();
+      updateButtons();
+    }
+
+    function handleAdvance() {
+      const section = sections[currentSection];
+      if (section.className === "carousel") {
+        const length = section.points.length;
+        if (carouselIndex < length - 1) {
+          carouselIndex++;
+          setCarouselActive(carouselIndex);
+        } else if (currentSection < sections.length - 1) {
+          carouselItems = null;
+          carouselIndex = 0;
+          currentPoint = 0;
+          currentSection++;
+          displayContent();
+        }
+      } else {
+        const length = section.points.length;
+        if (currentPoint < length - 1) {
+          currentPoint++;
+          const box = document.createElement("div");
+          box.className = section.className;
+          box.innerHTML = section.points[currentPoint];
+          infoContainer.appendChild(box);
+        } else if (currentSection < sections.length - 1) {
+          currentPoint = 0;
+          currentSection++;
+          displayContent();
+        }
+      }
+      updateProgress();
+      updateButtons();
+    }
+
+    function handleBack() {
+      const section = sections[currentSection];
+      if (section.className === "carousel") {
+        if (carouselIndex > 0) {
+          carouselIndex--;
+          setCarouselActive(carouselIndex);
+        } else if (currentSection > 0) {
+          carouselItems = null;
+          currentSection--;
+          const prevSection = sections[currentSection];
+          if (prevSection.className === "carousel") {
+            carouselIndex = prevSection.points.length - 1;
+          } else {
+            currentPoint = prevSection.points.length - 1;
+          }
+          displayContent();
+          return;
+        }
+      } else {
+        if (currentPoint > 0) {
+          currentPoint--;
+          infoContainer.removeChild(infoContainer.lastChild);
+        } else if (currentSection > 0) {
+          currentSection--;
+          const prevSection = sections[currentSection];
+          currentPoint = prevSection.points.length - 1;
+          displayContent();
+          return;
+        }
+      }
+      updateProgress();
+      updateButtons();
+    }
+
+    function handleCarouselNext() {
+      const section = sections[currentSection];
+      const length = section.points.length;
+      if (carouselIndex < length - 1) {
+        carouselIndex++;
+        setCarouselActive(carouselIndex);
+      } else if (currentSection < sections.length - 1) {
+        carouselItems = null;
+        carouselIndex = 0;
+        currentPoint = 0;
+        currentSection++;
+        displayContent();
+      }
+      updateProgress();
+      updateButtons();
+    }
+
+    function handleCarouselPrev() {
+      if (carouselIndex > 0) {
+        carouselIndex--;
+        setCarouselActive(carouselIndex);
+      } else if (currentSection > 0) {
+        carouselItems = null;
+        currentSection--;
+        const prevSection = sections[currentSection];
+        if (prevSection.className === "carousel") {
+          carouselIndex = prevSection.points.length - 1;
+        } else {
+          currentPoint = prevSection.points.length - 1;
+        }
+        displayContent();
+        return;
+      }
+      updateProgress();
+      updateButtons();
+    }
+
+    if (backBtn && nextBtn && restartBtn) {
+      // Click anywhere to advance
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest('.nav-buttons') && !e.target.closest('.restart-button') && !e.target.closest('.continue-button') && !e.target.closest('.carousel-btn')) {
+          handleAdvance();
+        }
+      });
+
+      // Back button
+      backBtn.addEventListener("click", handleBack);
+
+      // Next button
+      nextBtn.addEventListener("click", handleAdvance);
+
+      // Restart button
+      restartBtn.addEventListener("click", () => {
+        currentSection = 0;
+        currentPoint = 0;
+        carouselIndex = 0;
+        carouselItems = null;
+        displayContent();
+      });
+
+      // Keyboard navigation
+      backBtn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleBack();
+        }
+      });
+      nextBtn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleAdvance();
+        }
+      });
+      restartBtn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          restartBtn.click();
+        }
+      });
+    }
+
+    displayContent();
+  </script>
+</body>
+</html>

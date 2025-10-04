@@ -39,22 +39,22 @@
     </section>
 
     <section class="grid-container">
-        <a class="grid-box" href="/Why-am-I-feeling">
+        <a class="grid-box" href="{{ url_for('why_am_i_feeling') }}">
             <div class="emoji">🫠</div>
             <h3>Why am I feeling?</h3>
             <p>Discover how your brain reacts to stress, excitement, or fear.</p>
         </a>
-        <a class="grid-box" href="/Managing-your-emotions">
+        <a class="grid-box" href="{{ url_for('managing_emotions') }}">
             <div class="emoji">⚒️</div>
             <h3>Managing Your Emotion</h3>
             <p>Try breathing exercises, journaling prompts, and calming techniques.</p>
         </a>
-        <a class="grid-box" href="/What-am-I-feeling">
+        <a class="grid-box" href="{{ url_for('what_am_i_feeling') }}">
             <div class="emoji">🧐</div>
             <h3>What am I feeling?</h3>
             <p>Use our glossary to decode tricky emotional terms.</p>
         </a>
-        <a class="grid-box" href="/Mood-Messengers">
+        <a class="grid-box" href="{{ url_for('mood_messengers') }}">
             <div class="emoji">🧠</div>
             <h3>Mood Messengers</h3>
             <p>Learn how different brain regions send emotional signals.</p>
@@ -69,34 +69,48 @@
         <p>For any assistance or complaints mail <a href="mailto:zafira.khan@akadha.org">zafira.khan@akadha.org</a></p>
     </footer>
 
-<script>
-    // 🎵 Audio Logic
-    const audio = document.getElementById('bg-music');
-    const volumeSlider = document.getElementById('volume');
-    const muteBtn = document.getElementById('muteBtn');
+    <script>
+        // 🎵 Audio Logic
+        const audio = document.getElementById('bg-music');
+        const volumeSlider = document.getElementById('volume');
+        const muteBtn = document.getElementById('muteBtn');
 
-    audio.volume = volumeSlider.value;
-    volumeSlider.addEventListener('input', () => audio.volume = volumeSlider.value);
+        audio.volume = volumeSlider.value;
+        volumeSlider.addEventListener('input', () => audio.volume = volumeSlider.value);
 
-    muteBtn.addEventListener('click', () => {
-        audio.muted = !audio.muted;
-        muteBtn.textContent = audio.muted ? "🔇" : "🔊";
-    });
+        muteBtn.addEventListener('click', () => {
+            audio.muted = !audio.muted;
+            muteBtn.textContent = audio.muted ? "🔇" : "🔊";
+        });
 
-    audio.muted = true;
-    audio.play().catch(err => console.log("Autoplay blocked:", err));
-    document.addEventListener('click', () => {
-        audio.muted = false;
-        audio.play().catch(err => console.log("Play blocked:", err));
-    }, { once: true });
+        audio.muted = true;
+        audio.play().catch(err => console.log("Autoplay blocked:", err));
+        document.addEventListener('click', () => {
+            audio.muted = false;
+            audio.play().catch(err => console.log("Play blocked:", err));
+        }, { once: true });
 
-    // 🌙 Dark Mode Logic
-    const toggleBtn = document.getElementById('darkModeToggle');
-    toggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        toggleBtn.textContent = document.body.classList.contains('dark-mode') ? "☀️" : "🌙";
-    });
-</script>
+        // 🌙 Dark Mode Logic
+        const toggleBtn = document.getElementById('darkModeToggle');
+        // Set default theme to light if not set
+        if (!localStorage.getItem('theme')) {
+            localStorage.setItem('theme', 'light');
+        }
+        const currentTheme = localStorage.getItem('theme') || 'light';
 
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            toggleBtn.textContent = '☀️';
+        } else {
+            toggleBtn.textContent = '🌙';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const newTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            toggleBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+    </script>
 </body>
 </html>
