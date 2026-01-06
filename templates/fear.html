@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fear & Vulnerability – What Am I Feeling?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #e8f0ff 0%, #d0e0ff 100%);
+    margin: 0;
+    padding: 0;
+    color: #2c3e50;
+    min-height: 100vh;
+    transition: background 0.5s ease, color 0.5s ease;
+  }
+
+  /* DARK MODE */
+  body.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+  }
+
+  body.dark-mode .topnav { background: linear-gradient(90deg, #333, #555); }
+  body.dark-mode .topnav a { color: #a0c4ff; }
+  body.dark-mode .topnav button { background: #444; color: #a0c4ff; }
+  body.dark-mode .topnav button:hover { background: #666; }
+  body.dark-mode .flashcard-front { background: linear-gradient(145deg, #5e4b8a, #7e60bf); }
+  body.dark-mode .flashcard-back { background: linear-gradient(145deg, #7e60bf, #5e4b8a); }
+  body.dark-mode .section-title { color: #d0b8ff; }
+
+  /* NAV BAR */
+  .topnav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: linear-gradient(90deg, #8e7cc3, #7e60bf);
+    padding: 18px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .topnav a {
+    color: white;
+    text-decoration: none;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+
+  .topnav a:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+
+  .topnav button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    background: white;
+    color: #7e60bf;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    min-width: 140px;
+  }
+
+  .topnav button:hover {
+    background: #f0e8ff;
+    transform: scale(1.08);
+  }
+
+  /* MAIN CONTENT */
+  .container {
+    max-width: 1350px;
+    margin: 40px auto 0 auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.2rem;
+    color: #7e60bf;
+    margin-bottom: 12px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .subtitle {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: #5e4b8a;
+    margin-bottom: 50px;
+    font-weight: 600;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  /* FLASHCARDS GRID */
+  .flashcards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .flashcard {
+    width: 400px;
+    height: 600px;
+    border-radius: 28px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    perspective: 1200px;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+  }
+
+  .flashcard:hover {
+    transform: translateY(-12px);
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 28px;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: white;
+  }
+
+  .flashcard-front {
+    background: linear-gradient(145deg, #9d81d4, #7e60bf);
+    padding-top: 80px;
+  }
+
+  .flashcard-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(145deg, #7e60bf, #5e4b8a);
+    text-align: left;
+  }
+
+  .flashcard-back h2 {
+    text-align: center;
+  }
+
+  .flashcard-front img {
+    max-height: 300px;
+    width: auto;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    object-fit: contain;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  }
+
+  .flashcard-front h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.4rem;
+    margin: 15px 0 12px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  }
+
+  .flashcard-front p {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    opacity: 0.95;
+  }
+
+  .flashcard-back h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.9rem;
+    margin: 0 0 20px 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .section-title {
+    font-weight: 700;
+    color: #e8e0ff;
+    margin: 18px 0 8px;
+    font-size: 1.15rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-align: center;
+  }
+
+  .flashcard-back p:not(.section-title) {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin: 8px 0;
+    text-align: left;
+  }
+
+  .back-home {
+    margin: 60px auto 0;
+    padding: 14px 36px;
+    font-size: 1.25rem;
+    background: #6e8efb;
+    color: white;
+    border-radius: 50px;
+    font-family: 'Fredoka One', cursive;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 6px 15px rgba(110,142,251,0.4);
+  }
+
+  .back-home:hover {
+    background: #5c7aea;
+    transform: scale(1.08);
+  }
+
+  /* Calming techniques hover effect */
+  section div[style*="linear-gradient"] {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  section div[style*="linear-gradient"]:hover {
+    transform: translateY(-12px) rotate(-2deg);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.22);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1300px) {
+    .flashcard { width: 360px; height: 580px; }
+  }
+  @media (max-width: 1200px) {
+    .flashcards-grid { gap: 25px; }
+    .flashcard { width: 340px; }
+  }
+  @media (max-width: 900px) {
+    .flashcards-grid { gap: 30px; }
+    .flashcard { width: 380px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a href="{{ url_for('homepage') }}">Home</a>
+  <a href="{{ url_for('why_am_i_feeling') }}">Why am I Feeling?</a>
+  <a href="{{ url_for('managing_emotions') }}">Managing Emotions</a>
+  <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
+
+  <button id="darkModeBtn">Dark Mode</button>
+  <button id="soundBtn">Sound On</button>
+</div>
+
+<div class="container">
+  <h1>Fear & Vulnerability</h1>
+  <p class="subtitle">
+    Your body and brain reacting to possible danger, uncertainty, or feeling exposed. Heart races, muscles tense, and your mind focuses on staying safe.
+  </p>
+  
+  <!-- FLASHCARDS -->
+  <div class="flashcards-grid">
+
+    <!-- Fear -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='panic.png') }}" alt="Fear">
+          <h2>Fear</h2>
+          <p>Strong reaction to a real or imagined threat.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Fear</h2>
+          <p class="section-title">Feelings</p>
+          <p>Heart racing, sweating, tense muscles, urge to escape or freeze.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala quickly detects danger and triggers the fight-or-flight response. The hypothalamus activates stress hormones, while the prefrontal cortex tries to assess if the threat is real.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Adrenaline and cortisol surge for instant energy and alertness.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Sitting in the dentist’s chair before a procedure, hearing a strange noise at night, or speaking in front of the class.</p>
+          <p class="section-title">Calming Point</p>
+          <p>Slow deep breaths — inhale for 4, hold for 2, exhale for 6. This tells your amygdala the danger is passing.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Insecurity -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='insecurity.png') }}" alt="Insecurity">
+          <h2>Insecurity</h2>
+          <p>Feeling unsure about yourself or your worth.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Insecurity</h2>
+          <p class="section-title">Feelings</p>
+          <p>Self-doubt, worry about being judged, feeling “not good enough.”</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala senses social threat, the prefrontal cortex overthinks comparisons, and the cingulate gyrus processes feelings of exclusion.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Lower serotonin can worsen self-doubt; cortisol rises with social worry.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Comparing yourself on social media, worrying about fitting in with a new group, or doubting your abilities before a test.</p>
+          <p class="section-title">Calming Point</p>
+          <p>Remind yourself of one strength or past success. Focusing on what you do well calms the social-threat response.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Helplessness -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='helplessness.png') }}" alt="Helplessness">
+          <h2>Helplessness</h2>
+          <p>Feeling unable to change or control a difficult situation.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Helplessness</h2>
+          <p class="section-title">Feelings</p>
+          <p>Heavy, stuck, low energy, believing nothing you do will help.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala amplifies stress signals, the prefrontal cortex struggles with problem-solving, and the ventral striatum reduces feelings of reward or control.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Low dopamine lowers motivation; prolonged cortisol keeps the body in stress mode.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Feeling overwhelmed by schoolwork that keeps piling up, being in a tough family situation, or dealing with something that feels out of your control.</p>
+          <p class="section-title">Calming Point</p>
+          <p>Find one small thing you can control (tidy your desk, drink water, text a friend). Tiny actions rebuild a sense of power and dopamine.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="{{ url_for('what_am_i_feeling') }}" class="back-home">Back to Wheel</a>
+
+  <!-- Divider -->
+  <hr style="border:none; height:2px; background:#eee; margin:80px 0;">
+
+  <!-- CALMING TECHNIQUES -->
+<section style="background:#f9f9f9; padding:80px 20px; border-radius:20px; margin-top:40px;">
+  <h2 style="font-family:'Fredoka One'; color:#7e60bf; text-align:center; font-size:2.7rem; margin-bottom:20px;">
+    Find the Calm in the Middle of Chaos
+  </h2>
+  <p style="font-size:1.25rem; text-align:left; max-width:900px; margin:0 auto 60px; color:#555;">
+    When fear, insecurity, or helplessness feel strong, try these simple techniques to calm your mind, regain confidence, and feel more in control.
+  </p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+
+    <!-- Row 1: 3 cards -->
+    <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center; width:100%; margin-bottom:30px;">
+
+      <!-- Card 1 -->
+      <div style="background:linear-gradient(135deg,#a8edea,#fed6e3); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Deep Breathing</h3>
+        <p><strong>What to do:</strong> Inhale slowly for 4, hold for 2, exhale for 6. Repeat 5 times.</p>
+        <p><strong>Why it works:</strong> Slow breathing calms the amygdala and lowers adrenaline fast.</p>
+        <p><strong>Quick tip:</strong> Place a hand on your belly to feel it rise and fall.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div style="background:linear-gradient(135deg,#c1fba4,#b2ebf2); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#00695c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Anchor with Senses</h3>
+        <p><strong>What to do:</strong> Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste.</p>
+        <p><strong>Why it works:</strong> Brings attention to the present, reducing fear of future threats.</p>
+        <p><strong>Quick tip:</strong> Do it slowly — really notice each detail.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div style="background:linear-gradient(135deg,#fbc2eb,#a6c1ee); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Challenge Fearful Thoughts</h3>
+        <p><strong>What to do:</strong> Ask: “Is this thought 100% true?” or “What would I tell a friend?”</p>
+        <p><strong>Why it works:</strong> Activates the prefrontal cortex to question amygdala-driven fears.</p>
+        <p><strong>Quick tip:</strong> Example: “Failing one quiz doesn’t mean I’ll fail the whole subject.”</p>
+      </div>
+
+    </div>
+
+    <!-- Row 2: 3 cards -->
+    <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center; width:100%;">
+
+      <!-- Card 4 -->
+      <div style="background:linear-gradient(135deg,#ffe7a3,#ffc9de); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#b71c1c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Seek Connection & Comfort</h3>
+        <p><strong>What to do:</strong> Reach out to someone safe — talk, hug, or just sit together.</p>
+        <p><strong>Why it works:</strong> Boosts oxytocin, signals safety, and reduces vulnerability feelings.</p>
+        <p><strong>Quick tip:</strong> Even texting “I’m feeling off” can help.</p>
+      </div>
+
+      <!-- Card 5 -->
+      <div style="background:linear-gradient(135deg,#cfd9df,#e2ebf0); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#1a237e; font-size:1.7rem; margin-bottom:12px; text-align: center;">Body Reset</h3>
+        <p><strong>What to do:</strong> Stretch, shake out arms/legs, or take a short walk.</p>
+        <p><strong>Why it works:</strong> Releases built-up adrenaline and tension from fear response.</p>
+        <p><strong>Quick tip:</strong> Shake gently like a dog shaking off water — it’s surprisingly effective!</p>
+      </div>
+
+      <!-- Card 6 -->
+      <div style="background:linear-gradient(135deg,#a8edea,#fed6e3); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Self-Compassion Pause</h3>
+        <p><strong>What to do:</strong> Place hand on heart and say: “This is hard right now, and that’s okay.”</p>
+        <p><strong>Why it works:</strong> Activates soothing system and reduces self-critical fear loops.</p>
+        <p><strong>Quick tip:</strong> Speak to yourself like you would to a younger sibling or close friend.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+</div>
+
+<script>
+  const darkModeBtn = document.getElementById('darkModeBtn');
+
+  darkModeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+
+    if (document.body.classList.contains('dark-mode')) {
+      darkModeBtn.textContent = 'Light Mode';
+    } else {
+      darkModeBtn.textContent = 'Dark Mode';
+    }
+  });
+</script>
+
+</body>
+</html>

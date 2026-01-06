@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What am I Feeling?</title>
+  <!-- CUTER FONTS: Bubblegum Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&family=Poppins:wght@600&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Quicksand:wght@500;600&display=swap');
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      font-family: "Quicksand", sans-serif;
+      background: radial-gradient(circle at top, #f8fdff, #edf6f9);
+      margin: 0;
+      color: #1a3c40;
+      overflow-y: scroll;
+      animation: fadeIn 1.5s ease-out;
+      transition: background 1s ease, color 1s ease;
+    }
+
+    /* DARK MODE */
+    body.dark-mode {
+      background: radial-gradient(circle at top, #0f1e24, #1a2d37);
+      color: #d0e6e9;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FULL-WIDTH TEAL GRADIENT NAV BAR - LINKS LEFT, CONTROLS RIGHT */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(90deg, #006d77, #83c5be);
+      padding: 18px 60px;
+      display: flex;
+      justify-content: flex-start; /* links to the left */
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    body.dark-mode .topnav {
+      background: linear-gradient(90deg, #83c5be, #a0d8d8);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+      margin-right: auto; /* pushes controls to the far right */
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: 1.5rem;
+      font-weight: normal;
+      transition: all 0.3s;
+    }
+
+    .nav-links a:hover {
+      transform: scale(1.1);
+      opacity: 0.9;
+    }
+
+    .nav-links a.active {
+      text-decoration: underline;
+      text-underline-offset: 6px;
+    }
+
+    /* CONTROLS ON FAR RIGHT */
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-left: auto; /* ensures they stay on the right */
+      flex-shrink: 0;
+    }
+
+    #soundBtn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 50px;
+      background: white;
+      color: #006d77;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    #soundBtn:hover {
+      background: #e0f2f1;
+      transform: translateY(-2px);
+    }
+
+    body.dark-mode #soundBtn {
+      background: #1a2d37;
+      color: #a0d8d8;
+    }
+
+    #volume {
+      width: 100px;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(0,0,0,0.15);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    #volume::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #006d77;
+      cursor: pointer;
+    }
+
+    body.dark-mode #volume::-webkit-slider-thumb {
+      background: #83c5be;
+    }
+
+    #dark-mode-toggle {
+      font-size: 24px;
+      padding: 6px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    #dark-mode-toggle:hover {
+      transform: scale(1.15);
+    }
+
+    body.dark-mode #dark-mode-toggle {
+      color: #e0f2f1;
+    }
+
+    /* CUTER TITLE */
+    h1 {
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: 2.8em;
+      margin: 40px 0 20px; /* even less space above */
+      letter-spacing: 3px;
+      color: #006d77;
+      text-shadow: 0 4px 12px rgba(0, 109, 119, 0.2);
+      text-align: center;
+    }
+
+    body.dark-mode h1 {
+      color: #83c5be;
+    }
+
+    /* WHEEL MOVED EVEN MORE UP */
+    #chart {
+      position: relative;
+      width: 750px;
+      height: 750px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0px 15px 30px rgba(0, 109, 119, 0.2));
+      margin: 0 0 30px 0; /* almost no top margin */
+      overflow: hidden;
+    }
+
+    body.dark-mode #chart {
+      filter: drop-shadow(0px 15px 35px rgba(0, 0, 0, 0.6));
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      transform: rotate(-90deg);
+      transition: transform 3.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .slice {
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .slice:hover {
+      transform: scale(1.1);
+      filter: brightness(1.2) drop-shadow(0 0 25px rgba(0, 109, 119, 0.8));
+      animation: pulseGlow 1.5s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      from { filter: brightness(1.2) drop-shadow(0 0 25px rgba(0, 109, 119, 0.8)); }
+      to { filter: brightness(1.3) drop-shadow(0 0 35px rgba(0, 109, 119, 1)); }
+    }
+
+    body.dark-mode .slice:hover {
+      filter: brightness(1.3) drop-shadow(0 0 35px rgba(131,197,190, 0.9));
+    }
+
+    .label {
+      pointer-events: none;
+      font-size: 7.8px;
+      text-anchor: middle;
+      alignment-baseline: central;
+      fill: #1a3c40;
+      font-weight: normal;
+      font-family: 'Bubblegum Sans', cursive;
+    }
+
+    body.dark-mode .label {
+      fill: #e0d4ff;
+    }
+
+    .hub {
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      background: radial-gradient(circle, #ffffff, #f0f8ff);
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(0, 109, 119, 0.5);
+      animation: floatPulse 4s infinite ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 19px;
+      color: #006d77;
+      font-weight: 600;
+      padding: 20px;
+      line-height: 1.4;
+      opacity: 0.95;
+      transition: all 0.5s ease;
+      font-family: 'Bubblegum Sans', cursive;
+    }
+
+    body.dark-mode .hub {
+      background: radial-gradient(circle, #1a2d37, #2c3e50);
+      color: #83c5be;
+      box-shadow: 0 0 40px rgba(131,197,190, 0.4);
+    }
+
+    @keyframes floatPulse {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-12px) scale(1.06); }
+    }
+
+    .sparkles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    #chart:hover .sparkles {
+      opacity: 1;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: white;
+      border-radius: 50%;
+      animation: sparkleAnim 2s infinite;
+      box-shadow: 0 0 10px #fff;
+    }
+
+    @keyframes sparkleAnim {
+      0% { transform: translateY(0) scale(0); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-120px) scale(1.5); opacity: 0; }
+    }
+
+    /* SPIN BUTTON MOVED EVEN MORE UP */
+    #spin-button {
+      margin: 10px 0 80px; /* very close to the wheel */
+      padding: 20px 60px;
+      font-size: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 50px;
+      color: white;
+      background: linear-gradient(90deg, #006d77, #83c5be);
+      transition: all 0.5s ease;
+      font-weight: 600;
+      font-family: 'Bubblegum Sans', cursive;
+      box-shadow: 0 12px 30px rgba(0, 109, 119, 0.3);
+    }
+
+    #spin-button:hover {
+      transform: translateY(-8px) scale(1.06);
+      box-shadow: 0 20px 40px rgba(131,197,190,0.4);
+    }
+
+    body.dark-mode #spin-button {
+      background: linear-gradient(90deg, #83c5be, #a0d8d8);
+    }
+
+    @media (max-width: 900px) {
+      .topnav { padding: 16px 30px; justify-content: center; flex-wrap: wrap; gap: 20px; }
+      .nav-links { margin-right: 0; }
+      .nav-controls { margin-left: 0; margin-top: 10px; }
+      #chart { width: 90vw; height: 90vw; max-width: 500px; max-height: 500px; margin: 0 0 20px 0; }
+      .hub { width: 150px; height: 150px; font-size: 15px; }
+      h1 { font-size: 2.3em; margin: 30px 0 15px; }
+      #spin-button { margin: 5px 0 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV BAR - LINKS LEFT-ALIGNED, CONTROLS RIGHT -->
+<div class="topnav">
+  <div class="nav-links">
+    <a href="{{ url_for('homepage') }}">Home</a>
+    <a href="{{ url_for('why_am_i_feeling') }}">Why am I feeling?</a>
+    <a href="{{ url_for('managing_emotions') }}">Managing emotions</a>
+    <a href="{{ url_for('what_am_i_feeling') }}" class="active">What am I feeling?</a>
+    <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
+  </div>
+
+  <div class="nav-controls">
+    <button id="soundBtn">
+      <span id="soundIcon">🔊</span> Sound On
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+    </button>
+    <button id="dark-mode-toggle">🌙</button>
+  </div>
+</div>
+
+<h1>What am I Feeling?</h1>
+
+<div id="chart">
+  <svg viewBox="0 0 100 100"></svg>
+  <div class="sparkles" id="sparkles"></div>
+  <div class="hub" id="emotion-hub">Hover over a section<br>to explore ✨</div>
+</div>
+
+<button id="spin-button">Spin the Wheel! 🎡</button>
+
+<audio id="bg-music" loop>
+  <source src="{{ url_for('static', filename='background.mp3') }}" type="audio/mpeg">
+</audio>
+
+<script>
+  const emotions = [
+    { name: "Fear",     color: "#7e60bf", text: "Fear &<br>Vulnerability 😨",       page: "/fear" },
+    { name: "Stress",   color: "#F28B82", text: "Stress &<br>Overwhelm 😰",         page: "/stress" },
+    { name: "Anger",    color: "#F9AB64", text: "Anger &<br>Frustration 😠",        page: "/anger" },
+    { name: "Joy",      color: "#FDD663", text: "Joy &<br>Excitement 😄",           page: "/joy" },
+    { name: "Love",     color: "#81C995", text: "Love &<br>Connection ❤️",          page: "/love" },
+    { name: "Sad",      color: "#9AB9E2", text: "Sadness &<br>Loss 😢",             page: "/sadness" },
+    { name: "Guilt",    color: "#D1C7C0", text: "Guilt &<br>Self-consciousness 😔", page: "/guilt" },
+    { name: "Wonder",   color: "#c4b5e2", text: "Curiosity &<br>Wonder 🤩",         page: "/wonder" }
+  ];
+
+  const svg = document.querySelector("svg");
+  const hub = document.getElementById("emotion-hub");
+  const sparklesContainer = document.getElementById("sparkles");
+
+  const centerX = 50, centerY = 50, radius = 50;
+  const sliceAngle = 360 / emotions.length;
+  let startAngle = 0;
+
+  // Create sparkles
+  for (let i = 0; i < 20; i++) {
+    const sparkle = document.createElement("div");
+    sparkle.classList.add("sparkle");
+    sparkle.style.left = Math.random() * 100 + "%";
+    sparkle.style.top = Math.random() * 100 + "%";
+    sparkle.style.animationDelay = Math.random() * 2 + "s";
+    sparklesContainer.appendChild(sparkle);
+  }
+
+  emotions.forEach(item => {
+    const endAngle = startAngle + sliceAngle;
+    const startRad = (startAngle * Math.PI) / 180;
+    const endRad = (endAngle * Math.PI) / 180;
+    const x1 = centerX + radius * Math.cos(startRad);
+    const y1 = centerY + radius * Math.sin(startRad);
+    const x2 = centerX + radius * Math.cos(endRad);
+    const y2 = centerY + radius * Math.sin(endRad);
+    const largeArc = sliceAngle > 180 ? 1 : 0;
+
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", `M${centerX},${centerY} L${x1},${y1} A${radius},${radius} 0 ${largeArc},1 ${x2},${y2} Z`);
+    path.setAttribute("fill", item.color);
+    path.classList.add("slice");
+    svg.appendChild(path);
+
+    const midAngle = startAngle + sliceAngle / 2;
+    const labelRad = (midAngle * Math.PI) / 180;
+    const labelDistance = radius * 0.65;
+    const labelX = centerX + labelDistance * Math.cos(labelRad);
+    const labelY = centerY + labelDistance * Math.sin(labelRad);
+
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", labelX);
+    text.setAttribute("y", labelY);
+    text.setAttribute("class", "label");
+    text.innerHTML = item.name;
+    text.setAttribute("transform", `rotate(${midAngle + 90}, ${labelX}, ${labelY})`);
+    svg.appendChild(text);
+
+    path.addEventListener("mouseenter", () => {
+      hub.innerHTML = item.text;
+      hub.style.transform = "scale(1.2)";
+      sparklesContainer.style.opacity = "1";
+    });
+
+    path.addEventListener("mouseleave", () => {
+      hub.innerHTML = "Hover over a section<br>to explore ✨";
+      hub.style.transform = "scale(1)";
+    });
+
+    path.addEventListener("click", () => {
+      window.location.href = item.page;
+    });
+
+    startAngle += sliceAngle;
+  });
+
+  // Dark Mode Toggle
+  const darkModeBtn = document.getElementById('dark-mode-toggle');
+  darkModeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    darkModeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+  });
+
+  // Sound Controls
+  const soundBtn = document.getElementById('soundBtn');
+  const soundIcon = document.getElementById('soundIcon');
+  const audio = document.getElementById('bg-music');
+  const volumeSlider = document.getElementById('volume');
+
+  let isMuted = false;
+  audio.volume = 0.5;
+  volumeSlider.value = 0.5;
+  audio.play().catch(() => {});
+
+  soundBtn.addEventListener('click', () => {
+    isMuted = !isMuted;
+    audio.muted = isMuted;
+    soundIcon.textContent = isMuted ? '🔇' : '🔊';
+  });
+
+  volumeSlider.addEventListener('input', (e) => {
+    audio.volume = e.target.value;
+    if (audio.volume > 0 && isMuted) {
+      isMuted = false;
+      audio.muted = false;
+      soundIcon.textContent = '🔊';
+    }
+  });
+
+  // SPIN THE WHEEL - WITH "Zooming into [Emotion]..." MESSAGE
+  document.getElementById("spin-button").addEventListener("click", () => {
+    const randomIndex = Math.floor(Math.random() * emotions.length);
+    const selectedEmotion = emotions[randomIndex];
+    const emotionName = selectedEmotion.name;
+
+    const fullSpins = 6 + Math.floor(Math.random() * 4);
+    const extraDegrees = randomIndex * sliceAngle + sliceAngle / 2;
+    const totalDegrees = fullSpins * 360 + extraDegrees;
+
+    svg.style.transform = `rotate(${totalDegrees - 90}deg)`;
+
+    setTimeout(() => {
+      hub.innerHTML = `<strong>Zooming into<br>${emotionName}...</strong><br><small>🚀</small>`;
+      hub.style.transform = "scale(1.2)";
+      hub.style.fontSize = "24px";
+    }, 3500);
+
+    setTimeout(() => {
+      window.location.href = selectedEmotion.page;
+    }, 5000);
+  });
+</script>
+
+</body>
+</html>

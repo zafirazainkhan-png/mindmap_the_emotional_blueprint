@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sadness & Loss – What Am I Feeling?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    margin: 0;
+    padding: 0;
+    color: #1565c0;
+    min-height: 100vh;
+    transition: background 0.5s ease, color 0.5s ease;
+  }
+
+  /* NAV BAR - Blue theme */
+  .topnav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: linear-gradient(90deg, #42a5f5, #1976d2);
+    padding: 18px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .topnav a {
+    color: white;
+    text-decoration: none;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+
+  .topnav a:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+
+  .topnav button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    background: #e3f2fd;
+    color: #1565c0;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    min-width: 140px;
+  }
+
+  .topnav button:hover {
+    background: white;
+    transform: scale(1.08);
+  }
+
+  /* DARK MODE */
+  body.dark-mode {
+    background: #121212;
+    color: #90caf9;
+  }
+
+  body.dark-mode .topnav { background: linear-gradient(90deg, #0d47a1, #1565c0); }
+  body.dark-mode .topnav a { color: #bbdefb; }
+  body.dark-mode .topnav button { background: #1e3a8a; color: #90caf9; }
+  body.dark-mode .topnav button:hover { background: #1565c0; }
+  body.dark-mode .flashcard-front, body.dark-mode .flashcard-back { background: #1565c0; }
+  body.dark-mode .section-title { color: #bbdefb; }
+
+  /* MAIN CONTENT */
+  .container {
+    max-width: 1350px;
+    margin: 40px auto 0 auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.2rem;
+    color: #6d94c5;
+    margin-bottom: 12px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .subtitle {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: #1565c0;
+    margin-bottom: 50px;
+    font-weight: 600;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  /* FLASHCARDS GRID */
+  .flashcards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .flashcard {
+    width: 400px;
+    height: 600px;
+    border-radius: 28px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    perspective: 1200px;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+  }
+
+  .flashcard:hover {
+    transform: translateY(-12px);
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 28px;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: white;
+    background: #6d94c5;
+  }
+
+  .flashcard-back {
+    transform: rotateY(180deg);
+    text-align: left;
+  }
+
+  .flashcard-back h2 {
+    text-align: center;
+  }
+
+  .flashcard-front img {
+    max-height: 300px;
+    width: auto;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    object-fit: contain;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  }
+
+  .flashcard-front h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.4rem;
+    margin: 15px 0 12px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  }
+
+  .flashcard-front p {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    opacity: 0.95;
+  }
+
+  .flashcard-back h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.9rem;
+    margin: 0 0 20px 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .section-title {
+    font-weight: 700;
+    color: #e3f2fd;
+    margin: 18px 0 8px;
+    font-size: 1.15rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-align: center;
+  }
+
+  .flashcard-back p:not(.section-title) {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin: 8px 0;
+    text-align: left;
+  }
+
+  .back-home {
+    margin: 60px auto 0;
+    padding: 14px 36px;
+    font-size: 1.25rem;
+    background: #6e8efb;
+    color: white;
+    border-radius: 50px;
+    font-family: 'Fredoka One', cursive;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 6px 15px rgba(110,142,251,0.4);
+  }
+
+  .back-home:hover {
+    background: #5c7aea;
+    transform: scale(1.08);
+  }
+
+  /* Calming techniques hover effect */
+  section div[style*="linear-gradient"] {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  section div[style*="linear-gradient"]:hover {
+    transform: translateY(-12px) rotate(-2deg);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.22);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1300px) {
+    .flashcard { width: 360px; height: 580px; }
+  }
+  @media (max-width: 1200px) {
+    .flashcards-grid { gap: 25px; }
+    .flashcard { width: 340px; }
+  }
+  @media (max-width: 900px) {
+    .flashcards-grid { gap: 30px; }
+    .flashcard { width: 380px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a href="{{ url_for('homepage') }}">Home</a>
+  <a href="{{ url_for('why_am_i_feeling') }}">Why am I Feeling?</a>
+  <a href="{{ url_for('managing_emotions') }}">Managing Emotions</a>
+  <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
+
+  <button id="darkModeBtn">Dark Mode</button>
+  <button id="soundBtn">Sound On</button>
+</div>
+
+<div class="container">
+  <h1>Sadness & Loss</h1>
+  <p class="subtitle">
+    Emotions that arise from loss, separation, unmet emotional needs, or weakened social bonds, while still rooted in the need for love and connection.
+  </p>
+  
+  <!-- FLASHCARDS -->
+  <div class="flashcards-grid">
+
+    <!-- Sadness -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='sadness.png') }}" alt="Sadness">
+          <h2>Sadness</h2>
+          <p>Feeling emotional pain due to disappointment, separation, or unmet expectations.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Sadness</h2>
+          <p class="section-title">Feelings</p>
+          <p>Heaviness, low energy, tearfulness, loneliness, and emotional withdrawal. You may feel quiet, reflective, or in need of comfort.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala processes emotional pain, the hypothalamus regulates bodily responses such as appetite and energy, and the cingulate gyrus supports emotional awareness and social pain processing.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Reduced serotonin affects mood stability, while cortisol may increase during prolonged sadness.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Feeling lonely when friends are busy, receiving disappointing news, or missing someone important.</p>
+          <p class="section-title">Easing Sadness</p>
+          <p>Allow yourself to feel without judgment. Sit quietly, take slow breaths, and remind yourself that emotions pass with care and support.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grief -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='grief.png') }}" alt="Grief">
+          <h2>Grief</h2>
+          <p>Deep emotional response to losing someone or something meaningful.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Grief</h2>
+          <p class="section-title">Feelings</p>
+          <p>Longing, emptiness, emotional waves, and tenderness. You may feel a mix of sadness, love, and memories at once.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala processes emotional intensity, the hippocampus recalls memories connected to the loss, and the prefrontal cortex attempts to make meaning of the experience.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Elevated cortisol increases stress, while oxytocin remains active due to emotional bonds and attachment.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Losing a loved one or pet, the end of a close relationship, or moving away from a familiar home or community.</p>
+          <p class="section-title">Supporting Grief</p>
+          <p>Honor memories gently—write, talk, or reflect. Connection through remembrance can bring comfort and healing.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loneliness -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='loneliness.png') }}" alt="Loneliness">
+          <h2>Loneliness</h2>
+          <p>Feeling disconnected from others, even when people are around.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Loneliness</h2>
+          <p class="section-title">Feelings</p>
+          <p>Isolation, emptiness, sadness, and a desire to be understood or seen.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala heightens sensitivity to social cues, the hypothalamus manages stress responses, and the cingulate gyrus processes social pain.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Lower oxytocin and serotonin can intensify feelings of isolation and emotional distance.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Being new to a school or group, missing close family, or feeling excluded or misunderstood.</p>
+          <p class="section-title">Reducing Loneliness</p>
+          <p>Reach out in small ways—send a message, smile, or start a short conversation. Small connections matter.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Despair -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='despair.png') }}" alt="Despair">
+          <h2>Despair</h2>
+          <p>A deep sense of hopelessness where love and support feel unreachable.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Despair</h2>
+          <p class="section-title">Feelings</p>
+          <p>Emptiness, helplessness, emotional numbness, and loss of motivation.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala intensifies emotional distress, while the prefrontal cortex struggles to regulate negative emotional loops.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Low serotonin and dopamine reduce emotional balance and motivation, while cortisol remains elevated.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Repeated failures, prolonged isolation, or feeling unsupported during major life challenges.</p>
+          <p class="section-title">Soothing Despair</p>
+          <p>Focus on one supportive action—rest, hydrate, or talk to someone safe. Gentle care helps rebuild hope.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hopelessness -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='hoplessness.png') }}" alt="Hopelessness">
+          <h2>Hopelessness</h2>
+          <p>Feeling that positive change is unlikely or impossible, reducing motivation and emotional energy.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Hopelessness</h2>
+          <p class="section-title">Feelings</p>
+          <p>Emptiness, discouragement, emotional numbness, fatigue, and a sense of being stuck. You may feel like efforts don’t matter or that the future feels closed off.</p>
+          <p class="section-title">Brain</p>
+          <p>The prefrontal cortex struggles to regulate emotional responses, the amygdala amplifies negative expectations, and the hypothalamus maintains stress-related bodily responses.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Low serotonin reduces mood stability, decreased dopamine lowers motivation and reward anticipation, and elevated cortisol sustains emotional stress.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Repeated academic setbacks despite effort, long-term personal challenges, feeling trapped in a difficult environment, or ongoing social rejection.</p>
+          <p class="section-title">Easing Hopelessness</p>
+          <p>Focus on one small, controllable action—rest, hydrate, or complete a simple task. Small progress helps rebuild a sense of possibility.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="{{ url_for('what_am_i_feeling') }}" class="back-home">Back to Wheel</a>
+
+  <!-- Divider -->
+  <hr style="border:none; height:2px; background:#eee; margin:80px 0;">
+
+  <!-- REGULATION TECHNIQUES -->
+<section style="background:#f1f8e9; padding:80px 20px; border-radius:20px; margin-top:40px;">
+  <h2 style="font-family:'Fredoka One'; color:#6d94c5; text-align:center; font-size:2.7rem; margin-bottom:20px;">
+    Find the Calm in the Middle of Sadness & Loss
+  </h2>
+  <p style="font-size:1.25rem; text-align:left; max-width:900px; margin:0 auto 60px; color:#1565c0;">
+    When emotions around loss, longing, or disconnection feel overwhelming, try these grounding techniques to restore balance and emotional safety.
+  </p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+
+    <!-- Row 1: 3 cards -->
+    <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center; width:100%; margin-bottom:30px;">
+
+      <!-- Card 1: Quick Calm Reset -->
+      <div style="background:linear-gradient(135deg,#a8edea,#fed6e3); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Quick Calm Reset</h3>
+        <p><strong>What to do:</strong> Take three slow breaths. Inhale gently through your nose, exhale slowly through your mouth, and relax your shoulders.</p>
+        <p><strong>Why it works:</strong> Breathing lowers stress hormones and signals safety to the brain.</p>
+        <p><strong>Quick Tip:</strong> Inhale for 4 seconds, exhale for 6. Repeat until your body feels calmer.</p>
+      </div>
+
+      <!-- Card 2: Gentle Journaling -->
+      <div style="background:linear-gradient(135deg,#c1fba4,#b2ebf2); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#00695c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Gentle Journaling</h3>
+        <p><strong>What to do:</strong> Write what you miss, what you feel, or what you wish you could say.</p>
+        <p><strong>Why it works:</strong> Helps process emotions and reduces emotional intensity.</p>
+        <p><strong>Quick Tip:</strong> Write freely—no grammar, no rules.</p>
+      </div>
+
+      <!-- Card 3: Social Reconnection -->
+      <div style="background:linear-gradient(135deg,#fbc2eb,#a6c1ee); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Social Reconnection</h3>
+        <p><strong>What to do:</strong> Share your feelings with someone supportive or simply spend quiet time together.</p>
+        <p><strong>Why it works:</strong> Connection increases oxytocin and reduces loneliness.</p>
+        <p><strong>Quick Tip:</strong> Even sitting silently with someone counts as connection.</p>
+      </div>
+
+    </div>
+
+    <!-- Row 2: 2 cards -->
+    <div style="display:flex; gap:30px; justify-content:center; width:100%; flex-wrap:wrap;">
+
+      <!-- Card 4: Body Reset -->
+      <div style="background:linear-gradient(135deg,#ffe7a3,#ffc9de); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#b71c1c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Body Reset</h3>
+        <p><strong>What to do:</strong> Stretch, walk slowly, or rest your hands over your heart.</p>
+        <p><strong>Why it works:</strong> Physical movement and touch calm the nervous system.</p>
+        <p><strong>Quick Tip:</strong> Step outside briefly and notice the sky or breeze.</p>
+      </div>
+
+      <!-- Card 5: Mind Recharge -->
+      <div style="background:linear-gradient(135deg,#cfd9df,#e2ebf0); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#1a237e; font-size:1.7rem; margin-bottom:12px; text-align: center;">Mind Recharge</h3>
+        <p><strong>What to do:</strong> Drink water, rest, or engage in a calming activity like music or drawing.</p>
+        <p><strong>Why it works:</strong> Rest supports emotional healing and balance.</p>
+        <p><strong>Quick Tip:</strong> Be gentle with yourself—healing doesn’t need rushing.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+</div>
+
+<script>
+  const darkModeBtn = document.getElementById('darkModeBtn');
+
+  darkModeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+
+    if (document.body.classList.contains('dark-mode')) {
+      darkModeBtn.textContent = 'Light Mode';
+    } else {
+      darkModeBtn.textContent = 'Dark Mode';
+    }
+  });
+</script>
+
+</body>
+</html>

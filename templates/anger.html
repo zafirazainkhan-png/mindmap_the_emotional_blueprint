@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anger & Frustration – What Am I Feeling?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    margin: 0;
+    padding: 0;
+    color: #2c3e50;
+    min-height: 100vh;
+    transition: background 0.5s ease, color 0.5s ease;
+  }
+
+  /* NAV BAR */
+  .topnav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: linear-gradient(90deg, #ff8f00, #ff6f00);
+    padding: 18px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .topnav a {
+    color: white;
+    text-decoration: none;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+
+  .topnav a:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+
+  .topnav button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    background: white;
+    color: #ff6f00;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    min-width: 140px;
+  }
+
+  .topnav button:hover {
+    background: #fff3e0;
+    transform: scale(1.08);
+  }
+
+  /* DARK MODE */
+  body.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+  }
+
+  body.dark-mode .topnav { background: linear-gradient(90deg, #333, #555); }
+  body.dark-mode .topnav a { color: #ffd54f; }
+  body.dark-mode .topnav button { background: #444; color: #ff8a65; }
+  body.dark-mode .topnav button:hover { background: #666; }
+  body.dark-mode .flashcard-front { background: linear-gradient(145deg, #bf360c, #d84315); }
+  body.dark-mode .flashcard-back { background: linear-gradient(145deg, #d84315, #bf360c); }
+  body.dark-mode .section-title { color: #ffab91; }
+
+  /* MAIN CONTENT */
+  .container {
+    max-width: 1350px;
+    margin: 40px auto 0 auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.2rem;
+    color: #e65100;
+    margin-bottom: 12px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .subtitle {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: #d84315;
+    margin-bottom: 50px;
+    font-weight: 600;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  /* FLASHCARDS GRID */
+  .flashcards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .flashcard {
+    width: 400px;
+    height: 600px;
+    border-radius: 28px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    perspective: 1200px;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+  }
+
+  .flashcard:hover {
+    transform: translateY(-12px);
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 28px;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: white;
+  }
+
+  .flashcard-front {
+    background: linear-gradient(145deg, #ff7043, #e64a19);
+    padding-top: 80px;
+  }
+
+  .flashcard-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(145deg, #e64a19, #d84315);
+    text-align: left;
+  }
+
+  .flashcard-back h2 {
+    text-align: center;
+  }
+
+  .flashcard-front img {
+    max-height: 300px;
+    width: auto;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    object-fit: contain;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  }
+
+  .flashcard-front h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.4rem;
+    margin: 15px 0 12px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  }
+
+  .flashcard-front p {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    opacity: 0.95;
+  }
+
+  .flashcard-back h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.9rem;
+    margin: 0 0 20px 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .section-title {
+    font-weight: 700;
+    color: #ffff8d;
+    margin: 18px 0 8px;
+    font-size: 1.15rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-align: center;
+  }
+
+  .flashcard-back p:not(.section-title) {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin: 8px 0;
+    text-align: left;
+  }
+
+  .back-home {
+    margin: 60px auto 0;
+    padding: 14px 36px;
+    font-size: 1.25rem;
+    background: #6e8efb;
+    color: white;
+    border-radius: 50px;
+    font-family: 'Fredoka One', cursive;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 6px 15px rgba(110,142,251,0.4);
+  }
+
+  .back-home:hover {
+    background: #5c7aea;
+    transform: scale(1.08);
+  }
+
+  /* Calming techniques hover effect */
+  section div[style*="linear-gradient"] {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  section div[style*="linear-gradient"]:hover {
+    transform: translateY(-12px) rotate(-2deg);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.22);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1300px) {
+    .flashcard { width: 360px; height: 580px; }
+  }
+  @media (max-width: 1200px) {
+    .flashcards-grid { gap: 25px; }
+    .flashcard { width: 340px; }
+  }
+  @media (max-width: 900px) {
+    .flashcards-grid { gap: 30px; }
+    .flashcard { width: 380px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a href="{{ url_for('homepage') }}">Home</a>
+  <a href="{{ url_for('why_am_i_feeling') }}">Why am I Feeling?</a>
+  <a href="{{ url_for('managing_emotions') }}">Managing Emotions</a>
+  <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
+
+  <button id="darkModeBtn">Dark Mode</button>
+  <button id="soundBtn">Sound On</button>
+</div>
+
+
+<div class="container">
+  <h1>Anger & Frustration</h1>
+  <p class="subtitle">
+    It feels as if your body has reacted to perceived unfairness, obstacles, or blocked goals. Your heart beats faster, your muscles tense, and your mind sharpens its focus on the source of irritation.
+  </p>
+  
+  <!-- FLASHCARDS -->
+  <div class="flashcards-grid">
+
+    <!-- Anger -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='anger.png') }}" alt="Anger">
+          <h2>Anger</h2>
+          <p>Reacting strongly to perceived threat, injustice, or violation.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Anger</h2>
+          <p class="section-title">Feelings</p>
+          <p>Frustration, irritation, hostility, tension, and intense focus on the source of anger. Your heart rate increases, muscles tighten, and the body prepares for confrontation.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala detects threat or unfairness and rapidly activates emotional responses. The hypothalamus initiates the fight-or-flight response, while the prefrontal cortex may struggle to inhibit impulsive reactions in the moment.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Adrenaline and cortisol surge, increasing energy, alertness, and readiness to act. Serotonin may temporarily drop, reducing emotional regulation.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Being blamed unfairly, someone cutting in line, repeated disrespect, or a teammate taking credit for your work.</p>
+          <p class="section-title">Calming Point</p>
+          <p>Pause and breathe slowly — inhale for 4, hold for 2, exhale for 6. This lowers adrenaline and gives the prefrontal cortex time to regain control before reacting.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Frustration -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='frustated.png') }}" alt="Frustration">
+          <h2>Frustration</h2>
+          <p>Feeling blocked despite effort or progress.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Frustration</h2>
+          <p class="section-title">Feelings</p>
+          <p>Restlessness, impatience, tension, mental fatigue, and irritation when obstacles prevent forward movement.</p>
+          <p class="section-title">Brain</p>
+          <p>The anterior cingulate cortex (ACC) detects conflict between expectations and reality. The amygdala heightens attention toward obstacles, increasing emotional pressure.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Cortisol rises to maintain focus; adrenaline increases motivation to push through the challenge.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Slow internet during work, repeated interruptions, unclear instructions, or a project that won’t move forward.</p>
+          <p class="section-title">Calming Point</p>
+          <p>Break the task into one tiny, achievable step. Completing it restores control and reduces ACC-detected conflict.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resentment -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='resentment.png') }}" alt="Resentment">
+          <h2>Resentment</h2>
+          <p>Sustained anger held long after the triggering event.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Resentment</h2>
+          <p class="section-title">Feelings</p>
+          <p>Bitterness, grudges, emotional heaviness, and repeated mental replay of unfair situations.</p>
+          <p class="section-title">Brain</p>
+          <p>The hippocampus stores emotional memories of injustice, while the amygdala reactivates anger whenever the memory is recalled.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Chronically elevated cortisol maintains stress; reduced serotonin can worsen mood regulation and emotional flexibility.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>A friend repeatedly crossing boundaries, unresolved conflicts, or ongoing unfair treatment.</p>
+          <p class="section-title">Calming Point</p>
+          <p>Write down what happened and how it affected you. Externalizing the memory reduces emotional replay and stress activation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Irritation -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='irritating.png') }}" alt="Irritation">
+          <h2>Irritation</h2>
+          <p>Brief anger triggered by minor annoyances.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Irritation</h2>
+          <p class="section-title">Feelings</p>
+          <p>Quick spikes of annoyance, impatience, and mild tension that fade relatively fast.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala reacts instantly, but the prefrontal cortex quickly regains control once the stimulus passes.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>A short-lived increase in adrenaline and noradrenaline.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Pen tapping, background noise, small interruptions, or minor inconveniences.</p>
+          <p class="section-title">Calming Point</p>
+          <p>Label the feeling silently (“This is irritation”) and take one slow breath. Naming emotions reduces their intensity.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contempt -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='contempt.png') }}" alt="Contempt">
+          <h2>Contempt</h2>
+          <p>Feeling disdain, superiority, or emotional distance toward others.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Contempt</h2>
+          <p class="section-title">Feelings</p>
+          <p>Dismissiveness, judgment, moral superiority, emotional coldness, and lack of empathy rather than explosive anger.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala evaluates social threat or violation, while the prefrontal cortex engages in judgment. Reduced activity in empathy-related regions (including parts of the cingulate gyrus) can make emotional distancing easier.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Lower oxytocin (reduced bonding), altered serotonin, and mild cortisol elevation maintain emotional detachment.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Looking down on someone’s mistakes, dismissing others’ opinions, or silently judging people you disagree with.</p>
+          <p class="section-title">Calming Point</p>
+          <p>Take one breath and ask: “What might be happening for them that I don’t see?” Perspective-taking reactivates empathy circuits.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="{{ url_for('what_am_i_feeling') }}" class="back-home">Back to Wheel</a>
+
+  <!-- Divider -->
+  <hr style="border:none; height:2px; background:#eee; margin:80px 0;">
+
+  <!-- CALMING TECHNIQUES -->
+<section style="background:#f9f9f9; padding:80px 20px; border-radius:20px; margin-top:40px;">
+  <h2 style="font-family:'Fredoka One'; color:#6a4c93; text-align:center; font-size:2.7rem; margin-bottom:20px;">
+    Find the Calm in the Middle of Chaos
+  </h2>
+  <p style="font-size:1.25rem; text-align:left; max-width:900px; margin:0 auto 60px; color:#555;">
+    When anger or frustration rises, try these simple techniques to cool down, release tension, and regain focus.
+  </p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+
+    <!-- Row 1: 3 cards -->
+    <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center; width:100%; margin-bottom:30px;">
+
+      <!-- Card 1: Quick Calm Reset (Anger) -->
+      <div style="background:linear-gradient(135deg,#a8edea,#fed6e3); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Quick Calm Reset (Anger)</h3>
+        <p><strong>What to do:</strong> Pause immediately. Take 3 slow breaths: inhale for 4, hold for 2, exhale for 6. Relax your jaw and shoulders as you exhale.</p>
+        <p><strong>Why it works:</strong> Slow exhalation activates the parasympathetic nervous system, lowering adrenaline and helping the prefrontal cortex regain control over emotional impulses.</p>
+        <p><strong>Quick tip:</strong> Unclench your jaw and drop your shoulders — anger often hides there.</p>
+      </div>
+
+      <!-- Card 2: Grounding Through the Body -->
+      <div style="background:linear-gradient(135deg,#c1fba4,#b2ebf2); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#00695c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Grounding Through the Body</h3>
+        <p><strong>What to do:</strong> Press your feet firmly into the ground or grip a solid object for 10–15 seconds while breathing slowly.</p>
+        <p><strong>Why it works:</strong> Physical grounding shifts attention away from emotional triggers and signals safety to the brain, reducing amygdala activation.</p>
+        <p><strong>Quick tip:</strong> Name one thing you can feel strongly (floor, chair, table) to anchor your attention.</p>
+      </div>
+
+      <!-- Card 3: Pause & Reframe (Frustration) -->
+      <div style="background:linear-gradient(135deg,#fbc2eb,#a6c1ee); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Pause & Reframe (Frustration)</h3>
+        <p><strong>What to do:</strong> Ask yourself: “What part of this can I control right now?” Then act on just that piece.</p>
+        <p><strong>Why it works:</strong> Engages the prefrontal cortex, reduces conflict detected by the anterior cingulate cortex, and restores a sense of control.</p>
+        <p><strong>Quick tip:</strong> If you feel stuck, shrink the task until it feels almost too easy.</p>
+      </div>
+
+    </div>
+
+    <!-- Row 2: 3 cards -->
+    <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center; width:100%;">
+
+      <!-- Card 4: Muscle Release Reset -->
+      <div style="background:linear-gradient(135deg,#ffe7a3,#ffc9de); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#b71c1c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Muscle Release Reset</h3>
+        <p><strong>What to do:</strong> Tense your fists, shoulders, or legs for 5 seconds, then release fully. Repeat 2–3 times.</p>
+        <p><strong>Why it works:</strong> Releases stored muscle tension and burns off excess adrenaline generated during anger or frustration.</p>
+        <p><strong>Quick tip:</strong> Exhale strongly as you release to deepen the calming effect.</p>
+      </div>
+
+      <!-- Card 5: Cognitive Cool-Down (Resentment) -->
+      <div style="background:linear-gradient(135deg,#cfd9df,#e2ebf0); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#1a237e; font-size:1.7rem; margin-bottom:12px; text-align: center;">Cognitive Cool-Down (Resentment)</h3>
+        <p><strong>What to do:</strong> Write one sentence finishing: “What upset me was…” Then one sentence: “What I need now is…”</p>
+        <p><strong>Why it works:</strong> Externalizing thoughts reduces emotional replay by the hippocampus and calms amygdala reactivation.</p>
+        <p><strong>Quick tip:</strong> You don’t need solutions — clarity alone reduces emotional intensity.</p>
+      </div>
+
+      <!-- Card 6: Let-It-Pass Reset (Irritation) -->
+      <div style="background:linear-gradient(135deg,#a8edea,#fed6e3); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Let-It-Pass Reset (Irritation)</h3>
+        <p><strong>What to do:</strong> Silently label the feeling: “This is irritation.” Take one slow breath and redirect attention.</p>
+        <p><strong>Why it works:</strong> Naming emotions activates regulatory brain regions and prevents minor anger from escalating.</p>
+        <p><strong>Quick tip:</strong> Most irritation fades in under 90 seconds if not fueled by thought.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+</div>
+
+<script>
+  const darkModeBtn = document.getElementById('darkModeBtn');
+
+  darkModeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+
+    if (document.body.classList.contains('dark-mode')) {
+      darkModeBtn.textContent = 'Light Mode';
+    } else {
+      darkModeBtn.textContent = 'Dark Mode';
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guilt & Self-Consciousness – What Am I Feeling?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    margin: 0;
+    padding: 0;
+    color: #555555;
+    min-height: 100vh;
+    transition: background 0.8s ease, color 0.8s ease;
+  }
+
+  /* DARK MODE */
+  body.dark-mode {
+    background: #121212;
+    color: #d0d0d0;
+  }
+
+  body.dark-mode .topnav { background: linear-gradient(90deg, #424242, #616161); }
+  body.dark-mode .topnav a { color: #e0e0e0; }
+  body.dark-mode .topnav button { background: #333; color: #e0e0e0; }
+  body.dark-mode .topnav button:hover { background: #555; }
+  body.dark-mode .flashcard-front, body.dark-mode .flashcard-back { background: #505050; }
+  body.dark-mode .section-title { color: #e0e0e0; }
+
+  /* NAV BAR - Soft gray theme */
+  .topnav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: linear-gradient(90deg, #bdbdbd, #9e9e9e);
+    padding: 18px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .topnav a {
+    color: white;
+    text-decoration: none;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+
+  .topnav a:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+
+  .topnav button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    background: #f5f5f5;
+    color: #555555;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    min-width: 140px;
+  }
+
+  .topnav button:hover {
+    background: white;
+    transform: scale(1.08);
+  }
+
+  /* MAIN CONTENT */
+  .container {
+    max-width: 1350px;
+    margin: 40px auto 0 auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.2rem;
+    color: #a0a0a0;
+    margin-bottom: 12px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .subtitle {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: #707070;
+    margin-bottom: 50px;
+    font-weight: 600;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  /* FLASHCARDS GRID */
+  .flashcards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .flashcard {
+    width: 400px;
+    height: 600px;
+    border-radius: 28px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    perspective: 1200px;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+  }
+
+  .flashcard:hover {
+    transform: translateY(-12px);
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 28px;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: white;
+    background: #b0b0b0; /* Lightened gray for more aesthetic feel */
+  }
+
+  .flashcard-back {
+    transform: rotateY(180deg);
+    text-align: left;
+  }
+
+  .flashcard-back h2 {
+    text-align: center;
+  }
+
+  .flashcard-front img {
+    max-height: 300px;
+    width: auto;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    object-fit: contain;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  }
+
+  .flashcard-front h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.4rem;
+    margin: 15px 0 12px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  }
+
+  .flashcard-front p {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    opacity: 0.95;
+  }
+
+  .flashcard-back h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.9rem;
+    margin: 0 0 20px 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .section-title {
+    font-weight: 700;
+    color: #ffffff;
+    margin: 18px 0 8px;
+    font-size: 1.15rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-align: center;
+  }
+
+  .flashcard-back p:not(.section-title) {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin: 8px 0;
+    text-align: left;
+  }
+
+  .back-home {
+    margin: 60px auto 0;
+    padding: 14px 36px;
+    font-size: 1.25rem;
+    background: #6e8efb;
+    color: white;
+    border-radius: 50px;
+    font-family: 'Fredoka One', cursive;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 6px 15px rgba(110,142,251,0.4);
+  }
+
+  .back-home:hover {
+    background: #5c7aea;
+    transform: scale(1.08);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1300px) {
+    .flashcard { width: 360px; height: 580px; }
+  }
+  @media (max-width: 1200px) {
+    .flashcards-grid { gap: 25px; }
+    .flashcard { width: 340px; }
+  }
+  @media (max-width: 900px) {
+    .flashcards-grid { gap: 30px; }
+    .flashcard { width: 380px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a href="{{ url_for('homepage') }}">Home</a>
+  <a href="{{ url_for('why_am_i_feeling') }}">Why am I Feeling?</a>
+  <a href="{{ url_for('managing_emotions') }}">Managing Emotions</a>
+  <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
+
+  <button id="darkModeBtn">Dark Mode</button>
+  <button id="soundBtn">Sound On</button>
+</div>
+<div class="container">
+  <h1>Guilt & Self-Consciousness</h1>
+  <p class="subtitle">
+    Feeling like your actions, appearance, or choices are being judged and that you have done something wrong or fallen short.
+  </p>
+  
+  <!-- FLASHCARDS -->
+  <div class="flashcards-grid">
+
+    <!-- Embarrassment -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='embarrassment.png') }}" alt="Embarrassment">
+          <h2>Embarrassment</h2>
+          <p>Feels like: Your face feels hot, your stomach twists, and you wish you could disappear.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Embarrassment</h2>
+          <p class="section-title">Feelings</p>
+          <p>Awkward, shy, flustered, wanting to hide, fidgety.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala senses social threats, the anterior cingulate cortex notices self-evaluation, and the prefrontal cortex tries to control your reaction.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Adrenaline causes blushing and fast heartbeat. Cortisol rises if the situation lasts.</p>
+          <p class="section-title">Real-life Examples</p>
+          <p>Tripping in class, saying something silly in a presentation, spilling food in front of friends.</p>
+          <p class="section-title">Quick Tip</p>
+          <p>Take a deep breath, remind yourself everyone makes mistakes, and focus on moving forward.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shame -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='shame.png') }}" alt="Shame">
+          <h2>Shame</h2>
+          <p>Feels like: Feeling like you are “not good enough” or “a failure.”</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Shame</h2>
+          <p class="section-title">Feelings</p>
+          <p>Small, exposed, guilty, self-critical, wanting to disappear.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala amplifies feeling judged, the prefrontal cortex struggles to regulate self-critical thoughts, and the cingulate cortex processes social pain.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Low serotonin reduces mood stability. Cortisol rises when feeling judged or watched.</p>
+          <p class="section-title">Real-life Examples</p>
+          <p>Failing an important test, getting teased, forgetting something important in public.</p>
+          <p class="section-title">Quick Tip</p>
+          <p>Write down one good thing about yourself. Focus on your strengths, not mistakes.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guilt -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='guilt.png') }}" alt="Guilt">
+          <h2>Guilt</h2>
+          <p>Feels like: “I shouldn’t have done that” or “I should have done better.”</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Guilt</h2>
+          <p class="section-title">Feelings</p>
+          <p>Regret, responsibility, tension, motivation to fix things.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala signals social threat, the prefrontal cortex helps think about right and wrong, and the hippocampus remembers past actions.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Cortisol rises under stress; dopamine drops until you take action to make things right.</p>
+          <p class="section-title">Real-life Examples</p>
+          <p>Forgetting a friend’s birthday, breaking a promise, hurting someone by accident.</p>
+          <p class="section-title">Quick Tip</p>
+          <p>Apologize or do a small action to fix the situation. It helps reduce guilt and makes you feel better.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Humiliation -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='humiliation.png') }}" alt="Humiliation">
+          <h2>Humiliation</h2>
+          <p>Feels like: Feeling completely exposed or ridiculed in front of others.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Humiliation</h2>
+          <p class="section-title">Feelings</p>
+          <p>Shame, embarrassment, anger, wanting to hide or escape.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala reacts strongly to social threats, the prefrontal cortex struggles to regulate shame, and the hypothalamus triggers stress responses.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Cortisol and adrenaline spike. Your heart races, and your face might flush.</p>
+          <p class="section-title">Real-life Examples</p>
+          <p>Being laughed at, harsh criticism in public, or being embarrassed online.</p>
+          <p class="section-title">Quick Tip</p>
+          <p>Step away, take slow breaths, and remind yourself this moment does not define you.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison-Anxiety -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='comparison anxiety.png') }}" alt="Comparison-Anxiety">
+          <h2>Comparison-Anxiety</h2>
+          <p>Feels like: Constantly thinking “I’m not as good as them” or “I’ll never measure up.”</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Comparison-Anxiety</h2>
+          <p class="section-title">Feelings</p>
+          <p>Insecure, nervous, self-conscious, stressed, and jealous.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala detects social threats, the prefrontal cortex ruminates on comparisons, and the ventral striatum responds to social rewards.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Low serotonin affects mood, cortisol rises, dopamine fluctuates depending on how you see others’ success.</p>
+          <p class="section-title">Real-life Examples</p>
+          <p>Scrolling social media, comparing grades, looks, or popularity.</p>
+          <p class="section-title">Quick Tip</p>
+          <p>Limit time on social media and write down your own achievements. Focus on yourself.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="{{ url_for('what_am_i_feeling') }}" class="back-home">Back to Wheel</a>
+
+  <!-- Divider -->
+  <hr style="border:none; height:2px; background:#ddd; margin:80px 0;">
+
+  <!-- CALMING CARDS -->
+<section style="background:#fafafa; padding:80px 20px; border-radius:20px; margin-top:40px;">
+  <h2 style="font-family:'Fredoka One'; color:#a0a0a0; text-align:center; font-size:2.7rem; margin-bottom:20px;">
+    Find the Calm in the Middle of Guilt & Self-Consciousness
+  </h2>
+  <p style="font-size:1.25rem; text-align:left; max-width:900px; margin:0 auto 60px; color:#707070;">
+    When feelings of embarrassment, shame, or guilt feel strong, try these techniques to calm your mind, regain confidence, and feel more in control.
+  </p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+
+    <!-- Row 1: 3 cards -->
+    <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center; width:100%; margin-bottom:30px;">
+
+      <!-- Card 1 -->
+      <div style="background:linear-gradient(135deg,#a8edea,#fed6e3); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Practice Self-Compassion</h3>
+        <p><strong>What to do:</strong> Say kind words to yourself: “It’s okay. Everyone makes mistakes.”</p>
+        <p><strong>Why it works:</strong> Calms the amygdala and reduces self-criticism.</p>
+        <p><strong>Quick Tip:</strong> Place a hand over your heart while saying one kind phrase.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div style="background:linear-gradient(135deg,#c1fba4,#b2ebf2); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#00695c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Ground Yourself in the Present</h3>
+        <p><strong>What to do:</strong> Use your senses: notice 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste.</p>
+        <p><strong>Why it works:</strong> Stops your mind from spinning on embarrassment, shame, or guilt.</p>
+        <p><strong>Quick Tip:</strong> Move slowly, notice details, and focus on now.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div style="background:linear-gradient(135deg,#fbc2eb,#a6c1ee); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Reframe the Situation</h3>
+        <p><strong>What to do:</strong> Instead of “I messed up,” try “I can learn and do better next time.”</p>
+        <p><strong>Why it works:</strong> Engages the prefrontal cortex to reduce stress and negative thinking.</p>
+        <p><strong>Quick Tip:</strong> Write one positive lesson from the situation.</p>
+      </div>
+
+    </div>
+
+    <!-- Row 2: 3 cards -->
+    <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center; width:100%;">
+
+      <!-- Card 4 -->
+      <div style="background:linear-gradient(135deg,#ffe7a3,#ffc9de); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#b71c1c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Connect with Trusted People</h3>
+        <p><strong>What to do:</strong> Talk or spend quiet time with someone you trust.</p>
+        <p><strong>Why it works:</strong> Boosts oxytocin, lowers loneliness, and calms fear of judgment.</p>
+        <p><strong>Quick Tip:</strong> Send a message or sit with a friend—small moments help.</p>
+      </div>
+
+      <!-- Card 5 -->
+      <div style="background:linear-gradient(135deg,#cfd9df,#e2ebf0); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#1a237e; font-size:1.7rem; margin-bottom:12px; text-align: center;">Physical Body Reset</h3>
+        <p><strong>What to do:</strong> Stretch, shake arms, roll shoulders, or walk.</p>
+        <p><strong>Why it works:</strong> Releases adrenaline, reduces tension, and improves mood.</p>
+        <p><strong>Quick Tip:</strong> Notice the breeze outside or sunlight while moving.</p>
+      </div>
+
+      <!-- Card 6 -->
+      <div style="background:linear-gradient(135deg,#a8edea,#fed6e3); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Journaling & Reflection</h3>
+        <p><strong>What to do:</strong> Write down your feelings, what caused them, and one small action to feel better.</p>
+        <p><strong>Why it works:</strong> Organizes thoughts and reduces emotional intensity.</p>
+        <p><strong>Quick Tip:</strong> Even a few lines help your mind feel lighter.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+</div>
+
+<script>
+  const darkModeBtn = document.getElementById('darkModeBtn');
+
+  darkModeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+
+    if (document.body.classList.contains('dark-mode')) {
+      darkModeBtn.textContent = 'Light Mode';
+    } else {
+      darkModeBtn.textContent = 'Dark Mode';
+    }
+  });
+</script>
+
+</body>
+</html>

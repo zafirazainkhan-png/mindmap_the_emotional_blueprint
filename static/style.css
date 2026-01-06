@@ -1,0 +1,339 @@
+/* Base styles */
+body {
+    font-family: 'Averia Serif Libre', serif;
+    background-color: #f5f0e6;
+    color: #2e2e2e; /* Blackish text in light mode */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 2rem;
+    background-color: #ffffff; /* White background in light mode */
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+header h1 {
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: #1a1a1a; /* Dark text in light mode */
+    transition: color 0.3s ease;
+}
+
+.tagline {
+    font-size: 1.3rem;
+    font-style: italic;
+    color: #1a1a1a; /* Dark text in light mode */
+    margin-top: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.supportive-message {
+    font-size: 1.1rem;
+    color: #007f7f; /* Teal preserved */
+    margin-top: 0.5rem;
+    font-style: italic;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+/* Welcome section */
+.welcome {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fffdf7; /* Light background in light mode */
+    border-left: 6px solid #5eaaa8; /* Teal border */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.welcome h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a; /* Dark text in light mode */
+}
+
+.welcome p {
+    font-size: 1.1rem;
+    color: #333; /* Dark text in light mode */
+    line-height: 1.8;
+}
+
+/* Grid layout */
+.grid-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid-box {
+    background-color: #ffffff; /* White background in light mode */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 250px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    text-decoration: none;
+    color: #1a1a1a; /* Dark text in light mode */
+    flex-grow: 1;
+    flex-basis: 250px;
+}
+
+.grid-box:hover {
+    transform: translateY(-3px);
+    border-color: #5eaaa8; /* Teal hover border */
+    box-shadow: 0 4px 12px rgba(94,170,168,0.4);
+}
+
+.grid-box h3 {
+    margin: 0.5rem 0 0;
+    font-size: 1.4rem;
+    color: #007f7f; /* Teal preserved */
+}
+
+.grid-box p {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #444; /* Dark text in light mode */
+}
+
+.emoji {
+    font-size: 2rem;
+    transition: text-shadow 0.3s ease;
+}
+
+.grid-box:hover .emoji {
+    text-shadow: 0 0 15px #5eaaa8; /* Enhanced teal glow on hover */
+}
+
+/* Emotion tracker */
+.emotion-tracker {
+    text-align: center;
+    margin: 2rem auto;
+}
+
+.emotion-tracker h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a; /* Dark text in light mode */
+}
+
+.emotion-options button {
+    background-color: #ffffff; /* White background in light mode */
+    border: 1px solid #5eaaa8; /* Teal border */
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    margin: 0.3rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    color: #007f7f; /* Teal text */
+}
+
+.emotion-options button:hover {
+    background-color: #5eaaa8; /* Teal hover background */
+    color: #ffffff; /* White text on hover */
+}
+
+/* Did you know */
+.did-you-know {
+    text-align: center;
+    padding: 1rem;
+    font-size: 1rem;
+    color: #333; /* Dark text in light mode */
+    background-color: #fffdf7; /* Light background in light mode */
+    margin: 2rem auto;
+    max-width: 700px;
+    border-top: 1px solid #ccc;
+}
+
+/* Audio Controls */
+.audio-controls {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.audio-controls label {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #1a1a1a; /* Dark text in light mode */
+}
+
+.audio-controls input[type="range"] {
+    width: 100px;
+    cursor: pointer;
+}
+
+.audio-controls button {
+    background: #ffffff; /* White background in light mode */
+    border: 1px solid #007f7f; /* Teal border */
+    color: #007f7f; /* Teal text */
+    border-radius: 50%;
+    padding: 0.4rem 0.6rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.audio-controls button:hover {
+    background-color: #007f7f; /* Teal hover background */
+    color: #ffffff; /* White text on hover */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.95rem;
+    background-color: #ffffff; /* White background in light mode */
+    color: #333; /* Dark text in light mode */
+}
+
+footer a {
+    color: #007f7f; /* Teal links */
+    text-decoration: none;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-btn {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    background: #1c1c1c; /* Dark background in light mode */
+    border: 2px solid #5eaaa8; /* Teal border */
+    border-radius: 50px;
+    padding: 0.6rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    color: #ffffff; /* White text */
+}
+
+.dark-mode-btn:hover {
+    background-color: #5eaaa8; /* Teal hover background */
+    color: #ffffff; /* White text on hover */
+    transform: scale(1.05);
+}
+
+/* 🌙 Dark Mode Theme */
+body.dark-mode {
+    background-color: #121212; /* Dark background */
+    color: #ffffff; /* White text for all dark text */
+}
+
+body.dark-mode header {
+    background-color: #1c1c1c; /* Dark background */
+    box-shadow: 0 2px 6px rgba(255,255,255,0.1); /* Enhanced contrast shadow */
+}
+
+body.dark-mode header h1,
+body.dark-mode header .tagline {
+    color: #ffffff; /* White text */
+}
+
+body.dark-mode header .supportive-message {
+    color: #007f7f; /* Teal preserved */
+}
+
+body.dark-mode .welcome {
+    background-color: #1c1c1c; /* Dark background */
+    border-left: 6px solid #5eaaa8; /* Teal border */
+    box-shadow: 0 2px 6px rgba(255,255,255,0.1); /* Enhanced contrast shadow */
+}
+
+body.dark-mode .welcome h2,
+body.dark-mode .welcome p {
+    color: #ffffff; /* White text for Welcome section */
+}
+
+body.dark-mode .did-you-know,
+body.dark-mode .grid-box {
+    background-color: #1c1c1c; /* Dark background */
+    color: #ffffff; /* White text */
+    border-color: #5eaaa8; /* Teal border preserved */
+}
+
+body.dark-mode .grid-box:hover {
+    border-color: #5eaaa8; /* Teal hover border */
+    box-shadow: 0 4px 12px rgba(94,170,168,0.6); /* Enhanced contrast shadow */
+}
+
+body.dark-mode .grid-box h3 {
+    color: #007f7f; /* Teal headings preserved */
+}
+
+body.dark-mode .grid-box p {
+    color: #ffffff; /* White text */
+}
+
+body.dark-mode .emoji {
+    text-shadow: 0 0 15px #5eaaa8; /* Enhanced teal glow */
+}
+
+body.dark-mode .emotion-tracker h4 {
+    color: #ffffff; /* White text */
+}
+
+body.dark-mode .emotion-options button {
+    background-color: #1c1c1c; /* Dark background */
+    border-color: #5eaaa8; /* Teal border */
+    color: #ffffff; /* White text */
+}
+
+body.dark-mode .emotion-options button:hover {
+    background-color: #5eaaa8; /* Teal hover background */
+    color: #1c1c1c; /* Dark text on hover */
+}
+
+body.dark-mode .audio-controls button {
+    background-color: #1c1c1c; /* Dark background */
+    border-color: #007f7f; /* Teal border */
+    color: #ffffff; /* White text */
+}
+
+body.dark-mode .audio-controls button:hover {
+    background-color: #007f7f; /* Teal hover background */
+    color: #1c1c1c; /* Dark text on hover */
+}
+
+body.dark-mode footer {
+    background-color: #1c1c1c; /* Dark background */
+    color: #ffffff; /* White text */
+}
+
+body.dark-mode footer a {
+    color: #007f7f; /* Teal links preserved */
+}
+
+body.dark-mode .dark-mode-btn {
+    background-color: #1c1c1c; /* Dark background */
+    color: #ffffff; /* White text */
+    border-color: #5eaaa8; /* Teal border */
+}
+
+body.dark-mode .dark-mode-btn:hover {
+    background-color: #5eaaa8; /* Teal hover background */
+    color: #1c1c1c; /* Dark text on hover */
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body, .grid-box, .dark-mode-btn, .grid-box:hover .emoji {
+        transition: none;
+    }
+}

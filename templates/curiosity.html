@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curiosity & Wonder – What Am I Feeling?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #f3e8ff 0%, #e0e7ff 100%);
+    margin: 0;
+    padding: 0;
+    color: #6a4c93;
+    min-height: 100vh;
+    transition: background 0.5s ease, color 0.5s ease;
+  }
+
+  /* NAV BAR - Purple wonder theme */
+  .topnav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: linear-gradient(90deg, #a78bfa, #7c3aed);
+    padding: 18px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .topnav a {
+    color: white;
+    text-decoration: none;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+
+  .topnav a:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+
+  .topnav button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    background: #f3e8ff;
+    color: #6a4c93;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    min-width: 140px;
+  }
+
+  .topnav button:hover {
+    background: white;
+    transform: scale(1.08);
+  }
+
+  /* DARK MODE */
+  body.dark-mode {
+    background: #121212;
+    color: #d7b8ff;
+  }
+
+  body.dark-mode .topnav { background: linear-gradient(90deg, #4c1d95, #6a4c93); }
+  body.dark-mode .topnav a { color: #e0d4ff; }
+  body.dark-mode .topnav button { background: #4c1d95; color: #d7b8ff; }
+  body.dark-mode .topnav button:hover { background: #7c3aed; }
+  body.dark-mode .flashcard-front, body.dark-mode .flashcard-back { background: #4c1d95; }
+  body.dark-mode .section-title { color: #e0d4ff; }
+
+  /* MAIN CONTENT */
+  .container {
+    max-width: 1350px;
+    margin: 40px auto 0 auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.2rem;
+    color: #7c3aed;
+    margin-bottom: 12px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .subtitle {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: #6a4c93;
+    margin-bottom: 50px;
+    font-weight: 600;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  /* FLASHCARDS GRID */
+  .flashcards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .flashcard {
+    width: 400px;
+    height: 600px;
+    border-radius: 28px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    perspective: 1200px;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+  }
+
+  .flashcard:hover {
+    transform: translateY(-12px);
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 28px;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: white;
+    background: #c7b8e6;
+  }
+
+  .flashcard-back {
+    transform: rotateY(180deg);
+    text-align: left;
+  }
+
+  .flashcard-back h2 {
+    text-align: center;
+  }
+
+  .flashcard-front img {
+    max-height: 300px;
+    width: auto;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    object-fit: contain;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  }
+
+  .flashcard-front h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.4rem;
+    margin: 15px 0 12px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  }
+
+  .flashcard-front p {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    opacity: 0.95;
+  }
+
+  .flashcard-back h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.9rem;
+    margin: 0 0 20px 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .section-title {
+    font-weight: 700;
+    color: #f3e8ff;
+    margin: 18px 0 8px;
+    font-size: 1.15rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-align: center;
+  }
+
+  .flashcard-back p:not(.section-title) {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin: 8px 0;
+    text-align: left;
+  }
+
+  .back-home {
+    margin: 60px auto 0;
+    padding: 14px 36px;
+    font-size: 1.25rem;
+    background: #6e8efb;
+    color: white;
+    border-radius: 50px;
+    font-family: 'Fredoka One', cursive;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 6px 15px rgba(110,142,251,0.4);
+  }
+
+  .back-home:hover {
+    background: #5c7aea;
+    transform: scale(1.08);
+  }
+
+  /* Calming techniques hover effect */
+  section div[style*="linear-gradient"] {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  section div[style*="linear-gradient"]:hover {
+    transform: translateY(-12px) rotate(-2deg);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.22);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1300px) {
+    .flashcard { width: 360px; height: 580px; }
+  }
+  @media (max-width: 1200px) {
+    .flashcards-grid { gap: 25px; }
+    .flashcard { width: 340px; }
+  }
+  @media (max-width: 900px) {
+    .flashcards-grid { gap: 30px; }
+    .flashcard { width: 380px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a href="{{ url_for('homepage') }}">Home</a>
+  <a href="{{ url_for('why_am_i_feeling') }}">Why am I Feeling?</a>
+  <a href="{{ url_for('managing_emotions') }}">Managing Emotions</a>
+  <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
+
+  <button id="darkModeBtn">Dark Mode</button>
+  <button id="soundBtn">Sound On</button>
+</div>
+
+<div class="container">
+  <h1>Curiosity & Wonder</h1>
+  <p class="subtitle">
+    Feeling a deep sense of curiosity and wonder when learning, exploring, or experiencing something beyond everyday understanding.
+  </p>
+  
+  <!-- FLASHCARDS -->
+  <div class="flashcards-grid">
+
+    <!-- Curiosity -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='curiosity.png') }}" alt="Curiosity">
+          <h2>Curiosity</h2>
+          <p>Feeling a desire to learn, explore, or understand something new.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Curiosity</h2>
+          <p class="section-title">Feelings</p>
+          <p>Interest, engagement, focus, and mental alertness. You may feel excited to investigate, ask questions, or explore ideas.</p>
+          <p class="section-title">Brain</p>
+          <p>The hippocampus supports memory formation, the prefrontal cortex guides focused exploration and planning, and the amygdala signals emotional relevance to what is novel or interesting.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Dopamine reinforces exploration and reward from discovery, serotonin stabilizes mood during focused attention, and norepinephrine increases alertness.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Watching a documentary about space, researching a topic online, or exploring a new hobby.</p>
+          <p class="section-title">Enhancing Curiosity</p>
+          <p>Set aside dedicated time to follow a question or interest—notice what draws your attention naturally.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interest -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='interest.png') }}" alt="Interest">
+          <h2>Interest</h2>
+          <p>Feeling engaged and mentally absorbed in something meaningful or stimulating.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Interest</h2>
+          <p class="section-title">Feelings</p>
+          <p>Focus, fascination, excitement, and motivation. You may feel energized to learn more or investigate deeper.</p>
+          <p class="section-title">Brain</p>
+          <p>The ventral striatum processes reward from new knowledge, the prefrontal cortex maintains attention, and the hippocampus encodes new information.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Dopamine drives engagement and learning reward, serotonin stabilizes mood, and acetylcholine supports attention and memory.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Listening to an inspiring lecture, reading a captivating book, or solving a challenging problem.</p>
+          <p class="section-title">Enhancing Interest</p>
+          <p>Follow what naturally grabs your attention. Take notes or discuss your ideas to deepen understanding.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Awe -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='awe.png') }}" alt="Awe">
+          <h2>Awe</h2>
+          <p>Feeling amazement or admiration in response to something vast, beautiful, or extraordinary.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Awe</h2>
+          <p class="section-title">Feelings</p>
+          <p>Wonder, humility, inspiration, and emotional uplift. You may feel small yet connected to something bigger.</p>
+          <p class="section-title">Brain</p>
+          <p>The parietal cortex adjusts perception of space and self, the hippocampus recalls related memories, and the amygdala signals emotional significance.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Dopamine reinforces the positive emotional impact, oxytocin may enhance connectedness, and serotonin supports mood regulation.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Watching a sunrise, seeing a vast mountain range, or listening to an inspiring performance.</p>
+          <p class="section-title">Enhancing Awe</p>
+          <p>Pause fully and notice details—the colors, shapes, sounds, or scale that inspire amazement.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wonder -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='wonder.png') }}" alt="Wonder">
+          <h2>Wonder</h2>
+          <p>Feeling marvel or amazement at unfamiliarity, beauty, or mystery.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Wonder</h2>
+          <p class="section-title">Feelings</p>
+          <p>Curiosity, fascination, delight, and reflective thought. You may feel drawn to explore, imagine, or question.</p>
+          <p class="section-title">Brain</p>
+          <p>The hippocampus supports memory and contextual understanding, the prefrontal cortex enables hypothesis and imagination, and the amygdala marks emotional salience.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Dopamine encourages exploration, serotonin supports calm attention, and endorphins enhance emotional pleasure.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Discovering a new scientific fact, seeing unusual art, or exploring an unfamiliar environment.</p>
+          <p class="section-title">Enhancing Wonder</p>
+          <p>Take time to observe and reflect—ask questions like “Why?” or “How?” to deepen engagement.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Surprise -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='surprise.png') }}" alt="Surprise">
+          <h2>Surprise</h2>
+          <p>Feeling unexpected shifts that capture attention or evoke novelty.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Surprise</h2>
+          <p class="section-title">Feelings</p>
+          <p>Alertness, excitement, sudden curiosity, and mental engagement. You may feel physically jolted or mentally stimulated.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala detects novelty, the prefrontal cortex evaluates significance, and the hippocampus stores the memory of the surprising event.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Dopamine reinforces learning and reward, norepinephrine heightens alertness, and serotonin stabilizes mood post-surprise.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Receiving unexpected news, seeing a sudden change in your environment, or encountering something unusual.</p>
+          <p class="section-title">Enhancing Surprise</p>
+          <p>Notice unexpected events with openness—reflect on what’s new or different rather than resisting it.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="{{ url_for('what_am_i_feeling') }}" class="back-home">Back to Wheel</a>
+
+  <!-- Divider -->
+  <hr style="border:none; height:2px; background:#eee; margin:80px 0;">
+
+  <!-- REGULATION TECHNIQUES -->
+<section style="background:#f9f9f9; padding:80px 20px; border-radius:20px; margin-top:40px;">
+  <h2 style="font-family:'Fredoka One'; color:#7c3aed; text-align:center; font-size:2.7rem; margin-bottom:20px;">
+    Find the Calm in the Middle of Curiosity & Wonder
+  </h2>
+  <p style="font-size:1.25rem; text-align:left; max-width:900px; margin:0 auto 60px; color:#6a4c93;">
+    When excitement, fascination, or amazement feels intense, try these grounding techniques to stay focused and balanced.
+  </p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+
+    <!-- Row 1: 3 cards -->
+    <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center; width:100%; margin-bottom:30px;">
+
+      <!-- Card 1: Quick Calm Reset -->
+      <div style="background:linear-gradient(135deg,#a8edea,#fed6e3); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Quick Calm Reset</h3>
+        <p><strong>What to do:</strong> Take three slow, deep breaths. Feel your chest rise and fall, exhale slowly, and relax your shoulders.</p>
+        <p><strong>Why it works:</strong> Deep breathing helps manage alertness and keeps curiosity from becoming overwhelming.</p>
+        <p><strong>Quick Tip:</strong> Inhale for 4, hold 2, exhale 6. Repeat 3 times to stay grounded.</p>
+      </div>
+
+      <!-- Card 2: Mindful Observation -->
+      <div style="background:linear-gradient(135deg,#c1fba4,#b2ebf2); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#00695c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Mindful Observation</h3>
+        <p><strong>What to do:</strong> Focus fully on what captures your attention. Notice colors, shapes, sounds, and details.</p>
+        <p><strong>Why it works:</strong> Concentrated awareness enhances curiosity and wonder without overstimulation.</p>
+        <p><strong>Quick Tip:</strong> Spend 5–10 minutes observing one object, scene, or idea deeply.</p>
+      </div>
+
+      <!-- Card 3: Structured Exploration -->
+      <div style="background:linear-gradient(135deg,#fbc2eb,#a6c1ee); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Structured Exploration</h3>
+        <p><strong>What to do:</strong> Write questions, research a topic, or experiment step by step.</p>
+        <p><strong>Why it works:</strong> Directs curiosity into productive learning and discovery.</p>
+        <p><strong>Quick Tip:</strong> Break exploration into small steps—research one detail, test one idea, or sketch one observation.</p>
+      </div>
+
+    </div>
+
+    <!-- Row 2: 2 cards -->
+    <div style="display:flex; gap:30px; justify-content:center; width:100%; flex-wrap:wrap;">
+
+      <!-- Card 4: Body Reset -->
+      <div style="background:linear-gradient(135deg,#ffe7a3,#ffc9de); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#b71c1c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Body Reset</h3>
+        <p><strong>What to do:</strong> Stretch, shake your hands, or take a short walk between curiosity sessions.</p>
+        <p><strong>Why it works:</strong> Physical movement releases tension and supports mental focus.</p>
+        <p><strong>Quick Tip:</strong> Move slowly and notice sensations to stay connected to your body.</p>
+      </div>
+
+      <!-- Card 5: Mind Recharge -->
+      <div style="background:linear-gradient(135deg,#cfd9df,#e2ebf0); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#1a237e; font-size:1.7rem; margin-bottom:12px; text-align: center;">Mind Recharge</h3>
+        <p><strong>What to do:</strong> Rest, hydrate, or engage in a quiet reflective activity like drawing or journaling.</p>
+        <p><strong>Why it works:</strong> Supports learning, memory, and emotional regulation.</p>
+        <p><strong>Quick Tip:</strong> Take a mindful sip of water or a short pause to reset focus.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+</div>
+
+<script>
+  const darkModeBtn = document.getElementById('darkModeBtn');
+
+  darkModeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+
+    if (document.body.classList.contains('dark-mode')) {
+      darkModeBtn.textContent = 'Light Mode';
+    } else {
+      darkModeBtn.textContent = 'Dark Mode';
+    }
+  });
+</script>
+
+</body>
+</html>
