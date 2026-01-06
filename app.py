@@ -5,7 +5,7 @@ app = Flask(__name__)
 # ========================= MAIN PAGES =========================
 @app.route("/")
 def homepage():
-    return render_template("homepage.html")
+    return render_template("index.html")
 
 @app.route("/why-am-i-feeling")
 def why_am_i_feeling():
