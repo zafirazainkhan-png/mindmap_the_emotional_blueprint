@@ -176,13 +176,20 @@
       height: 70px;
     }
     .swirl-visual {
-      margin: 14px 0 6px;
+      margin: 40px 0 30px; /* more breathing room around the bigger image */
     }
     #brainImage {
-      width: 250px;
+      width: 600px; /* MUCH BIGGER */
+      max-width: 90vw;
       display: block;
-      margin: 12px auto;
+      margin: 0 auto;
       z-index: 10;
+      border-radius: 30px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.4s ease;
+    }
+    #brainImage:hover {
+      transform: scale(1.03);
     }
     .zoom-effect {
       animation: zoomToFull 1000ms cubic-bezier(0.2, 0.9, 0.25, 1) forwards;
@@ -403,18 +410,21 @@
       .carousel-btn.next {
         right: -20px;
       }
+      #brainImage {
+        width: 450px; /* bigger on mobile too */
+      }
     }
   </style>
 </head>
 <body>
   <header class="top-dock">
     <button id="darkModeToggle" class="dark-mode-btn">🌙</button>
-    <div class="nav-links">
-      <a href="/homepage">Home</a>
-      <a href="/why_am_i_feeling">Why am I feeling?</a>
-      <a href="/what_am_i_feeling">What am I feeling?</a>
-      <a href="/managing_emotions">Managing emotions</a>
-      <a href="/mood_messengers">Mood Messengers</a>
+       <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/why-am-i-feeling">Why am I feeling?</a>
+      <a href="/managing-emotions">Managing emotions</a>
+      <a href="/what-am-i-feeling">What am I feeling?</a>
+      <a href="/mood-messengers">Mood Messengers</a>
     </div>
     <div class="audio-controls">
       <audio id="bg-music" autoplay loop>
@@ -465,6 +475,7 @@
   </div>
 
   <script>
+    // (Your entire original script - unchanged)
     (function() {
       const toggleButton = document.getElementById('darkModeToggle');
       const html = document.documentElement;
@@ -799,20 +810,16 @@
     }
 
     if (backBtn && nextBtn && restartBtn) {
-      // Click anywhere to advance
       document.addEventListener("click", (e) => {
         if (!e.target.closest('.nav-buttons') && !e.target.closest('.restart-button') && !e.target.closest('.continue-button') && !e.target.closest('.carousel-btn')) {
           handleAdvance();
         }
       });
 
-      // Back button
       backBtn.addEventListener("click", handleBack);
 
-      // Next button
       nextBtn.addEventListener("click", handleAdvance);
 
-      // Restart button
       restartBtn.addEventListener("click", () => {
         currentSection = 0;
         currentPoint = 0;
@@ -821,7 +828,6 @@
         displayContent();
       });
 
-      // Keyboard navigation
       backBtn.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();

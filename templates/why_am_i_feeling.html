@@ -1,272 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Why am I feeling?</title>
-
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&family=Poppins:wght@600&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Quicksand:wght@500;600&display=swap');
+
     :root {
-      --teal: #007f7f;
-      --teal-soft: #5eaaa8;
-      --bg-start: #fefcf9;
-      --bg-end: #eafaf9;
-      --text-color: #233;
-      --topbar-bg: #fff;
-      --topbar-border: #5eaaa8;
-      --speech-bubble-bg: #fffdf7;
-      --speech-bubble-border: #5eaaa8;
-      --speech-bubble-text: #1f2f2f;
-      --cta-bg: #007f7f;
-      --cta-hover-bg: #5eaaa8;
-      --cta-text: #fff;
+      --teal: #006d77;
+      --teal-soft: #83c5be;
+      --teal-light: #e0f2f1;
+      --bg-start: #f8fdff;
+      --bg-end: #edf6f9;
+      --text-color: #1a3c40;
+      --nav-bg-light: rgba(255, 255, 255, 0.96);
+      --nav-bg-dark: rgba(30, 40, 50, 0.96);
+      --nav-border-light: rgba(0, 0, 0, 0.06);
+      --nav-border-dark: rgba(255, 255, 255, 0.08);
+      --speech-bubble-bg: #ffffff;
+      --speech-bubble-border: #83c5be;
+      --speech-bubble-text: #1a3c40;
+      --cta-bg: #006d77;
+      --cta-hover-bg: #83c5be;
+      --cta-text: #ffffff;
       --footer-bg: rgba(255, 255, 255, 0.95);
-      --footer-bg-end: rgba(255, 255, 255, 0.92);
       --footer-border: rgba(0, 0, 0, 0.04);
-      --dot-bg: #fff;
-      --dot-text: #007f7f;
-      --dot-active-bg: #007f7f;
-      --dot-active-text: #fff;
-      --dot-label-text: #2f4f4f;
+      --dot-bg: #ffffff;
+      --dot-text: #006d77;
+      --dot-active-bg: #006d77;
+      --dot-active-text: #ffffff;
+      --dot-label-text: #4a6b6f;
       --spinner-bg: rgba(0, 0, 0, 0.5);
-      --spinner-border: #f3f3f3;
-      --dock-h: 60px;
+      --spinner-border: #f0f0f0;
+      --dock-h: 80px;
     }
 
-    [data-theme="dark"] {
-      --bg-start: #1a1a1a;
-      --bg-end: #2c3e50;
-      --text-color: #e0e0e0;
-      --topbar-bg: #2d2d2d;
-      --topbar-border: #4a6060;
-      --speech-bubble-bg: #333333;
-      --speech-bubble-border: #4a6060;
-      --speech-bubble-text: #d0d0d0;
-      --cta-bg: #4a6060;
-      --cta-hover-bg: #6b8e8e;
-      --cta-text: #e0e0e0;
-      --footer-bg: rgba(45, 45, 45, 0.95);
-      --footer-bg-end: rgba(45, 45, 45, 0.92);
-      --footer-border: rgba(255, 255, 255, 0.1);
-      --dot-bg: #2d2d2d;
-      --dot-text: #e0e0e0;
-      --dot-active-bg: #4a6060;
-      --dot-active-text: #e0e0e0;
-      --dot-label-text: #b0b0b0;
+    body.dark-mode {
+      --bg-start: #0f1e24;
+      --bg-end: #1a2d37;
+      --text-color: #d0e6e9;
+      --speech-bubble-bg: #2a3e48;
+      --speech-bubble-border: #5e9aa3;
+      --speech-bubble-text: #d0e6e9;
+      --cta-bg: #5e9aa3;
+      --cta-hover-bg: #83c5be;
+      --cta-text: #0f1e24;
+      --footer-bg: rgba(15, 30, 36, 0.95);
+      --footer-border: rgba(255, 255, 255, 0.08);
+      --dot-bg: #2a3e48;
+      --dot-text: #83c5be;
+      --dot-active-bg: #83c5be;
+      --dot-active-text: #0f1e24;
+      --dot-label-text: #a0c4c8;
       --spinner-bg: rgba(0, 0, 0, 0.7);
-      --spinner-border: #666666;
+      --spinner-border: #444444;
     }
 
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
     body {
       font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
       background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
       color: var(--text-color);
       min-height: 100vh;
+      margin: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .top-dock {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem;
-      background: var(--topbar-bg);
-      border-bottom: 2px solid var(--topbar-border);
+    /*NAV BAR */
+    .topnav {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 1000;
+      background: linear-gradient(90deg, #006d77, #83c5be);
+      padding: 18px 60px;
+      display: flex;
+      justify-content: flex-start; /* links to the left */
+      align-items: center;
       width: 100%;
-      height: var(--dock-h);
+      box-sizing: border-box;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
     }
 
-    .dark-mode-btn {
-      font-size: 20px;
-      padding: 5px;
-      border: none;
-      background: none;
-      color: var(--teal);
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-    .dark-mode-btn:hover {
-      color: var(--cta-text);
-    }
-
-    .header-visual img {
-      width: 40px;
-      height: auto;
-      vertical-align: middle;
+    body.dark-mode .topnav {
+      background: linear-gradient(90deg, #83c5be, #a0d8d8);
     }
 
     .nav-links {
       display: flex;
-      gap: 15px;
+      gap: 50px;
       align-items: center;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--teal);
-      font-weight: 600;
-      padding: 0.3rem 0.8rem;
-      border-radius: 15px;
-      transition: background 0.3s, color 0.3s;
-    }
-    .nav-links a.active {
-      background: var(--teal);
-      color: var(--cta-text);
-    }
-    .nav-links a:hover {
-      background: var(--teal-soft);
-      color: var(--cta-text);
+      margin-right: auto; /* pushes controls to the far right */
     }
 
-    .audio-controls {
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: 1.5rem;
+      font-weight: normal;
+      transition: all 0.3s;
+    }
+
+    .nav-links a:hover {
+      transform: scale(1.1);
+      opacity: 0.9;
+    }
+
+    .nav-links a.active {
+      text-decoration: underline;
+      text-underline-offset: 6px;
+    }
+
+    /* CONTROLS ON FAR RIGHT */
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-left: auto; /* ensures they stay on the right */
+      flex-shrink: 0;
+    }
+
+    #soundBtn {
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-    .audio-controls #volume {
-      width: 80px;
-    }
-    .audio-controls button {
-      font-size: 18px;
-      padding: 3px;
+      padding: 10px 18px;
       border: none;
-      background: none;
-      color: var(--teal);
+      border-radius: 50px;
+      background: white;
+      color: #006d77;
+      font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
-      transition: color 0.3s;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
-    .audio-controls button:hover {
-      color: var(--cta-text);
+
+    #soundBtn:hover {
+      background: #e0f2f1;
+      transform: translateY(-2px);
+    }
+
+    body.dark-mode #soundBtn {
+      background: #1a2d37;
+      color: #a0d8d8;
+    }
+
+    #volume {
+      width: 100px;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(0,0,0,0.15);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    #volume::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #006d77;
+      cursor: pointer;
+    }
+
+    body.dark-mode #volume::-webkit-slider-thumb {
+      background: #83c5be;
+    }
+
+    #dark-mode-toggle {
+      font-size: 24px;
+      padding: 6px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    #dark-mode-toggle:hover {
+      transform: scale(1.15);
+    }
+
+    body.dark-mode #dark-mode-toggle {
+      color: #e0f2f1;
     }
 
     .hero {
       width: 100%;
-      max-width: 1100px;
-      padding: 32px 20px 8px;
+      max-width: 1200px;
+      padding: 50px 20px 20px;
       text-align: center;
     }
+
     .hero h1 {
       margin: 0;
       color: var(--teal);
-      font-size: 40px;
-      line-height: 1;
-      letter-spacing: 0.4px;
+      font-size: 44px;
+      line-height: 1.1;
+      letter-spacing: 0.5px;
     }
+
     .hero .tagline {
-      margin-top: 8px;
+      margin-top: 12px;
       font-style: italic;
       color: var(--dot-label-text);
-      font-size: 18px;
+      font-size: 19px;
     }
 
     .speech-bubble {
-      width: calc(100% - 120px);
-      max-width: 960px;
-      margin: 22px auto;
-      padding: 22px;
+      width: calc(100% - 140px);
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 28px;
       background: var(--speech-bubble-bg);
-      border-radius: 14px;
+      border-radius: 20px;
       border: 3px solid var(--speech-bubble-border);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
       text-align: left;
-      min-height: 110px;
+      min-height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
+
     #typewriter {
       width: 100%;
       font-family: "Courier New", Courier, monospace;
-      font-size: 17px;
+      font-size: 18px;
       color: var(--speech-bubble-text);
-      line-height: 1.5;
+      line-height: 1.6;
       white-space: pre-wrap;
       word-break: break-word;
       border-right: 3px solid var(--speech-bubble-border);
-      padding-right: 6px;
+      padding-right: 8px;
       box-sizing: border-box;
     }
 
+    
     .swirl-visual {
-      margin: 14px 0 6px;
-    }
-    #brainImage {
-      width: 150px;
-      display: block;
-      margin: 12px auto;
-      transform-origin: center center;
-      animation: swirlGrow 1000ms ease-in-out forwards;
-      z-index: 10;
-    }
-    @keyframes swirlGrow {
-      0% {
-        transform: scale(0.6) rotate(0deg);
-        opacity: 0.6;
-      }
-      55% {
-        transform: scale(1.25) rotate(210deg);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1.5) rotate(360deg);
-        opacity: 1;
-      }
-    }
-    .zoom-effect {
-      animation: zoomToFull 1000ms cubic-bezier(0.2, 0.9, 0.25, 1) forwards;
-      z-index: 1000;
-      position: relative;
-    }
-    @keyframes zoomToFull {
-      from {
-        transform: scale(1.5) rotate(0deg);
-        opacity: 1;
-      }
-      to {
-        transform: scale(3.4) rotate(720deg);
-        opacity: 0;
-      }
+      margin: 80px 0 15px; 
     }
 
-    .cta-wrap {
-      margin: 18px 0 24px;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    #brainImage {
+      width: 360px;
+      max-width: 90vw;
+      display: block;
+      margin: 0 auto;
+      transform-origin: center center;
+      animation: swirlGrow 1400ms ease-in-out forwards;
     }
+
+    @keyframes swirlGrow {
+      0% { transform: scale(0.7) rotate(0deg); opacity: 0.7; }
+      55% { transform: scale(1.4) rotate(210deg); opacity: 1; }
+      100% { transform: scale(1.8) rotate(360deg); opacity: 1; }
+    }
+
+    .zoom-effect {
+      animation: zoomToFull 1400ms cubic-bezier(0.2, 0.9, 0.25, 1) forwards;
+    }
+
+    @keyframes zoomToFull {
+      from { transform: scale(1.8) rotate(0deg); opacity: 1; }
+      to { transform: scale(4.5) rotate(720deg); opacity: 0; }
+    }
+
+    /* CTA button still low */
+    .cta-wrap {
+      margin: 120px 0 60px;
+      text-align: center;
+    }
+
     .cta-button {
-      padding: 12px 26px;
-      border-radius: 34px;
+      padding: 14px 32px;
+      border-radius: 40px;
       background: var(--cta-bg);
       color: var(--cta-text);
       border: 0;
-      font-size: 16px;
+      font-size: 17px;
       cursor: pointer;
-      box-shadow: 0 10px 20px rgba(0, 127, 127, 0.12);
-      transition: transform 0.14s ease, background 0.18s ease;
-      position: relative;
-      z-index: 1200;
-      display: inline-block;
+      box-shadow: 0 12px 25px rgba(0, 109, 119, 0.15);
+      transition: all 0.2s ease;
     }
+
     .cta-button:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
       background: var(--cta-hover-bg);
-    }
-    .cta-button:disabled {
-      opacity: 0.85;
-      cursor: not-allowed;
+      box-shadow: 0 16px 30px rgba(131,197,190,0.3);
     }
 
     main.container {
-      padding-bottom: calc(var(--dock-h) + 28px);
+      padding-bottom: calc(var(--dock-h) + 30px);
+      width: 100%;
+      max-width: 1200px;
     }
 
     .progress-dock {
@@ -276,27 +308,32 @@
       bottom: 0;
       display: flex;
       justify-content: center;
-      gap: 20px;
-      padding: 10px;
+      gap: 24px;
+      padding: 12px;
       background: var(--footer-bg);
       border-top: 1px solid var(--footer-border);
       z-index: 60;
     }
+
     .progress-dock .step {
       text-decoration: none;
       color: var(--dot-text);
       font-weight: bold;
-      font-size: 18px;
-      padding: 5px 10px;
+      font-size: 19px;
+      padding: 8px 14px;
       border-radius: 50%;
       background: var(--dot-bg);
-      transition: background 0.3s, color 0.3s;
+      transition: all 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
+
     .progress-dock .step.active {
       background: var(--dot-active-bg);
       color: var(--dot-active-text);
     }
+
     .progress-dock .step:hover {
+      transform: translateY(-3px);
       background: var(--teal-soft);
       color: var(--cta-text);
     }
@@ -313,199 +350,159 @@
       align-items: center;
       z-index: 1100;
     }
+
     .spinner {
-      border: 4px solid var(--spinner-border);
-      border-top: 4px solid var(--teal);
+      border: 5px solid var(--spinner-border);
+      border-top: 5px solid var(--teal);
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       animation: spin 1s linear infinite;
     }
+
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
 
-    @media (max-width: 760px) {
-      .hero h1 {
-        font-size: 28px;
-      }
-      #brainImage {
-        width: 120px;
-      }
-      .speech-bubble {
-        margin: 14px 10px;
-        padding: 16px;
-        min-height: 100px;
-      }
-      .top-dock {
-        flex-direction: column;
-        padding: 5px;
-      }
-      .nav-links {
-        margin: 5px 0;
-      }
-      .audio-controls {
-        margin-top: 5px;
-      }
-      .progress-dock {
-        gap: 10px;
-        padding: 5px;
-      }
-      .progress-dock .step {
-        font-size: 16px;
-        padding: 3px 8px;
-      }
+    @media (max-width: 860px) {
+      .topnav { padding: 12px 20px; gap: 20px; flex-wrap: wrap; justify-content: center; }
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: 1.2rem; }
+      .nav-controls { gap: 12px; }
+      #soundBtn { padding: 8px 14px; font-size: 0.95rem; }
+      #volume { width: 80px; }
+      .hero h1 { font-size: 32px; }
+      #brainImage { width: 280px; }
+      .swirl-visual { margin: 60px 0 15px; } /* responsive spacing */
+      .cta-wrap { margin: 80px 0 40px; }
     }
   </style>
 </head>
 <body>
-  <header class="top-dock">
-    <button id="darkModeToggle" class="dark-mode-btn">🌙</button>
-    <div class="header-visual">
-      <img src="{{ url_for('static', filename='header-illustration.png') }}" alt="">
-    </div>
-    <div class="nav-links">
-      <a href="{{ url_for('homepage') }}">Home</a>
-      <a href="{{ url_for('why_am_i_feeling') }}" class="active">Why am I feeling?</a>
-      <a href="{{ url_for('what_am_i_feeling') }}">What am I feeling?</a>
-      <a href="{{ url_for('managing_emotions') }}">Managing emotions</a>
-      <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
-    </div>
-    <div class="audio-controls">
-      <audio id="bg-music" autoplay loop>
-        <source src="{{ url_for('static', filename='background.mp3') }}" type="audio/mpeg">
-      </audio>
-      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
-      <button id="muteBtn">🔊</button>
-    </div>
-  </header>
 
-  <main class="container" style="width: 100%; max-width: 1100px;">
-    <section class="hero">
-      <h1>Welcome to MindMap</h1>
-      <div class="tagline">Here to understand your emotions? Let's take a calm journey through your brain.</div>
-    </section>
-
-    <section aria-live="polite">
-      <div class="speech-bubble" role="status">
-        <div id="typewriter"></div>
-      </div>
-
-      <div class="swirl-visual">
-        <img id="brainImage" src="{{ url_for('static', filename='simulator_home_page.png') }}" alt="Swirling brain (amygdala)" loading="lazy">
-      </div>
-
-      <div class="cta-wrap">
-        <button id="zoomBtn" class="cta-button" aria-label="Continue to amygdala">Click to Continue With the Experience</button>
-      </div>
-    </section>
-  </main>
-
-  <footer class="progress-dock">
-    <a href="{{ url_for('amygdala') }}" class="step active">1</a>
-    <a href="{{ url_for('hippocampus') }}" class="step">2</a>
-    <a href="{{ url_for('hypothalamus') }}" class="step">3</a>
-    <a href="{{ url_for('thalamus') }}" class="step">4</a>
-    <a href="{{ url_for('cingulate_gyrus') }}" class="step">5</a>
-  </footer>
-
-  <div id="loading" class="loading" style="display: none;">
-    <div class="spinner"></div>
+<!-- LONGER, AESTHETIC NAV BAR -->
+<div class="topnav">
+  <div class="nav-links">
+    <a href="{{ url_for('homepage') }}">Home</a>
+    <a href="{{ url_for('why_am_i_feeling') }}" class="active">Why am I feeling?</a>
+    <a href="{{ url_for('managing_emotions') }}">Managing emotions</a>
+    <a href="{{ url_for('what_am_i_feeling') }}">What am I feeling?</a>
+    <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
   </div>
 
-  <script>
-    (function() {
-      const toggleButton = document.getElementById('darkModeToggle');
-      const html = document.documentElement;
+  <div class="nav-controls">
+    <button id="soundBtn">
+      <span id="soundIcon">🔊</span> Sound On
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+    </button>
+    <button id="dark-mode-toggle">🌙</button>
+  </div>
+</div>
 
-      // Apply saved theme on load
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      html.setAttribute('data-theme', savedTheme);
+<main class="container">
+  <section class="hero">
+    <h1>Welcome to MindMap</h1>
+    <div class="tagline">Here to understand your emotions? Let's take a calm journey through your brain.</div>
+  </section>
 
-      toggleButton.addEventListener('click', () => {
-        const isDark = html.getAttribute('data-theme') === 'dark';
-        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        localStorage.setItem('theme', isDark ? 'light' : 'dark');
-      });
-    })();
+  <section aria-live="polite">
+    <div class="speech-bubble" role="status">
+      <div id="typewriter"></div>
+    </div>
 
-    (function() {
-      const audio = document.getElementById('bg-music');
-      const volumeControl = document.getElementById('volume');
-      const muteBtn = document.getElementById('muteBtn');
+    <!-- IMAGE PUSHED ONE STEP LOWER -->
+    <div class="swirl-visual">
+      <img id="brainImage" src="{{ url_for('static', filename='simulator_home_page.png') }}" alt="Swirling brain (amygdala)" loading="lazy">
+    </div>
 
-      // Load saved audio state
-      const savedVolume = localStorage.getItem('volume') || 0.5;
-      const savedMuted = localStorage.getItem('muted') === 'true';
-      const savedTime = localStorage.getItem('musicTime') || 0;
+    <!-- CTA button still low -->
+    <div class="cta-wrap">
+      <button id="zoomBtn" class="cta-button">Click to Continue With the Experience</button>
+    </div>
+  </section>
+</main>
 
-      audio.volume = savedVolume;
-      audio.muted = savedMuted;
-      audio.currentTime = savedTime;
-      if (!savedMuted) audio.play().catch(e => console.log('Audio play failed:', e));
-      muteBtn.textContent = savedMuted ? '🔇' : '🔊';
+<footer class="progress-dock">
+  <a href="{{ url_for('amygdala') }}" class="step active">1</a>
+  <a href="{{ url_for('hippocampus') }}" class="step">2</a>
+  <a href="{{ url_for('hypothalamus') }}" class="step">3</a>
+  <a href="{{ url_for('thalamus') }}" class="step">4</a>
+  <a href="{{ url_for('cingulate_gyrus') }}" class="step">5</a>
+</footer>
 
-      volumeControl.value = savedVolume;
-      volumeControl.addEventListener('input', (e) => {
-        audio.volume = e.target.value;
-        localStorage.setItem('volume', e.target.value);
-      });
+<div id="loading" class="loading">
+  <div class="spinner"></div>
+</div>
 
-      muteBtn.addEventListener('click', () => {
-        audio.muted = !audio.muted;
-        muteBtn.textContent = audio.muted ? '🔇' : '🔊';
-        localStorage.setItem('muted', audio.muted);
-        if (!audio.muted) audio.play().catch(e => console.log('Audio play failed:', e));
-      });
+<audio id="bg-music" loop>
+  <source src="{{ url_for('static', filename='background.mp3') }}" type="audio/mpeg">
+</audio>
 
-      // Save audio state beforeunload
-      window.addEventListener('beforeunload', () => {
-        localStorage.setItem('volume', audio.volume);
-        localStorage.setItem('muted', audio.muted);
-        if (!audio.paused) localStorage.setItem('musicTime', audio.currentTime);
-      });
-    })();
+<script>
+  // Dark Mode
+  const darkModeBtn = document.getElementById('dark-mode-toggle');
+  darkModeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    darkModeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+  });
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const el = document.getElementById('typewriter');
-      const text = "Did you know that a part of your brain called the limbic system plays a big role in how you feel?\nIt helps control emotions like happiness, fear, sadness, and excitement. In this web app you will be exploring five key regions of the limbic system to see how they shape your feelings.";
-      let i = 0;
-      const speed = 28;
-      function step() {
-        i++;
-        el.textContent = text.slice(0, i);
-        if (i <= text.length) {
-          setTimeout(step, speed);
-        } else {
-          el.style.borderRight = '0';
-        }
-      }
-      setTimeout(step, 180);
-    });
+  // Sound Controls - aesthetic & functional
+  const soundBtn = document.getElementById('soundBtn');
+  const soundIcon = document.getElementById('soundIcon');
+  const audio = document.getElementById('bg-music');
+  const volumeSlider = document.getElementById('volume');
 
-    (function() {
-      const btn = document.getElementById('zoomBtn');
-      const img = document.getElementById('brainImage');
-      const loading = document.getElementById('loading');
-      if (!btn || !img || !loading) return;
+  let isMuted = false;
+  audio.volume = 0.5;
+  volumeSlider.value = 0.5;
+  audio.play().catch(() => {});
 
-      img.style.animation = 'none';
-      img.offsetHeight;
-      img.style.animation = 'swirlGrow 1000ms ease-in-out forwards';
+  soundBtn.addEventListener('click', () => {
+    isMuted = !isMuted;
+    audio.muted = isMuted;
+    soundIcon.textContent = isMuted ? '🔇' : '🔊';
+  });
 
-      btn.addEventListener('click', () => {
-        btn.disabled = true;
-        btn.style.opacity = '0.85';
-        img.classList.add('zoom-effect');
-        setTimeout(() => {
-          loading.style.display = 'flex';
-        }, 600);
-        setTimeout(() => {
-          window.location.href = "{{ url_for('amygdala') | safe }}";
-        }, 1000);
-      });
-    })();
-  </script>
+  volumeSlider.addEventListener('input', (e) => {
+    audio.volume = e.target.value;
+    if (audio.volume > 0 && isMuted) {
+      isMuted = false;
+      audio.muted = false;
+      soundIcon.textContent = '🔊';
+    }
+  });
+
+  // Typewriter
+  document.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('typewriter');
+    const text = "Did you know that a part of your brain called the limbic system plays a big role in how you feel?\nIt helps control emotions like happiness, fear, sadness, and excitement. In this web app you will be exploring five key regions of the limbic system to see how they shape your feelings. Scroll Down to Continue ↓";
+    let i = 0;
+    const speed = 28;
+    function step() {
+      i++;
+      el.textContent = text.slice(0, i);
+      if (i <= text.length) setTimeout(step, speed);
+      else el.style.borderRight = '0';
+    }
+    setTimeout(step, 180);
+  });
+
+  // Zoom animation
+  const zoomBtn = document.getElementById('zoomBtn');
+  const brainImage = document.getElementById('brainImage');
+  const loading = document.getElementById('loading');
+
+  zoomBtn.addEventListener('click', () => {
+    zoomBtn.disabled = true;
+    zoomBtn.style.opacity = '0.85';
+    brainImage.classList.add('zoom-effect');
+    setTimeout(() => loading.style.display = 'flex', 700);
+    setTimeout(() => {
+      window.location.href = "{{ url_for('amygdala') | safe }}";
+    }, 1200);
+  });
+</script>
+
 </body>
 </html>

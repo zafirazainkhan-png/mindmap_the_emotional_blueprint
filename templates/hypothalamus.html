@@ -6,27 +6,28 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
     :root {
-        --bg-start: #ecf2f8;
-        --bg-end: #c8ddf2;
-        --text-color: #2f4f4f;
-        --topbar-bg: #ffffffcc;
-        --topbar-border: #4682b4;
-        --speech-bubble-bg: #f9fbfd;
-        --speech-bubble-border: #4682b4;
-        --speech-bubble-text: #2f4f4f;
-        --cta-bg: #4682b4;
-        --cta-hover-bg: #36648b;
-        --cta-text: #fff;
-        --footer-bg: #fff;
-        --footer-border: #4682b4;
-        --dot-bg: #fff;
-        --dot-text: #4682b4;
-        --dot-active-bg: #4682b4;
-        --dot-active-text: #fff;
-        --spinner-bg: rgba(0, 0, 0, 0.3);
-        --spinner-border: #f3f3f3;
-        --spinner-active: #4682b4;
+      --bg-start: #ecf2f8;
+      --bg-end: #c8ddf2;
+      --text-color: #2f4f4f;
+      --topbar-bg: #ffffffcc;
+      --topbar-border: #4682b4;
+      --speech-bubble-bg: #f9fbfd;
+      --speech-bubble-border: #4682b4;
+      --speech-bubble-text: #2f4f4f;
+      --cta-bg: #4682b4;
+      --cta-hover-bg: #36648b;
+      --cta-text: #fff;
+      --footer-bg: #fff;
+      --footer-border: #4682b4;
+      --dot-bg: #fff;
+      --dot-text: #4682b4;
+      --dot-active-bg: #4682b4;
+      --dot-active-text: #fff;
+      --spinner-bg: rgba(0, 0, 0, 0.3);
+      --spinner-border: #f3f3f3;
+      --spinner-active: #4682b4;
     }
+
     [data-theme="dark"] {
       --bg-start: #1a2a44;
       --bg-end: #2e4057;
@@ -160,28 +161,47 @@
       gap: 1rem;
     }
     .section-1, .section-4, .section-5 {
-      background: var(--speech-bubble-bg);
-      border-left: 6px solid var(--speech-bubble-border);
-      padding: 1rem 1.2rem;
-      border-radius: 12px;
-      margin: 0.5rem 0;
-      max-width: 500px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      text-align: left;
-      height: 70px;
-      overflow: hidden;
-    }
-    .section-4 {
-      height: 70px;
-    }
+  background: var(--speech-bubble-bg);
+  border-left: 6px solid var(--speech-bubble-border);
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  margin: 0.5rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  overflow: hidden;
+}
+
+  
+   .section-1 {
+  width: 480px;
+  min-height: 70px;
+}
+
+.section-4 {
+  width: 520px;
+  min-height: 70px;
+}
+
+.section-5 {
+  width: 420px;
+  min-height: 70px;
+}
+    
     .swirl-visual {
-      margin: 14px 0 6px;
+      margin: 40px 0 30px; /* more breathing room around the bigger image */
     }
     #brainImage {
-      width: 250px;
+      width: 600px; /* MUCH BIGGER */
+      max-width: 90vw;
       display: block;
-      margin: 12px auto;
+      margin: 0 auto;
       z-index: 10;
+      border-radius: 30px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.4s ease;
+    }
+    #brainImage:hover {
+      transform: scale(1.03);
     }
     .zoom-effect {
       animation: zoomToFull 1000ms cubic-bezier(0.2, 0.9, 0.25, 1) forwards;
@@ -381,7 +401,7 @@
         max-width: 90%;
       }
       .section-1, .swirl-visual, .carousel {
-        max-width: 95%;
+       width: 90%;
       }
       .nav-buttons {
         max-width: 90%;
@@ -402,6 +422,9 @@
       .carousel-btn.next {
         right: -20px;
       }
+      #brainImage {
+        width: 450px; /* bigger on mobile too */
+      }
     }
   </style>
 </head>
@@ -409,11 +432,11 @@
   <header class="top-dock">
     <button id="darkModeToggle" class="dark-mode-btn">🌙</button>
     <div class="nav-links">
-      <a href="/homepage">Home</a>
-      <a href="/why_am_i_feeling">Why am I feeling?</a>
-      <a href="/what_am_i_feeling">What am I feeling?</a>
-      <a href="/managing_emotions">Managing emotions</a>
-      <a href="/mood_messengers">Mood Messengers</a>
+      <a href="/">Home</a>
+      <a href="/why-am-i-feeling">Why am I feeling?</a>
+      <a href="/managing-emotions">Managing emotions</a>
+      <a href="/what-am-i-feeling">What am I feeling?</a>
+      <a href="/mood-messengers">Mood Messengers</a>
     </div>
     <div class="audio-controls">
       <audio id="bg-music" autoplay loop>
@@ -464,6 +487,7 @@
   </div>
 
   <script>
+    // (Your entire original script - unchanged)
     (function() {
       const toggleButton = document.getElementById('darkModeToggle');
       const html = document.documentElement;
@@ -533,6 +557,7 @@
     const brainImage = document.getElementById("brainImage");
 
     let carouselItems = null;
+
     const sections = [
       {
         title: "Hypothalamus Introduction",
@@ -566,7 +591,7 @@
         title: "How Do I Calm it Down?",
         className: "section-4",
         points: [
-          "🍃 I can practice mindfulness to reduce stress and balance hormones. 🍃",
+          "🍃 I can practice mindfulness to reduce stress and tobalance hormones.🍃",
           "🍃 I can maintain a regular sleep schedule to support its function. 🍃",
           "🍃 I can eat a balanced diet to stabilize hunger and mood. 🍃"
         ]
@@ -580,6 +605,7 @@
         ]
       }
     ];
+
     let currentSection = 0;
     let currentPoint = 0;
     let carouselIndex = 0;
@@ -795,20 +821,16 @@
     }
 
     if (backBtn && nextBtn && restartBtn) {
-      // Click anywhere to advance
       document.addEventListener("click", (e) => {
         if (!e.target.closest('.nav-buttons') && !e.target.closest('.restart-button') && !e.target.closest('.continue-button') && !e.target.closest('.carousel-btn')) {
           handleAdvance();
         }
       });
 
-      // Back button
       backBtn.addEventListener("click", handleBack);
 
-      // Next button
       nextBtn.addEventListener("click", handleAdvance);
 
-      // Restart button
       restartBtn.addEventListener("click", () => {
         currentSection = 0;
         currentPoint = 0;
@@ -817,7 +839,6 @@
         displayContent();
       });
 
-      // Keyboard navigation
       backBtn.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();

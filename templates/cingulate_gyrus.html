@@ -6,48 +6,51 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
     :root {
-        --bg-start: #CBDCEB;
-        --bg-end: #A8BFD6;
-        --text-color: #2f4f4f;
-        --topbar-bg: #ffffffcc;
-        --topbar-border: #7092B3;
-        --speech-bubble-bg: #E0EAF2;
-        --speech-bubble-border: #7092B3;
-        --speech-bubble-text: #2f4f4f;
-        --cta-bg: #7092B3;
-        --cta-hover-bg: #5A7899;
-        --cta-text: #fff;
-        --footer-bg: #fff;
-        --footer-border: #7092B3;
-        --dot-bg: #fff;
-        --dot-text: #7092B3;
-        --dot-active-bg: #7092B3;
-        --dot-active-text: #fff;
-        --spinner-bg: rgba(0, 0, 0, 0.3);
-        --spinner-border: #f3f3f3;
-        --spinner-active: #7092B3;
+      --bg-start: #E0E8F5;
+      --bg-end: #B8C8E0;
+      --text-color: #2f4f4f;
+      --topbar-bg: #ffffffcc;
+      --topbar-border: #6A88B3;
+      --speech-bubble-bg: #E8F0F8;
+      --speech-bubble-border: #6A88B3;
+      --speech-bubble-text: #2f4f4f;
+      --cta-bg: #6A88B3;
+      --cta-hover-bg: #5478A0;
+      --cta-text: #fff;
+      --footer-bg: #fff;
+      --footer-border: #6A88B3;
+      --dot-bg: #fff;
+      --dot-text: #6A88B3;
+      --dot-active-bg: #6A88B3;
+      --dot-active-text: #fff;
+      --spinner-bg: rgba(0, 0, 0, 0.3);
+      --spinner-border: #f3f3f3;
+      --spinner-active: #6A88B3;
+      --restart-bg: #8A7BB3;
     }
+
     [data-theme="dark"] {
-      --bg-start: #1a2a44;
-      --bg-end: #2e4057;
+      --bg-start: #1a2333;
+      --bg-end: #2c3a50;
       --text-color: #e0e0e0;
-      --topbar-bg: #2d2d3d;
-      --topbar-border: #A8BFD6;
-      --speech-bubble-bg: #2a4066;
-      --speech-bubble-border: #A8BFD6;
+      --topbar-bg: #2d384a;
+      --topbar-border: #A0B8D8;
+      --speech-bubble-bg: #34455a;
+      --speech-bubble-border: #A0B8D8;
       --speech-bubble-text: #d0d0d0;
-      --cta-bg: #A8BFD6;
-      --cta-hover-bg: #7092B3;
-      --cta-text: #e0e0e0;
-      --footer-bg: #2d2d3d;
-      --footer-border: #A8BFD6;
-      --dot-bg: #2d2d3d;
+      --cta-bg: #A0B8D8;
+      --cta-hover-bg: #6A88B3;
+      --cta-text: #2d2d2d;
+      --footer-bg: #2d384a;
+      --footer-border: #A0B8D8;
+      --dot-bg: #2d384a;
       --dot-text: #e0e0e0;
-      --dot-active-bg: #A8BFD6;
-      --dot-active-text: #2d2d3d;
+      --dot-active-bg: #A0B8D8;
+      --dot-active-text: #2d2d2d;
       --spinner-bg: rgba(0, 0, 0, 0.7);
       --spinner-border: #555566;
-      --spinner-active: #A8BFD6;
+      --spinner-active: #A0B8D8;
+      --restart-bg: #9A8BC0;
     }
 
     body {
@@ -164,7 +167,7 @@
       border-left: 6px solid var(--speech-bubble-border);
       padding: 1rem 1.2rem;
       border-radius: 12px;
-      margin: 0.5rem 0;
+      margin: 0.5rem 0; /* Fixed margin for all boxes */
       max-width: 500px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       text-align: left;
@@ -175,13 +178,20 @@
       height: 70px;
     }
     .swirl-visual {
-      margin: 14px 0 6px;
+      margin: 40px 0 30px; /* more breathing room around the bigger image */
     }
     #brainImage {
-      width: 250px;
+      width: 600px; /* MUCH BIGGER */
+      max-width: 90vw;
       display: block;
-      margin: 12px auto;
+      margin: 0 auto;
       z-index: 10;
+      border-radius: 30px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.4s ease;
+    }
+    #brainImage:hover {
+      transform: scale(1.03);
     }
     .zoom-effect {
       animation: zoomToFull 1000ms cubic-bezier(0.2, 0.9, 0.25, 1) forwards;
@@ -278,7 +288,7 @@
       padding: 0.8rem 2rem;
       border: none;
       border-radius: 25px;
-      background: #B8CDE1;
+      background: var(--restart-bg);
       color: #fff;
       cursor: pointer;
       font-size: 1.2rem;
@@ -287,10 +297,10 @@
       display: block;
     }
     .restart-button:hover {
-      background: #A8BFD6;
+      background: #8ab8d8;
     }
     [data-theme="dark"] .restart-button {
-      background: #5e7d8c;
+      background: var(--restart-bg);
     }
     [data-theme="dark"] .restart-button:hover {
       background: #4a6060;
@@ -402,18 +412,21 @@
       .carousel-btn.next {
         right: -20px;
       }
+      #brainImage {
+        width: 450px; /* bigger on mobile too */
+      }
     }
   </style>
 </head>
 <body>
   <header class="top-dock">
     <button id="darkModeToggle" class="dark-mode-btn">🌙</button>
-    <div class="nav-links">
-      <a href="/homepage">Home</a>
-      <a href="/why_am_i_feeling">Why am I feeling?</a>
-      <a href="/what_am_i_feeling">What am I feeling?</a>
-      <a href="/managing_emotions">Managing emotions</a>
-      <a href="/mood_messengers">Mood Messengers</a>
+      <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/why-am-i-feeling">Why am I feeling?</a>
+      <a href="/managing-emotions">Managing emotions</a>
+      <a href="/what-am-i-feeling">What am I feeling?</a>
+      <a href="/mood-messengers">Mood Messengers</a>
     </div>
     <div class="audio-controls">
       <audio id="bg-music" autoplay loop>
@@ -426,7 +439,7 @@
 
   <div class="simulator-container">
     <div class="swirl-visual">
-      <img id="brainImage" src="/static/Cingulate_Gyrus.png" alt="Swirling brain (cingulate gyrus)" loading="lazy">
+      <img id="brainImage" src="/static/Cingulate Gyrus.png" alt="Swirling brain (cingulate gyrus)" loading="lazy">
     </div>
     <div class="instructions">
       <p>Follow these steps to explore:</p>
@@ -483,8 +496,8 @@
       function updateImage() {
         const isDark = html.getAttribute('data-theme') === 'dark';
         brainImage.src = isDark
-          ? '/static/Cingulate_Gyrus Dark Mode.png'
-          : '/static/Cingulate_Gyrus.png';
+          ? '/static/Cingulate Gyrus Dark Mode.png'
+          : '/static/Cingulate Gyrus.png';
       }
     })();
 
@@ -533,53 +546,55 @@
     const brainImage = document.getElementById("brainImage");
 
     let carouselItems = null;
-const sections = [
-  {
-    title: "Cingulate Gyrus Introduction",
-    className: "section-1",
-    points: [
-      "The cingulate gyrus is a curved strip of brain tissue above the corpus callosum in the center of your brain.",
-      "It connects emotions, thoughts, and decision-making, helping you link feelings with actions."
-    ]
-  },
-  {
-    title: "What Does it Do?",
-    className: "section-1",
-    points: [
-      "The cingulate gyrus helps you focus on important tasks and pay attention to what matters most.",
-      "It processes emotions such as happiness, sadness, and empathy, shaping how you respond to situations.",
-      "It plays a role in making decisions and controlling impulses, guiding your actions.",
-      "It helps regulate both physical and emotional pain, keeping your reactions balanced.",
-      "It works with other brain areas to adapt behavior based on past experiences."
-    ]
-  },
-  {
-    title: "Why Does it Matter?",
-    className: "carousel",
-    points: [
-      "The cingulate gyrus links emotions with actions so you can respond appropriately to your environment.",
-      "If it isn’t working properly, you might struggle to focus or experience anxiety or mood disorders.",
-      "It helps balance emotional responses with logical thinking, supporting healthy decision-making."
-    ]
-  },
-  {
-    title: "How Do I Calm it Down?",
-    className: "section-4",
-    points: [
-      "🍃 I can meditate to calm my cingulate gyrus and improve focus. 🍃",
-      "🍃 I can journal to process emotions and understand my feelings better. 🍃",
-      "🍃 I can practice deep breathing or gentle exercise to manage emotional reactions safely. 🍃"
-    ]
-  },
-  {
-    title: "Fun Fact",
-    className: "section-5",
-    points: [
-      "🤔 Did you know? The cingulate gyrus is sometimes called the “emotional highway” because it connects feelings, thoughts, and actions.",
-      "🎵 Bonus fact: Practicing empathy, like comforting a friend, activates your cingulate gyrus."
-    ]
-  }
-];
+
+    const sections = [
+      {
+        title: "Cingulate Gyrus Introduction",
+        className: "section-1",
+        points: [
+          "The cingulate gyrus is a curved strip of brain tissue above the corpus callosum in the center of your brain.",
+          "It connects emotions, thoughts, and decision-making, helping you link feelings with actions."
+        ]
+      },
+      {
+        title: "What Does it Do?",
+        className: "section-1",
+        points: [
+          "The cingulate gyrus helps you focus on important tasks and pay attention to what matters most.",
+          "It processes emotions such as happiness, sadness, and empathy, shaping how you respond to situations.",
+          "It plays a role in making decisions and controlling impulses, guiding your actions.",
+          "It helps regulate both physical and emotional pain, keeping your reactions balanced.",
+          "It works with other brain areas to adapt behavior based on past experiences."
+        ]
+      },
+      {
+        title: "Why Does it Matter?",
+        className: "carousel",
+        points: [
+          "The cingulate gyrus acts as an 'emotional bridge' linking your feelings to rational decisions and actions.",
+          "It plays a key role in regulating pain (both physical and emotional) and processing empathy.",
+          "Dysfunction here is linked to mental health issues like depression, anxiety, OCD, schizophrenia, and addiction.",
+          "It helps you learn from outcomes, avoid negative consequences, and maintain healthy social/emotional balance."
+        ]
+      },
+      {
+        title: "How Do I Calm it Down?",
+        className: "section-4",
+        points: [
+          "🍃 I can meditate to calm my cingulate gyrus and improve focus. 🍃",
+          "🍃 I can journal to process emotions and understand my feelings better. 🍃",
+          "🍃 I can practice deep breathing or gentle exercise to manage emotional reactions safely. 🍃"
+        ]
+      },
+      {
+        title: "Fun Fact",
+        className: "section-5",
+        points: [
+          "🤔 Did you know? The cingulate gyrus is sometimes called the “emotional highway” because it connects feelings, thoughts, and actions.",
+          "🎵 Bonus fact: Practicing empathy, like comforting a friend, activates your cingulate gyrus."
+        ]
+      }
+    ];
 
     let currentSection = 0;
     let currentPoint = 0;
@@ -639,7 +654,7 @@ const sections = [
         continueBtn.addEventListener("click", () => {
           brainImage.classList.add('zoom-effect');
           setTimeout(() => {
-            navigateWithLoading("/homepage");
+            navigateWithLoading("/");
           }, 600);
         });
         infoContainer.appendChild(continueBtn);
@@ -796,20 +811,16 @@ const sections = [
     }
 
     if (backBtn && nextBtn && restartBtn) {
-      // Click anywhere to advance
       document.addEventListener("click", (e) => {
         if (!e.target.closest('.nav-buttons') && !e.target.closest('.restart-button') && !e.target.closest('.continue-button') && !e.target.closest('.carousel-btn')) {
           handleAdvance();
         }
       });
 
-      // Back button
       backBtn.addEventListener("click", handleBack);
 
-      // Next button
       nextBtn.addEventListener("click", handleAdvance);
 
-      // Restart button
       restartBtn.addEventListener("click", () => {
         currentSection = 0;
         currentPoint = 0;
@@ -818,7 +829,6 @@ const sections = [
         displayContent();
       });
 
-      // Keyboard navigation
       backBtn.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();

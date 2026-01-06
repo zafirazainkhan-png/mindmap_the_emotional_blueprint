@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joy & Excitement – What Am I Feeling?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #fffbe6 0%, #fff0b3 100%);
+    margin: 0;
+    padding: 0;
+    color: #3e3e3e;
+    min-height: 100vh;
+    transition: background 0.5s ease, color 0.5s ease;
+  }
+
+  /* NAV BAR */
+  .topnav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: linear-gradient(90deg, #ffeb3b, #fbc02d);
+    padding: 18px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .topnav a {
+    color: #3e3e3e;
+    text-decoration: none;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+
+  .topnav a:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+
+  .topnav button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    background: #fff8e1;
+    color: #3e3e3e;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    min-width: 140px;
+  }
+
+  .topnav button:hover {
+    background: #fffff0;
+    transform: scale(1.08);
+  }
+
+  /* DARK MODE */
+  body.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+  }
+
+  body.dark-mode .topnav { background: linear-gradient(90deg, #333, #555); }
+  body.dark-mode .topnav a { color: #ffd54f; }
+  body.dark-mode .topnav button { background: #444; color: #ffd43b; }
+  body.dark-mode .topnav button:hover { background: #666; }
+  body.dark-mode .flashcard-front { background: linear-gradient(145deg, #a89a00, #b8a800); }
+  body.dark-mode .flashcard-back { background: linear-gradient(145deg, #b8a800, #ccbc00); }
+  body.dark-mode .section-title { color: #ffd43b; }
+
+  /* MAIN CONTENT */
+  .container {
+    max-width: 1350px;
+    margin: 40px auto 0 auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.2rem;
+    color: #f9a825;
+    margin-bottom: 12px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .subtitle {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: #9e6b00;
+    margin-bottom: 50px;
+    font-weight: 600;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  /* FLASHCARDS GRID */
+  .flashcards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .flashcard {
+    width: 400px;
+    height: 600px;
+    border-radius: 28px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    perspective: 1200px;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+  }
+
+  .flashcard:hover {
+    transform: translateY(-12px);
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 28px;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: #3e3e3e;
+  }
+
+  .flashcard-front {
+    background: linear-gradient(145deg, #ffeb3b, #fbc02d);
+    padding-top: 80px;
+  }
+
+  .flashcard-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(145deg, #ffeb3b, #fbc02d);
+    text-align: left;
+  }
+
+  .flashcard-back h2 {
+    text-align: center;
+  }
+
+  .flashcard-front img {
+    max-height: 300px;
+    width: auto;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    object-fit: contain;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  }
+
+  .flashcard-front h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.4rem;
+    margin: 15px 0 12px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  }
+
+  .flashcard-front p {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    opacity: 0.95;
+  }
+
+  .flashcard-back h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.9rem;
+    margin: 0 0 20px 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .section-title {
+    font-weight: 700;
+    color: #d84315; /* Deep orange-red for strong contrast on yellow */
+    margin: 18px 0 8px;
+    font-size: 1.15rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-align: center;
+  }
+
+  .flashcard-back p:not(.section-title) {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin: 8px 0;
+    text-align: left;
+  }
+
+  .back-home {
+    margin: 60px auto 0;
+    padding: 14px 36px;
+    font-size: 1.25rem;
+    background: #6e8efb;
+    color: white;
+    border-radius: 50px;
+    font-family: 'Fredoka One', cursive;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 6px 15px rgba(110,142,251,0.4);
+  }
+
+  .back-home:hover {
+    background: #5c7aea;
+    transform: scale(1.08);
+  }
+
+  /* Calming techniques hover effect */
+  section div[style*="linear-gradient"] {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  section div[style*="linear-gradient"]:hover {
+    transform: translateY(-12px) rotate(-2deg);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.22);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1300px) {
+    .flashcard { width: 360px; height: 580px; }
+  }
+  @media (max-width: 1200px) {
+    .flashcards-grid { gap: 25px; }
+    .flashcard { width: 340px; }
+  }
+  @media (max-width: 900px) {
+    .flashcards-grid { gap: 30px; }
+    .flashcard { width: 380px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a href="{{ url_for('homepage') }}">Home</a>
+  <a href="{{ url_for('why_am_i_feeling') }}">Why am I Feeling?</a>
+  <a href="{{ url_for('managing_emotions') }}">Managing Emotions</a>
+  <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
+
+  <button id="darkModeBtn">Dark Mode</button>
+  <button id="soundBtn">Sound On</button>
+</div>
+
+<div class="container">
+  <h1>Joy & Excitement</h1>
+  <p class="subtitle">
+    Your body reacts to positive experiences, rewards, or meaningful connections.
+  </p>
+  
+  <!-- FLASHCARDS -->
+  <div class="flashcards-grid">
+
+    <!-- Joy -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='joy.png') }}" alt="Joy">
+          <h2>Joy</h2>
+          <p>Feeling of great pleasure, delight, or happiness.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Joy</h2>
+          <p class="section-title">Feelings</p>
+          <p>Warmth, delight, satisfaction, emotional lightness, smiling, laughter, and a sense of fulfillment.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala signals positive emotional value and evaluates rewarding experiences. The hippocampus stores happy memories for future recall. The cingulate gyrus integrates attention, awareness, and positive emotion.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Dopamine reinforces pleasure and reward. Serotonin stabilizes mood. Oxytocin strengthens social connection and bonding.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Laughing with friends, achieving a personal goal, enjoying a favorite meal, or receiving praise.</p>
+          <p class="section-title">Enhancing Joy</p>
+          <p>Pause to savor the moment—notice sights, sounds, and bodily sensations. Practicing gratitude journaling can deepen and prolong joy.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Excitement -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='Excited.png') }}" alt="Excitement">
+          <h2>Excitement</h2>
+          <p>High-energy, anticipatory emotion.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Excitement</h2>
+          <p class="section-title">Feelings</p>
+          <p>Eagerness, alertness, enthusiasm, and energetic anticipation.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala amplifies emotional intensity. The hypothalamus increases physiological arousal.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Dopamine surges in anticipation of reward. Adrenaline provides a quick burst of energy. Serotonin maintains mood balance.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Waiting for a birthday party, opening a surprise gift, preparing for a school trip, or winning an award.</p>
+          <p class="section-title">Enhancing Excitement</p>
+          <p>Channel energy into planning or creative engagement. Mindful anticipation increases enjoyment while reducing stress.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Happiness -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='Happiness.png') }}" alt="Happiness">
+          <h2>Happiness</h2>
+          <p>Calm, positive, balanced emotional state.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Happiness</h2>
+          <p class="section-title">Feelings</p>
+          <p>Contentment, safety, mental ease, and emotional stability.</p>
+          <p class="section-title">Brain</p>
+          <p>The hippocampus recalls happy memories. The cingulate gyrus balances emotion and focus. The prefrontal cortex integrates positive experiences into perspective.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Oxytocin deepens social connection. Serotonin maintains stable mood. Low cortisol supports calmness.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Quiet time with friends, completing a small task, enjoying nature, or savoring a cozy moment at home.</p>
+          <p class="section-title">Enhancing Happiness</p>
+          <p>Notice and appreciate small positives—mindful awareness or gratitude strengthens calm happiness.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gratitude -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='gratitude.png') }}" alt="Gratitude">
+          <h2>Gratitude</h2>
+          <p>Warm sense of thankfulness for kindness or meaningful experiences.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Gratitude</h2>
+          <p class="section-title">Feelings</p>
+          <p>Appreciation, contentment, warmth, and recognition of others’ efforts.</p>
+          <p class="section-title">Brain</p>
+          <p>The hippocampus encodes positive social memories. The cingulate gyrus supports emotional evaluation and social connection.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Oxytocin fosters closeness. Serotonin stabilizes mood. Dopamine reinforces rewarding social interaction.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Thanking a friend, acknowledging family support, or expressing appreciation to a teacher.</p>
+          <p class="section-title">Enhancing Gratitude</p>
+          <p>Express it verbally or in writing. Noticing and acknowledging kindness strengthens emotional well-being.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Playfulness -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='playfullness.png') }}" alt="Playfulness">
+          <h2>Playfulness</h2>
+          <p>Lighthearted, spontaneous, creative, and relaxed emotional state.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Playfulness</h2>
+          <p class="section-title">Feelings</p>
+          <p>Curiosity, humor, enjoyment, creativity, and carefree engagement.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala reduces stress reactivity. The hippocampus supports playful memory-making. The prefrontal cortex enables flexible thinking.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Dopamine fuels curiosity. Endorphins generate fun and pleasure. Serotonin stabilizes mood.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Playing games, joking with friends, being goofy at home, or creating for fun.</p>
+          <p class="section-title">Enhancing Playfulness</p>
+          <p>Engage in low-pressure, enjoyable activities—laughter and movement amplify joy.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anticipation -->
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <img src="{{ url_for('static', filename='anticipation.png') }}" alt="Anticipation">
+          <h2>Anticipation</h2>
+          <p>Positive expectation of upcoming events.</p>
+        </div>
+        <div class="flashcard-back">
+          <h2>Anticipation</h2>
+          <p class="section-title">Feelings</p>
+          <p>Eagerness, alertness, motivation, mild arousal, and focused attention.</p>
+          <p class="section-title">Brain</p>
+          <p>The amygdala evaluates emotional significance. The hypothalamus increases arousal. The hippocampus recalls past rewards to inform expectations.</p>
+          <p class="section-title">Neurotransmitters & Hormones</p>
+          <p>Dopamine drives motivation. Adrenaline adds subtle energy. Serotonin maintains emotional balance.</p>
+          <p class="section-title">Real-life Scenarios</p>
+          <p>Looking forward to a birthday, school trip, or special achievement.</p>
+          <p class="section-title">Enhancing Anticipation</p>
+          <p>Mentally visualize or plan the event—positive visualization engages dopamine pathways and increases enjoyment.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="{{ url_for('what_am_i_feeling') }}" class="back-home">Back to Wheel</a>
+
+ <!-- Divider -->
+  <hr style="border:none; height:2px; background:#eee; margin:80px 0;">
+
+  <!-- REGULATION TECHNIQUES -->
+<section style="background:#f9f9f9; padding:80px 20px; border-radius:20px; margin-top:40px;">
+  <h2 style="font-family:'Fredoka One'; color:#ec407a; text-align:center; font-size:2.7rem; margin-bottom:20px;">
+    Find the Calm in the Middle of Joy & Excitement
+  </h2>
+  <p style="font-size:1.25rem; text-align:left; max-width:900px; margin:0 auto 60px; color:#555;">
+    When happiness, excitement, or anticipation is high, try these simple techniques to stay balanced, savor the moment, and boost positive energy.
+  </p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+
+    <!-- Row 1: 3 cards -->
+    <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center; width:100%; margin-bottom:30px;">
+
+      <!-- Card 1: Quick Calm Reset -->
+      <div style="background:linear-gradient(135deg,#ffd1dc,#e1f5fe); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#d81b60; font-size:1.7rem; margin-bottom:12px; text-align: center;">Quick Calm Reset</h3>
+        <p><strong>What to do:</strong> Take three slow, deep breaths. Feel your chest rise and fall. Exhale slowly, letting your shoulders drop.</p>
+        <p><strong>Why it works:</strong> Deep breathing lowers heart rate, reduces unnecessary stress, and helps your body fully enjoy positive emotions.</p>
+        <p><strong>Quick tip:</strong> Inhale for 4, hold for 2, exhale for 6. Repeat 3 times to feel grounded in the joy.</p>
+      </div>
+
+      <!-- Card 2: Grounding Exercise -->
+      <div style="background:linear-gradient(135deg,#c8e6c9,#fff59d); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#388e3c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Grounding Exercise</h3>
+        <p><strong>What to do:</strong> Use the 5-4-3-2-1 method: notice 5 things you see, 4 things you feel, 3 things you hear, 2 things you smell, 1 thing you taste.</p>
+        <p><strong>Why it works:</strong> Focusing on your senses pulls attention into the present, making happy moments richer and more vivid.</p>
+        <p><strong>Quick tip:</strong> Move slowly and notice small details you usually overlook.</p>
+      </div>
+
+      <!-- Card 3: Tiny Steps Technique -->
+      <div style="background:linear-gradient(135deg,#e1bee7,#ffccbc); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#7b1fa2; font-size:1.7rem; margin-bottom:12px; text-align: center;">Tiny Steps Technique</h3>
+        <p><strong>What to do:</strong> Break positive activities into small steps: “Write one sentence in a journal,” or “Plan one part of the celebration.”</p>
+        <p><strong>Why it works:</strong> Small steps make joyful anticipation manageable, increase motivation, and help you stay fully engaged.</p>
+        <p><strong>Quick tip:</strong> Celebrate each small win to prolong feelings of pleasure and accomplishment.</p>
+      </div>
+
+    </div>
+
+    <!-- Row 2: 2 cards -->
+    <div style="display:flex; gap:30px; justify-content:center; width:100%; flex-wrap:wrap;">
+
+      <!-- Card 4: Body Reset -->
+      <div style="background:linear-gradient(135deg,#ffab91,#ffd180); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#e64a19; font-size:1.7rem; margin-bottom:12px; text-align: center;">Body Reset</h3>
+        <p><strong>What to do:</strong> Stretch arms, shake your muscles, take a short walk, or do gentle yoga.</p>
+        <p><strong>Why it works:</strong> Physical movement releases tension, boosts endorphins, and signals your brain to enhance positive emotions.</p>
+        <p><strong>Quick tip:</strong> Roll your shoulders and gently rotate your neck to fully release energy and enjoy the moment.</p>
+      </div>
+
+      <!-- Card 5: Mind Recharge -->
+      <div style="background:linear-gradient(135deg,#d1c4e9,#b2ebf2); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
+        <h3 style="font-family:'Fredoka One'; color:#512da8; font-size:1.7rem; margin-bottom:12px; text-align: center;">Mind Recharge</h3>
+        <p><strong>What to do:</strong> Drink water, rest for a few minutes, or listen to calming music.</p>
+        <p><strong>Why it works:</strong> Hydration, short breaks, and mindful listening support emotional balance and help you sustain joy, playfulness, and excitement.</p>
+        <p><strong>Quick tip:</strong> Take a mindful sip of water—notice its temperature and taste while breathing slowly.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+</div>
+
+<script>
+  const darkModeBtn = document.getElementById('darkModeBtn');
+
+  darkModeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+
+    if (document.body.classList.contains('dark-mode')) {
+      darkModeBtn.textContent = 'Light Mode';
+    } else {
+      darkModeBtn.textContent = 'Dark Mode';
+    }
+  });
+</script>
+
+</body>
+</html>

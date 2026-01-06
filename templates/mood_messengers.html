@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mood Messengers: Ride Your Brain's Chemistry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&family=Poppins:wght@600&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Quicksand:wght@500;600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: radial-gradient(circle at top, #f0f8ff, #e0f7fa, #d1f2eb);
+      text-align: center;
+      color: #2c3e50;
+      transition: background 0.5s ease, color 0.5s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    body.dark-mode {
+      background: radial-gradient(circle at top, #1e293b, #0f172a, #020617);
+      color: #e2e8f0;
+    }
+
+    /* FULL-WIDTH TEAL GRADIENT NAV BAR */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(90deg, #006d77, #83c5be);
+      padding: 18px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    body.dark-mode .topnav {
+      background: linear-gradient(90deg, #83c5be, #a0d8d8);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: 1.5rem;
+      font-weight: normal;
+      transition: all 0.3s;
+    }
+
+    .nav-links a:hover {
+      transform: scale(1.1);
+      opacity: 0.9;
+    }
+
+    .nav-links a.active {
+      text-decoration: underline;
+      text-underline-offset: 6px;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    #soundBtn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 50px;
+      background: white;
+      color: #006d77;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    #soundBtn:hover {
+      background: #e0f2f1;
+      transform: translateY(-2px);
+    }
+
+    body.dark-mode #soundBtn {
+      background: #1a2d37;
+      color: #a0d8d8;
+    }
+
+    #volume {
+      width: 100px;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(0,0,0,0.15);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    #volume::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #006d77;
+      cursor: pointer;
+    }
+
+    body.dark-mode #volume::-webkit-slider-thumb {
+      background: #83c5be;
+    }
+
+    #dark-mode-toggle {
+      font-size: 24px;
+      padding: 6px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    #dark-mode-toggle:hover {
+      transform: scale(1.15);
+    }
+
+    body.dark-mode #dark-mode-toggle {
+      color: #e0f2f1;
+    }
+
+    /* CUTE TITLE */
+    .title {
+      margin: 50px 0 20px;
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: 3.2em;
+      color: #006d77;
+      letter-spacing: 4px;
+      text-shadow: 0 6px 15px rgba(0,109,119,0.2);
+    }
+
+    body.dark-mode .title {
+      color: #83c5be;
+      text-shadow: 0 6px 15px rgba(131,197,190,0.3);
+    }
+
+    /* SUBTLE INVITATION TEXT - UPDATED */
+    .subtitle {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.4em;
+      max-width: 800px;
+      margin: 0 auto 60px;
+      line-height: 1.6;
+      color: #2c3e50;
+      opacity: 0.8;
+      font-weight: 500;
+    }
+
+    body.dark-mode .subtitle {
+      color: #d0e6e9;
+      opacity: 0.85;
+    }
+
+    /* MAIN PARK - REDUCED BOTTOM MARGIN */
+    #park {
+      position: relative;
+      max-width: 1400px;
+      width: 92%;
+      margin: 0 auto 40px; /* reduced gap before additional section */
+    }
+
+    #park img {
+      width: 100%;
+      height: auto;
+      border-radius: 30px;
+      box-shadow: 0 15px 40px rgba(0, 109, 119, 0.3);
+      transition: box-shadow 0.5s ease;
+    }
+
+    body.dark-mode #park img {
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    /* HOTSPOTS & LABELS */
+    .hotspot {
+      position: absolute;
+      cursor: pointer;
+      background: transparent;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .hotspot:hover {
+      transform: scale(1.05);
+    }
+
+    .ride-label {
+      position: absolute;
+      background: rgba(255,255,255,0.92);
+      padding: 14px 22px;
+      border-radius: 35px;
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: 1.4em;
+      font-weight: normal;
+      color: #006d77;
+      box-shadow: 0 8px 20px rgba(0, 109, 119, 0.2);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      z-index: 2;
+      white-space: nowrap;
+    }
+
+    body.dark-mode .ride-label {
+      background: rgba(30,41,59,0.92);
+      color: #83c5be;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .hotspot:hover + .ride-label {
+      transform: scale(1.2);
+      box-shadow: 0 12px 30px rgba(0, 109, 119, 0.3);
+    }
+
+    body.dark-mode .hotspot:hover + .ride-label {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    /* RIDE POSITIONS */
+    .adrenaline { left: 4%; top: 5%; width: 12%; height: 55%; }
+    .adrenaline-label { left: 0%; top: 2%; }
+
+    .dopamine { left: 20%; top: 28%; width: 40%; height: 32%; }
+    .dopamine-label { left: 26%; top: 30%; }
+
+    .serotonin { left: 63%; top: 5%; width: 32%; height: 47%; }
+    .serotonin-label { left: 68%; top: 5%; }
+
+    .endorphins { left: 18%; top: 70%; width: 19%; height: 25%; }
+    .endorphins-label { left: 15%; top: 66%; }
+
+    .oxytocin { left: 57%; top: 69%; width: 17%; height: 25%; }
+    .oxytocin-label { left: 53%; top: 65%; }
+
+    .cortisol { left: 85%; top: 55%; width: 10%; height: 40%; }
+    .cortisol-label { left: 78%; top: 50%; }
+
+    /* MODAL */
+    #overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+
+    #modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      width: 90%;
+      max-width: 800px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 40px;
+      border-radius: 30px;
+      z-index: 1001;
+      box-shadow: 0 15px 40px rgba(0, 109, 119, 0.3);
+    }
+
+    body.dark-mode #modal {
+      background: #1e293b;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    #modal h2 {
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: 2.6em;
+      color: #006d77;
+      margin-bottom: 20px;
+    }
+
+    body.dark-mode #modal h2 {
+      color: #83c5be;
+    }
+
+    #modal img {
+      width: 100%;
+      border-radius: 20px;
+      margin-bottom: 25px;
+    }
+
+    #modal p {
+      font-size: 1.15em;
+      line-height: 1.8;
+      color: #2c3e50;
+    }
+
+    body.dark-mode #modal p {
+      color: #d0e6e9;
+    }
+
+    #close {
+      margin-top: 30px;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 50px;
+      background: #006d77;
+      color: white;
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+
+    #close:hover {
+      background: #005a66;
+      transform: scale(1.05);
+    }
+
+    body.dark-mode #close {
+      background: #83c5be;
+      color: #0f1e24;
+    }
+
+    /* ADDITIONAL SECTION - REDUCED TOP MARGIN */
+    #additional-section {
+      margin: 40px auto 60px; /* much smaller gap from the park */
+      max-width: 1000px;
+      width: 90%;
+    }
+
+    #additional-section h2 {
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: 2.4em;
+      color: #006d77;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+
+    body.dark-mode #additional-section h2 {
+      color: #83c5be;
+    }
+
+    .additional-ride {
+      background: rgba(255,255,255,0.75);
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 25px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      max-width: 700px;
+      box-shadow: 0 6px 18px rgba(0,109,119,0.12);
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .additional-ride {
+      background: rgba(30,41,59,0.75);
+    }
+
+    .additional-ride:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,109,119,0.2);
+    }
+
+    .additional-ride img {
+      width: 140px;
+      border-radius: 20px;
+      margin-right: 30px;
+    }
+
+    .additional-ride div {
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: 1.6em;
+      color: #006d77;
+    }
+
+    body.dark-mode .additional-ride div {
+      color: #83c5be;
+    }
+
+    @media (max-width: 768px) {
+      .topnav { padding: 16px 30px; flex-wrap: wrap; justify-content: center; gap: 20px; }
+      .nav-controls { margin-top: 10px; }
+      .title { font-size: 2.6em; margin: 40px 0 20px; }
+      .subtitle { font-size: 1.2em; margin-bottom: 50px; }
+      .ride-label { font-size: 1.2em; padding: 10px 16px; }
+      #park { margin-bottom: 30px; }
+      #additional-section { margin-top: 30px; }
+      .additional-ride { flex-direction: column; text-align: center; }
+      .additional-ride img { margin-right: 0; margin-bottom: 15px; width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TEAL GRADIENT NAV BAR -->
+<div class="topnav">
+  <div class="nav-links">
+    <a href="{{ url_for('homepage') }}">Home</a>
+    <a href="{{ url_for('why_am_i_feeling') }}">Why am I feeling?</a>
+    <a href="{{ url_for('managing_emotions') }}">Managing Emotions</a>
+    <a href="{{ url_for('what_am_i_feeling') }}">What am I feeling?</a>
+    <a href="{{ url_for('mood_messengers') }}" class="active">Mood Messengers</a>
+  </div>
+
+  <div class="nav-controls">
+    <button id="soundBtn">
+      <span id="soundIcon">🔊</span> Sound On
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+    </button>
+    <button id="dark-mode-toggle">🌙</button>
+  </div>
+</div>
+
+<!-- CUTE TITLE -->
+<h1 class="title">Mood Messengers 🎡</h1>
+
+<!-- UPDATED SUBTLE INVITATION -->
+<p class="subtitle">
+  Meet your brain's magical mood messengers (aka neurotransmitters) ✨<br>
+  With a Click discover how they create your feelings, from thrills to calm!
+</p>
+
+<!-- MAIN PARK -->
+<div id="park">
+  <img src="/static/theme_park.png" alt="Neurotransmitter Theme Park">
+
+  <div class="hotspot adrenaline" onclick="openModal(data.adrenaline)"></div>
+  <div class="ride-label adrenaline-label">Adrenaline: The Action Drop Tower</div>
+
+  <div class="hotspot dopamine" onclick="openModal(data.dopamine)"></div>
+  <div class="ride-label dopamine-label">Dopamine: The Rollercoaster of Rewards</div>
+
+  <div class="hotspot serotonin" onclick="openModal(data.serotonin)"></div>
+  <div class="ride-label serotonin-label">Serotonin: The Chill Ferris Wheel</div>
+
+  <div class="hotspot endorphins" onclick="openModal(data.endorphins)"></div>
+  <div class="ride-label endorphins-label">Endorphins: The Dance Party Bumper Cars</div>
+
+  <div class="hotspot oxytocin" onclick="openModal(data.oxytocin)"></div>
+  <div class="ride-label oxytocin-label">Oxytocin: The Friendship Carousel</div>
+
+  <div class="hotspot cortisol" onclick="openModal(data.cortisol)"></div>
+  <div class="ride-label cortisol-label">Cortisol: The Haunted House Alarm</div>
+</div>
+
+<div id="overlay" onclick="closeModal()"></div>
+
+<div id="modal">
+  <h2 id="title"></h2>
+  <img id="image">
+  <p id="text"></p>
+  <button id="close" onclick="closeModal()">Close</button>
+</div>
+
+<!-- ADDITIONAL SECTION - CLOSER TO MAIN IMAGE -->
+<div id="additional-section">
+  <h2>More Magical Messengers ✨</h2>
+  <div class="additional-ride" onclick="openModal(data.gaba)">
+    <img src="https://thumbs.dreamstime.com/b/people-floating-lazy-river-pool-vector-illustration-52100311.jpg" alt="GABA">
+    <div>GABA: The Lazy River Ride</div>
+  </div>
+  <div class="additional-ride" onclick="openModal(data.glutamate)">
+    <img src="https://thumbs.dreamstime.com/b/carnival-swing-ride-isolated-white-background-d-render-40657059.jpg" alt="Glutamate">
+    <div>Glutamate: The Swing Ride Thrill</div>
+  </div>
+  <div class="additional-ride" onclick="openModal(data.acetylcholine)">
+    <img src="https://thumbs.dreamstime.com/b/cartoon-mouse-exploring-giant-maze-made-cheese-bird-s-eye-view-giant-cheese-maze-mouse-s-dream-world-394581368.jpg" alt="Acetylcholine">
+    <div>Acetylcholine: The Maze Adventure</div>
+  </div>
+  <div class="additional-ride" onclick="openModal(data.norepinephrine)">
+    <img src="https://media.istockphoto.com/id/157111048/vector/rafting-action.jpg?s=612x612&w=0&k=20&c=mIb8RJYF5eXmwtFkv8laz7J9IAZr9VwAFlGvP-M55O4=" alt="Norepinephrine">
+    <div>Norepinephrine: The Alertness Rapids</div>
+  </div>
+  <div class="additional-ride" onclick="openModal(data.glycine)">
+    <img src="https://thumbs.dreamstime.com/b/tea-cup-ride-amusement-park-carnival-fun-theme-attraction-vector-design-generative-ai-depicting-attractions-perfect-374748167.jpg" alt="Glycine">
+    <div>Glycine: The Calming Teacups</div>
+  </div>
+  <div class="additional-ride" onclick="openModal(data.histamine)">
+    <img src="https://png.pngtree.com/png-vector/20220604/ourmid/pngtree-children-riding-on-viking-swing-isolated-illustration-vector-png-image_36995022.png" alt="Histamine">
+    <div>Histamine: The Wakeful Pirate Ship</div>
+  </div>
+</div>
+
+<audio id="bg-music" loop>
+  <source src="{{ url_for('static', filename='background.mp3') }}" type="audio/mpeg">
+</audio>
+
+<script>
+  const data = {
+    adrenaline: { title: "Adrenaline: The Action Drop Tower", image: "static/The Action Drop Tower.png", text: "Adrenaline surges like a sudden spark in exciting or stressful moments. It teams up with the amygdala in your limbic system to speed up your heart and sharpen focus. Think of that rush before a test or game. It helps you react quickly. Yet too much leaves you feeling shaky. A few deep breaths can bring back your calm. Remember it is your body's way of looking out for you. This quick boost connects to the limbic system's fear processing center. It prepares you for action in real life situations like public speaking or sports." },
+    dopamine: { title: "Dopamine: The Rollercoaster of Rewards", image: "static/Rollercoaster of Rewards.png", text: "Dopamine feels like a warm glow after something good happens. It works with the amygdala in the limbic system to motivate and bring joy. Imagine the happiness from acing a quiz or sharing laughs. It encourages you to keep going. When levels dip you might feel low. Small daily wins like a kind word to yourself can help lift it back up. It is all about celebrating the little things in life. This messenger drives reward pathways in the brain. It influences how we chase goals and find pleasure in everyday achievements." },
+    serotonin: { title: "Serotonin: The Chill Ferris Wheel", image: "static/The Chill Ferris Wheel.png", text: "Serotonin wraps you in a sense of steady calm and balance. It partners with the hippocampus in the limbic system to regulate mood and sleep. Picture that quiet confidence when with friends or focused on tasks. It keeps things smooth. Low times might bring sadness after hard days. Gentle walks or sunlight can nudge it higher. It is your inner anchor helping you navigate everyday ups and downs with grace. This chemical stabilizes emotional states. It plays a key role in memory formation tied to feelings." },
+    endorphins: { title: "Endorphins: The Dance Party Bumper Cars", image: "static/The Dance Party Bumper Cars.png", text: "Endorphins lift your spirits like a natural hug from inside. They connect with the hypothalamus in the limbic system to ease pain and spark happiness. Recall the glow after exercise or giggles with pals. They make tough moments bearable. Invite them in with fun movement or shared joy. It is your body's gentle reminder that good feelings are always within reach even on rough days. These peptides act as painkillers. They boost mood during social interactions and physical activity." },
+    oxytocin: { title: "Oxytocin: The Friendship Carousel", image: "static/Friendship Carousel.png", text: "Oxytocin weaves bonds of trust and closeness with those around you. It soothes the amygdala in the limbic system to lower stress and grow empathy. Feel it in a warm hug or deep talk with a friend. It strengthens connections that support you. Nurture it through kind gestures. It is the quiet magic that makes relationships feel safe and healing when life gets heavy. This hormone enhances social bonding. It reduces fear responses in emotional situations." },
+    cortisol: { title: "Cortisol: The Haunted House Alarm", image: "static/Haunted House Alarm.png", text: "Cortisol acts as your inner watchdog for stress. It interacts with the hypothalamus in the limbic system to heighten awareness in tough spots. Envision sharpening up for a presentation. It aids focus. Lingering highs from worries can wear you out. Notice the signs and turn to music or a walk to ease it. It is just trying to protect you. Give yourself grace to find balance again. This hormone regulates stress responses. It interacts with multiple limbic areas for survival instincts." },
+    gaba: { title: "GABA: The Lazy River Ride", image: "https://thumbs.dreamstime.com/b/people-floating-lazy-river-pool-vector-illustration-52100311.jpg", text: "GABA gently quiets racing thoughts for true relaxation. It balances the amygdala in the limbic system to soften anxiety. Enjoy it after a busy day or before sleep. It brings peace when things feel too much. Cozy reads or quiet time invite it in. It is your soft landing spot helping you recharge with kindness toward yourself. This neurotransmitter inhibits overactivity. It promotes calm in high-stress scenarios." },
+    glutamate: { title: "Glutamate: The Swing Ride Thrill", image: "https://thumbs.dreamstime.com/b/carnival-swing-ride-isolated-white-background-d-render-40657059.jpg", text: "Glutamate sparks energy for learning and fresh ideas. As a key messenger it links with the hippocampus in the limbic system. Stay engaged in studies or hobbies. It fuels curiosity. Keep it steady to avoid overload. One step at a time makes it a friend in your journey of growth. This excitatory chemical supports synaptic plasticity. It aids in forming emotional memories." },
+    acetylcholine: { title: "Acetylcholine: The Maze Adventure", image: "https://thumbs.dreamstime.com/b/cartoon-mouse-exploring-giant-maze-made-cheese-bird-s-eye-view-giant-cheese-maze-mouse-s-dream-world-394581368.jpg", text: "Acetylcholine sharpens memory and focus for life's twists. It ties emotions to experiences via the hippocampus in the limbic system. Navigate thoughts like prepping for tests. It builds clarity. Simple notes or puzzles strengthen it. It is your guide through the maze reminding you of your inner strength. This transmitter enhances cognitive functions. It connects to attention and learning processes." },
+    norepinephrine: { title: "Norepinephrine: The Alertness Rapids", image: "https://media.istockphoto.com/id/157111048/vector/rafting-action.jpg?s=612x612&w=0&k=20&c=mIb8RJYF5eXmwtFkv8laz7J9IAZr9VwAFlGvP-M55O4=", text: "Norepinephrine boosts alertness for life's adventures. It quickens responses through the amygdala in the limbic system. Feel it in concerts or games. It keeps you engaged. Watch for anxiety spikes and ease with calm steps. It is your spark of energy wrapped in care for your well-being. This catecholamine heightens arousal. It modulates vigilance in emotional contexts." },
+    glycine: { title: "Glycine: The Calming Teacups", image: "https://thumbs.dreamstime.com/b/tea-cup-ride-amusement-park-carnival-fun-theme-attraction-vector-design-generative-ai-depicting-attractions-perfect-374748167.jpg", text: "Glycine invites rest and better sleep with soft ease. It smooths responses in the limbic system. Like a light spin it soothes after active days. For restlessness try evening routines. It is a tender nudge toward peace helping you face feelings with warmth. This amino acid aids inhibition. It supports relaxation in neural pathways." },
+    histamine: { title: "Histamine: The Wakeful Pirate Ship", image: "https://png.pngtree.com/png-vector/20220604/ourmid/pngtree-children-riding-on-viking-swing-isolated-illustration-vector-png-image_36995022.png", text: "Histamine sustains energy and appetite through the day. It shapes moods in the limbic system like a lively swing. Understand it to handle tiredness. Small adjustments bring gentle harmony. It is your daily companion encouraging balance with compassion. This compound regulates wakefulness. It influences histamine receptors in emotional regulation." }
+  };
+
+  function openModal(item) {
+    document.getElementById("title").innerText = item.title;
+    document.getElementById("image").src = item.image;
+    document.getElementById("text").innerText = item.text;
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("modal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("modal").style.display = "none";
+  }
+
+  // Dark Mode
+  const darkModeBtn = document.getElementById('dark-mode-toggle');
+  darkModeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    darkModeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+  });
+
+  // Sound Controls
+  const soundBtn = document.getElementById('soundBtn');
+  const soundIcon = document.getElementById('soundIcon');
+  const audio = document.getElementById('bg-music');
+  const volumeSlider = document.getElementById('volume');
+
+  let isMuted = false;
+  audio.volume = 0.5;
+  volumeSlider.value = 0.5;
+  audio.play().catch(() => {});
+
+  soundBtn.addEventListener('click', () => {
+    isMuted = !isMuted;
+    audio.muted = isMuted;
+    soundIcon.textContent = isMuted ? '🔇' : '🔊';
+  });
+
+  volumeSlider.addEventListener('input', (e) => {
+    audio.volume = e.target.value;
+    if (audio.volume > 0 && isMuted) {
+      isMuted = false;
+      audio.muted = false;
+      soundIcon.textContent = '🔊';
+    }
+  });
+</script>
+
+</body>
+</html>

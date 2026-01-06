@@ -127,13 +127,6 @@
     .simulator-container {
       padding: 2rem;
     }
-    .brain-image {
-      max-width: 350px;
-      margin-bottom: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: opacity 0.3s;
-    }
 
     h2 {
       font-size: 1.6rem;
@@ -159,6 +152,8 @@
       min-height: 160px;
       gap: 1rem;
     }
+
+    /* BOX SIZES NOW MATCH HYPOTHALAMUS PAGE EXACTLY */
     .section-1, .section-4, .section-5 {
       background: var(--speech-bubble-bg);
       border-left: 6px solid var(--speech-bubble-border);
@@ -168,20 +163,39 @@
       max-width: 500px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       text-align: left;
-      height: 70px;
       overflow: hidden;
     }
-    .section-4 {
-      height: 70px;
+
+    .section-1 {
+      width: 480px;
+      min-height: 70px;
     }
+
+    .section-4 {
+      width: 520px;
+      min-height: 70px;
+    }
+
+    .section-5 {
+      width: 420px;
+      min-height: 70px;
+    }
+
     .swirl-visual {
-      margin: 14px 0 6px;
+      margin: 40px 0 30px;
     }
     #brainImage {
-      width: 250px;
+      width: 600px; /* SAME AS HYPOTHALAMUS */
+      max-width: 90vw;
       display: block;
-      margin: 12px auto;
+      margin: 0 auto;
       z-index: 10;
+      border-radius: 30px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.4s ease;
+    }
+    #brainImage:hover {
+      transform: scale(1.03);
     }
     .zoom-effect {
       animation: zoomToFull 1000ms cubic-bezier(0.2, 0.9, 0.25, 1) forwards;
@@ -371,9 +385,6 @@
       .simulator-container {
         padding: 1rem;
       }
-      .brain-image {
-        max-width: 250px;
-      }
       h2 {
         font-size: 1.4rem;
       }
@@ -402,6 +413,9 @@
       .carousel-btn.next {
         right: -20px;
       }
+      #brainImage {
+        width: 450px;
+      }
     }
   </style>
 </head>
@@ -409,11 +423,11 @@
   <header class="top-dock">
     <button id="darkModeToggle" class="dark-mode-btn">🌙</button>
     <div class="nav-links">
-      <a href="/homepage">Home</a>
-      <a href="/why_am_i_feeling">Why am I feeling?</a>
-      <a href="/what_am_i_feeling">What am I feeling?</a>
-      <a href="/managing_emotions">Managing emotions</a>
-      <a href="/mood_messengers">Mood Messengers</a>
+      <a href="/">Home</a>
+      <a href="/why-am-i-feeling">Why am I feeling?</a>
+      <a href="/managing-emotions">Managing emotions</a>
+      <a href="/what-am-i-feeling">What am I feeling?</a>
+      <a href="/mood-messengers">Mood Messengers</a>
     </div>
     <div class="audio-controls">
       <audio id="bg-music" autoplay loop>
@@ -534,53 +548,53 @@
 
     let carouselItems = null;
 
-      const sections = [
-  {
-    title: "Thalamus Introduction",
-    className: "section-1",
-    points: [
-      "The thalamus is a small, egg-shaped structure deep in the center of your brain.",
-      "It acts as the brain’s relay station, receiving and directing sensory information to the correct areas."
-    ]
-  },
-  {
-    title: "What Does it Do?",
-    className: "section-1",
-    points: [
-      "The thalamus receives sensory information like sight, sound, touch, and taste, filtering what’s important to focus on.",
-      "It sends signals to the correct brain regions so you can process and react appropriately.",
-      "It helps you concentrate on tasks by tuning out distractions from your environment.",
-      "It also plays a key role in regulating sleep, alertness, and general awareness."
-    ]
-  },
-  {
-    title: "Why Does it Matter?",
-    className: "carousel",
-    points: [
-      "The thalamus ensures that sensory signals reach the right brain areas, keeping perception accurate and organized.",
-      "Without it, attention, memory, and processing sensory information would be chaotic and confusing.",
-      "It helps you respond quickly to your surroundings and maintain focus in daily life.",
-      "Problems in the thalamus can affect sleep patterns, alertness, and the way you interpret sensory input."
-    ]
-  },
-  {
-    title: "How Do I Calm it Down?",
-    className: "section-4",
-    points: [
-      "🍃 I can practice mindfulness or meditation so my thalamus filters distractions more effectively. 🍃",
-      "🍃 I can get enough sleep to recharge my thalamus for better focus and awareness. 🍃",
-      "🍃 I can reduce sensory overload by seeking quiet spaces or dim lighting when overwhelmed. 🍃"
-    ]
-  },
-  {
-    title: "Fun Fact",
-    className: "section-5",
-    points: [
-      "🤔 Did you know? The thalamus acts like a traffic controller, deciding which sensory signals reach the rest of your brain.",
-      "🎵 Bonus fact: Sounds and music pass through your thalamus before reaching your brain’s emotional centers."
-    ]
-  }
-];
+    const sections = [
+      {
+        title: "Thalamus Introduction",
+        className: "section-1",
+        points: [
+          "The thalamus is a small, egg-shaped structure deep in the center of your brain.",
+          "It acts as the brain’s relay station, receiving and directing sensory information to the correct areas."
+        ]
+      },
+      {
+        title: "What Does it Do?",
+        className: "section-1",
+        points: [
+          "The thalamus receives sensory information like sight, sound, touch, and taste, filtering what’s important to focus on.",
+          "It sends signals to the correct brain regions so you can process and react appropriately.",
+          "It helps you concentrate on tasks by tuning out distractions from your environment.",
+          "It also plays a key role in regulating sleep, alertness, and general awareness."
+        ]
+      },
+      {
+        title: "Why Does it Matter?",
+        className: "carousel",
+        points: [
+          "The thalamus ensures that sensory signals reach the right brain areas, keeping perception accurate and organized.",
+          "Without it, attention, memory, and processing sensory information would be chaotic and confusing.",
+          "It helps you respond quickly to your surroundings and maintain focus in daily life.",
+          "Problems in the thalamus can affect sleep patterns, alertness, and the way you interpret sensory input."
+        ]
+      },
+      {
+        title: "How Do I Calm it Down?",
+        className: "section-4",
+        points: [
+          "🍃 I can practice mindfulness or meditation so my thalamus filters distractions more effectively. 🍃",
+          "🍃 I can get enough sleep to recharge my thalamus for better focus and awareness. 🍃",
+          "🍃 I can reduce sensory overload by seeking quiet spaces or dim lighting when overwhelmed. 🍃"
+        ]
+      },
+      {
+        title: "Fun Fact",
+        className: "section-5",
+        points: [
+          "🤔 Did you know? The thalamus acts like a traffic controller, deciding which sensory signals reach the rest of your brain.",
+          "🎵 Bonus fact: Sounds and music pass through your thalamus before reaching your brain’s emotional centers."
+        ]
+      }
+    ];
 
     let currentSection = 0;
     let currentPoint = 0;
@@ -797,20 +811,16 @@
     }
 
     if (backBtn && nextBtn && restartBtn) {
-      // Click anywhere to advance
       document.addEventListener("click", (e) => {
         if (!e.target.closest('.nav-buttons') && !e.target.closest('.restart-button') && !e.target.closest('.continue-button') && !e.target.closest('.carousel-btn')) {
           handleAdvance();
         }
       });
 
-      // Back button
       backBtn.addEventListener("click", handleBack);
 
-      // Next button
       nextBtn.addEventListener("click", handleAdvance);
 
-      // Restart button
       restartBtn.addEventListener("click", () => {
         currentSection = 0;
         currentPoint = 0;
@@ -819,7 +829,6 @@
         displayContent();
       });
 
-      // Keyboard navigation
       backBtn.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
