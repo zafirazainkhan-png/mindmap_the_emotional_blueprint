@@ -439,7 +439,7 @@
       </div>
       <div class="audio-controls">
         <audio id="bg-music" autoplay loop>
-          <source src="/static/background.mp3" type="audio/mpeg" />
+          <source src="{{ url_for('static', filename='background.mp3') }}" type="audio/mpeg" />
         </audio>
         <input
           type="range"
@@ -457,7 +457,7 @@
       <div class="swirl-visual">
         <img
           id="brainImage"
-          src="/static/Hippocampus.png"
+          src="{{ url_for('static', filename='hippocampus.png') }}"
           alt="Swirling brain (hippocampus)"
           loading="lazy"
         />
@@ -525,8 +525,8 @@
         function updateImage() {
           const isDark = html.getAttribute("data-theme") === "dark";
           brainImage.src = isDark
-            ? "/static/Hippocampus Dark Mode.png"
-            : "/static/Hippocampus.png";
+            ? "{{ url_for('static', filename='hippocampus_dark_mode.png') }}"
+            : "{{ url_for('static', filename='hippocampus.png') }}";
         }
       })();
 
