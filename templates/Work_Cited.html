@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Work Cited - MindMap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Nunito", sans-serif;
+        background: linear-gradient(135deg, #f0fdf4 0%, #e0f7fa 100%);
+        margin: 0;
+        padding: 0;
+        color: #1e4d2b;
+        min-height: 100vh;
+        transition:
+          background 0.5s ease,
+          color 0.5s ease;
+        overflow-x: hidden;
+      }
+
+      body.dark-mode {
+        background: #121212;
+        color: #e0e0e0;
+      }
+
+      .frost-swirl {
+        height: 60px;
+        background: linear-gradient(
+          to bottom,
+          rgba(240, 253, 244, 0.95),
+          transparent
+        );
+        position: relative;
+        overflow: hidden;
+      }
+
+      header {
+        text-align: center;
+        padding: 30px 20px 40px;
+      }
+
+      h1 {
+        font-family: "Fredoka One", cursive;
+        font-size: 3.5rem;
+        color: #2d6a4f;
+        margin: 10px 0;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      body.dark-mode h1 {
+        color: #95d5b2;
+      }
+
+      nav {
+        margin-bottom: 20px;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      nav li a {
+        text-decoration: none;
+        color: #40916c;
+        font-weight: 700;
+        padding: 10px 20px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(5px);
+        transition: all 0.3s;
+      }
+
+      nav li a:hover {
+        background: #52b788;
+        color: white;
+      }
+
+      body.dark-mode nav li a {
+        color: #95d5b2;
+        background: rgba(30, 40, 50, 0.6);
+      }
+
+      body.dark-mode nav li a:hover {
+        background: #2d6a4f;
+        color: white;
+      }
+
+      .citations-container {
+        max-width: 1000px;
+        margin: 0 auto 60px;
+        padding: 45px 40px;
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(14px);
+        border-radius: 40px;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+        border: 2px solid rgba(255, 255, 255, 0.8);
+      }
+
+      body.dark-mode .citations-container {
+        background: rgba(30, 40, 50, 0.75);
+        border: 2px solid rgba(80, 100, 120, 0.4);
+      }
+
+      h2 {
+        font-family: "Fredoka One", cursive;
+        font-size: 2.2rem;
+        color: #2d6a4f;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        border-bottom: 3px solid #74c69d;
+        display: inline-block;
+      }
+
+      body.dark-mode h2 {
+        color: #95d5b2;
+        border-bottom-color: #40916c;
+      }
+
+      ol {
+        padding-left: 20px;
+        line-height: 1.8;
+        text-align: left;
+      }
+
+      li {
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+      }
+
+      a {
+        color: #40916c;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+
+      a:hover {
+        color: #2d6a4f;
+        text-decoration: underline;
+      }
+
+      body.dark-mode a {
+        color: #95d5b2;
+      }
+
+      body.dark-mode a:hover {
+        color: #74c69d;
+      }
+
+      .return-button {
+        display: inline-block;
+        margin: 40px auto;
+        padding: 15px 30px;
+        background: #52b788;
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .return-button:hover {
+        background: #2d6a4f;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      footer {
+        text-align: center;
+        padding: 35px 20px;
+        background: linear-gradient(90deg, #74c69d, #52b788);
+        color: white;
+        font-size: 1.1rem;
+        margin-top: 60px;
+      }
+
+      body.dark-mode footer {
+        background: linear-gradient(90deg, #2d6a4f, #40916c);
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+        .citations-container {
+          padding: 30px 20px;
+        }
+        nav ul {
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="frost-swirl"></div>
+
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/what-am-i-feeling">What Am I Feeling</a></li>
+          <li><a href="/why-am-i-feeling">Why Am I Feeling</a></li>
+          <li><a href="/managing-emotions">Managing Your Emotions</a></li>
+        </ul>
+      </nav>
+      <h1>Work Cited</h1>
+    </header>
+
+    <div class="citations-container">
+      <h2>Images</h2>
+      <ol>
+        <li>
+          Concept, B. (2024, October 30). Montage vector illustration composed
+          from paper cut out speech...
+          <a
+            href="https://www.istockphoto.com/vector/overthinking-brain-concept-gm2181889621-600877232"
+            >iStock</a
+          >.
+        </li>
+        <li>
+          malabar. (2024, July 20). worried expression drawing cartoon.
+          <a
+            href="https://www.pinterest.com/pin/worried-expression-drawing-cartoon-in-2024--909445718503150959/"
+            >Pinterest</a
+          >.
+        </li>
+        <li>
+          Avoid Clipart Transparent Background, Avoiding Man, Male, Avoid,
+          Shelter PNG Image For Free Download. (2021).
+          <a href="https://pngtree.com/freepng/avoiding-man_6999332.html"
+            >Pngtree</a
+          >.
+        </li>
+        <li>
+          (2026).
+          <a
+            href="https://www.clipartmax.com/png/small/8-86438_anger-inside-out-transparent-png-clip-art-image-inside-out-anger.png"
+            >Clipartmax.com</a
+          >.
+        </li>
+        <li>
+          (2026b).
+          <a href="https://clipart-library.com/img/1849569.jpg"
+            >Clipart-Library.com</a
+          >.
+        </li>
+        <li>
+          vector. (n.d.). Retrieved January 6, 2026, from
+          <a
+            href="https://img.freepik.com/free-vector/joyful-cartoon-girl-with-pigtails-bright-outfit_1308-181707.jpg?semt=ais_hybrid&w=740&q=80"
+            >Link</a
+          >.
+        </li>
+        <li>
+          (2026c).
+          <a
+            href="https://img.freepik.com/premium-vector/vector-happy-excited-woman-cartoon-illustration_844724-1222.jpg"
+            >Freepik.com</a
+          >.
+        </li>
+        <li>
+          (2026d).
+          <a
+            href="https://media.istockphoto.com/id/1199390477/vector/illustration-of-a-men-holding-many-hearts.jpg?s=612x612&w=0&k=20&c=lQVJ2CAIS-XZMcDMs58eMKzDEDWEKs9yj52R-dYGvN4="
+            >Istockphoto.com</a
+          >.
+        </li>
+        <li>
+          Playfulness Vectors - Download Free High-Quality Vectors from Freepik
+          | Freepik. (2026).
+          <a href="https://www.freepik.com/vectors/playfulness/33">Freepik</a>.
+        </li>
+        <li>
+          33580636 - Online Store. (2021).
+          <a href="https://freeloftsk.click/product_details/33580636.html"
+            >Freeloftsk.click</a
+          >.
+        </li>
+        <li>
+          dreamstimes. (n.d.). Empathy Cartoon Illustrations & Vectors.
+          Retrieved January 6, 2026, from
+          <a href="https://www.dreamstime.com/illustration/empathy-cartoon.html"
+            >Link</a
+          >.
+        </li>
+        <li>
+          Empathy PNG, Vector, PSD, and Clipart With Transparent Background for
+          Free Download | Pngtree. (2022).
+          <a href="https://pngtree.com/free-png-vectors/empathy">Pngtree</a>.
+        </li>
+        <li>
+          trust clipart free #5897574 | Clipart Library. (2026).
+          <a href="https://clipart-library.com/clipart/trust-clipart-free-0.htm"
+            >Clipart-Library.com</a
+          >.
+        </li>
+        <li>
+          G, G. (2014, August 2). Colorful Diversity Word Art.
+          <a href="https://www.pinterest.com/pin/110127153363166792/"
+            >Pinterest</a
+          >.
+        </li>
+        <li>
+          Ilust AC. (2026). Free Vectors |.
+          <a href="https://en.ac-illust.com/search/">Ac-Illust.com</a>.
+        </li>
+        <li>
+          Sadness Inside Out Watercolor Clipart: Cartoon PNG (Digital File).
+          (2024).
+          <a
+            href="https://www.etsy.com/listing/1767214789/sadness-inside-out-watercolor-clipart"
+            >Etsy.com; Etsy</a
+          >.
+        </li>
+        <li>
+          (2025).
+          <a
+            href="https://www.istockphoto.com/illustrations/clip-art-of-a-grief"
+            >Istockphoto.com</a
+          >.
+        </li>
+        <li>
+          Securly - Geolocation sharing. (2026).
+          <a
+            href="https://www.istockphoto.com/vector/sad-girl-alone-at-home-gm1486555476-512265468"
+            >Istockphoto.com</a
+          >.
+        </li>
+        <li>
+          Character. (2026). Character Despair Stock Illustrations.
+          <a
+            href="https://www.dreamstime.com/illustration/character-despair.html"
+            >Dreamstime</a
+          >.
+        </li>
+        <li>
+          Line Figure Depressed. (2012, November 20).
+          <a
+            href="https://www.presentermedia.com/powerpoint-clipart/line-figure-depressed-pid-10078"
+            >PresenterMedia</a
+          >.
+        </li>
+        <li>
+          Curiosity brain concept illustration | Premium Vector. (2022).
+          <a
+            href="https://www.freepik.com/premium-vector/curiosity-brain-concept-illustration_30576698.html"
+            >Freepik</a
+          >.
+        </li>
+        <li>
+          (2021). Boy and his interests. Kids clip art, doodle clipart, svg.
+          <a
+            href="https://designbundles.net/optimistic-kids-art/1143906-boy-and-his-interests-kids-clip-art-doodle-clipart"
+            >DesignBundles.net</a
+          >.
+        </li>
+        <li>
+          Awee Stickers - Find & Share on GIPHY. (2019).
+          <a href="https://giphy.com/explore/awee-stickers">Giphy.com</a>.
+        </li>
+        <li>
+          i wonder cliparts #5627917 | Clipart Library. (2024).
+          <a
+            href="https://clipart-library.com/clipart/i-wonder-cliparts-02024.html"
+            >Clipart-Library.com</a
+          >.
+        </li>
+        <li>
+          Situation Clipart Surprised. (2018).
+          <a
+            href="https://www.clipartmax.com/middle/m2H7G6b1Z5m2Z5i8_situation-clipart-surprised-surprised-image-clip-art/"
+            >ClipartMax.com</a
+          >.
+        </li>
+        <li>
+          Stock, E. (2026). Embarrassed Stock Illustrations.
+          <a href="https://www.dreamstime.com/illustration/embarrassed.html"
+            >Dreamstime</a
+          >.
+        </li>
+        <li>
+          Stock, B. (2026). Shame Woman Beautiful Stock Illustrations.
+          <a
+            href="https://www.dreamstime.com/illustration/shame-woman-beautiful.html"
+            >Dreamstime</a
+          >.
+        </li>
+        <li>
+          Woman guilty isolated. (2026).
+          <a
+            href="https://www.shutterstock.com/search/woman-guilty-isolated?image_type=illustration&page=4"
+            >Shutterstock</a
+          >.
+        </li>
+        <li>
+          100 Humiliated Stock Illustrations | DepositPhotos. (2024).
+          <a href="https://depositphotos.com/illustrations/humiliated.html"
+            >DepositPhotos</a
+          >.
+        </li>
+        <li>
+          muhamad chabib alwi. (2026). Social comparison anxiety.
+          <a
+            href="https://www.vecteezy.com/vector-art/8515313-social-comparison-anxiety-compare-yourself-to-others-discourage-of-failure-loser-or-self-motivation-problem-concept-sad-depressed-man-stand-on-his-hand-compare-himself-with-winning-colleague"
+            >Vecteezy</a
+          >.
+        </li>
+        <li>
+          (2025b).
+          <a href="https://www.istockphoto.com/illustrations/insecurity"
+            >Istockphoto.com</a
+          >.
+        </li>
+        <li>
+          Boy. (2019). Boy Panic Stock Illustrations.
+          <a href="https://www.dreamstime.com/illustration/boy-panic.html"
+            >Dreamstime</a
+          >.
+        </li>
+        <li>
+          Human verification | Pngtree. (2026).
+          <a href="https://pngtree.com/so/helpless-man">Pngtree.com</a>.
+        </li>
+        <li>
+          (2026f).
+          <a
+            href="https://img.freepik.com/free-vector/thrilled-people-free-fall-tower-attraction-amusement-park-flat-vector-illustration_1284-84265.jpg?semt=ais_hybrid&w=740&q=80"
+            >Freepik.com</a
+          >.
+        </li>
+        <li>
+          Freepik. (2023). Roller coaster flat set.
+          <a
+            href="https://www.freepik.com/free-vector/roller-coaster-flat-set-with-cityscape-scenery-silhouettes-amusement-park-buildings-people-taking-ride-vector-illustration_41917430.html"
+            >Freepik</a
+          >.
+        </li>
+        <li>
+          Exciting Bumper Car Ride. (2025).
+          <a
+            href="https://www.shutterstock.com/image-vector/exciting-bumper-car-ride-enjoying-thrill-2642794235?trackingId=057b97f4-c4f1-467c-94bf-0f808f96e7d8"
+            >Shutterstock</a
+          >.
+        </li>
+        <li>
+          Zaidan, S. A. (2026). Cartoon little children on the carousel.
+          <a
+            href="https://www.vecteezy.com/vector-art/43037530-cartoon-little-children-on-the-carousel-with-horses"
+            >Vecteezy</a
+          >.
+        </li>
+        <li>
+          (2026g).
+          <a
+            href="https://img.freepik.com/free-vector/flat-halloween-house-illustration_23-2149068061.jpg?semt=ais_hybrid&w=740&q=80"
+            >Freepik.com</a
+          >.
+        </li>
+        <li>
+          Ferris Wheel Scene Stock Illustrations. (2026).
+          <a
+            href="https://www.dreamstime.com/illustration/ferris-wheel-scene.html"
+            >Dreamstime</a
+          >.
+        </li>
+        <li>
+          (2026h).
+          <a
+            href="https://thumbs.dreamstime.com/b/people-floating-lazy-river-pool-vector-illustration-52100311.jpg"
+            >Dreamstime.com</a
+          >.
+        </li>
+        <li>
+          (2026i).
+          <a
+            href="https://thumbs.dreamstime.com/b/carnival-swing-ride-isolated-white-background-d-render-40657059.jpg"
+            >Dreamstime.com</a
+          >.
+        </li>
+        <li>
+          (2026j).
+          <a
+            href="https://thumbs.dreamstime.com/b/cartoon-mouse-exploring-giant-maze-made-cheese-bird-s-eye-view-giant-cheese-maze-mouse-s-dream-world-394581368.jpg"
+            >Dreamstime.com</a
+          >.
+        </li>
+        <li>
+          (2026k).
+          <a
+            href="https://media.istockphoto.com/id/157111048/vector/rafting-action.jpg?s=612x612&w=0&k=20&c=mIb8RJYF5eXmwtFkv8laz7J9IAZr9VwAFlGvP-M55O4="
+            >Istockphoto.com</a
+          >.
+        </li>
+        <li>
+          (2026l).
+          <a
+            href="https://thumbs.dreamstime.com/b/tea-cup-ride-amusement-park-carnival-fun-theme-attraction-vector-design-generative-ai-depicting-attractions-perfect-374748167.jpg"
+            >Dreamstime.com</a
+          >.
+        </li>
+        <li>
+          (2026m).
+          <a
+            href="https://png.pngtree.com/png-vector/20220604/ourmid/pngtree-children-riding-on-viking-swing-isolated-illustration-vector-png-image_36995022.png"
+            >Pngtree.com</a
+          >.
+        </li>
+      </ol>
+
+      <h2>Research</h2>
+      <ol start="46">
+        <li>
+          Cleveland Clinic. (2024, April 6). Limbic system: What it is,
+          function, parts & location.
+          <a href="https://my.clevelandclinic.org/health/body/limbic-system"
+            >Cleveland Clinic</a
+          >.
+        </li>
+        <li>
+          Rolls, E. T. (2019). The cingulate cortex and limbic systems for
+          emotion, action, and memory. Brain Structure and Function.
+          <a href="https://doi.org/10.1007/s00429-019-01945-2">DOI Link</a>.
+        </li>
+        <li>
+          Psych Explained. (2018). Hippocampus and memories [Video].
+          <a href="https://www.youtube.com/watch?v=51pPsbV-e9s">YouTube</a>.
+        </li>
+        <li>
+          Mandal, A. (2023, June 20). Hypothalamus: Males and females.
+          <a
+            href="https://www.news-medical.net/health/Hypothalamus-Males-and-Females.aspx"
+            >News-Medical</a
+          >.
+        </li>
+        <li>
+          NumberAnalytics. (n.d.). Ultimate guide: Hypothalamus, neurobiology &
+          emotion. [Source unavailable].
+        </li>
+        <li>
+          Psych Explained. (2019). What is the thalamus? [Video].
+          <a href="https://www.youtube.com/watch?v=JBgt5mDRY_g">YouTube</a>.
+        </li>
+        <li>
+          Amen Clinics. (2023, August 3). How your brain’s thalamus impacts your
+          moods.
+          <a
+            href="https://www.amenclinics.com/blog/how-your-brains-thalamus-impacts-your-moods/"
+            >Amen Clinics</a
+          >.
+        </li>
+        <li>
+          Psych Explained. (2018). The amygdala and fear conditioning [Video].
+          <a href="https://www.youtube.com/watch?v=KMQIuLQG09o">YouTube</a>.
+        </li>
+        <li>
+          Marschall, A. (2023, May 20). The role of the amygdala in human
+          behavior and emotion.
+          <a
+            href="https://www.verywellmind.com/the-role-of-the-amygdala-in-human-behavior-and-emotion-7499223"
+            >Verywell Mind</a
+          >.
+        </li>
+        <li>
+          Harvard Health Publishing. (n.d.). Dopamine: The pathway to pleasure.
+          <a
+            href="https://www.health.harvard.edu/mind-and-mood/dopamine-the-pathway-to-pleasure"
+            >Harvard Health</a
+          >.
+        </li>
+        <li>
+          Harvard Health Publishing. (n.d.). Serotonin: The natural mood
+          booster.
+          <a
+            href="https://www.health.harvard.edu/mind-and-mood/serotonin-the-natural-mood-booster"
+            >Harvard Health</a
+          >.
+        </li>
+        <li>
+          Perrotta, G. (2020). Oxytocin and the role of “regulator of emotions”.
+          <a href="https://doi.org/10.17352/2455-5460.000043">DOI Link</a>.
+        </li>
+        <li>
+          Harvard Health Publishing. (n.d.). Endorphins: The brain’s natural
+          pain reliever.
+          <a
+            href="https://www.health.harvard.edu/mind-and-mood/endorphins-the-brains-natural-pain-reliever"
+            >Harvard Health</a
+          >.
+        </li>
+        <li>
+          Wirth, M. M., et al. (2011). The effect of cortisol on emotional
+          responses.
+          <a href="https://doi.org/10.1016/j.psyneuen.2010.11.010">DOI Link</a>.
+        </li>
+        <li>
+          Kao, C.-H. (2024). Neurotransmitters and their influence on mental
+          health disorders.
+          <a href="https://doi.org/10.47532/npoa.2024.7(6).284-286">DOI Link</a
+          >.
+        </li>
+        <li>
+          Forest Psychological Clinic. (2025, May 1). Understanding teenage
+          emotions.
+          <a
+            href="https://forestpsychologicalclinic.com/post/understanding-teenage-emotions"
+            >Forest Psych</a
+          >.
+        </li>
+        <li>
+          Fattorini, S. (2018, May 21). The limbic system: The accelerator in a
+          teenage brain.
+          <a
+            href="https://sftherapylondon.com/the-limbic-system-the-accelerator-in-a-teenage-brain/"
+            >SF Therapy</a
+          >.
+        </li>
+        <li>
+          Guy-Evans, O. (n.d.). Primary and secondary emotions.
+          <a
+            href="https://www.simplypsychology.org/primary-and-secondary-emotions.html"
+            >SimplyPsychology</a
+          >.
+        </li>
+        <li>
+          Lumen Learning. (n.d.). The biology of emotions.
+          <a
+            href="https://courses.lumenlearning.com/waymaker-psychology/chapter/the-biology-of-emotions/"
+            >Link</a
+          >.
+        </li>
+        <li>
+          Gagnon, D. (n.d.). Why do we have emotions?
+          <a
+            href="https://www.montrealcbtpsychologist.com/storage/app/media/why-do-we-have-emotions.pdf"
+            >PDF Link</a
+          >.
+        </li>
+        <li>
+          Verywell Mind. (n.d.). Tips to reduce stress.
+          <a href="https://www.verywellmind.com/tips-to-reduce-stress-3145195"
+            >Verywell Mind</a
+          >.
+        </li>
+        <li>
+          Kubala, J., & Jennings, K.-A. (2025, February 3). 16 simple ways to
+          relieve stress.
+          <a
+            href="https://www.healthline.com/nutrition/16-ways-relieve-stress-anxiety"
+            >Healthline</a
+          >.
+        </li>
+        <li>
+          Tufts University. (2024, April 1). Teen behavior, explained by a
+          neuroscientist.
+          <a
+            href="https://medicine.tufts.edu/news-events/news/teen-behavior-explained-neuroscientist"
+            >Tufts.edu</a
+          >.
+        </li>
+        <li>
+          LogRocket Blog. (2024, June 13). 14 principles for designing products
+          for teenagers.
+          <a
+            href="https://blog.logrocket.com/ux-design/14-principles-designing-products-for-teenagers/"
+            >LogRocket</a
+          >.
+        </li>
+        <li>
+          Visualmodo. (2024, October 1). 8 practical tips for designing websites
+          for teens.
+          <a
+            href="https://visualmodo.com/8-practical-tips-for-designing-websites-for-teens/"
+            >Visualmodo</a
+          >.
+        </li>
+        <li>
+          Figma. (n.d.). What is color theory?
+          <a href="https://www.figma.com/resource-library/what-is-color-theory/"
+            >Figma</a
+          >.
+        </li>
+        <li>
+          Your Digital Solution. (n.d.). The role of visual content in user
+          engagement.
+          <a
+            href="https://yourdigitalsolution.com.au/the-role-of-visual-content-in-user-engagement/"
+            >Link</a
+          >.
+        </li>
+        <li>
+          Sahiti, Q., & Stamp, J. A. (2021). The use of visuals in undergraduate
+          neuroscience education.
+          <a href="https://doi.org/10.1177/00986283211000326">DOI Link</a>.
+        </li>
+        <li>
+          UXPin. (2024, August 2). Color schemes for apps.
+          <a href="https://www.uxpin.com/studio/blog/color-schemes-for-apps/"
+            >UXPin</a
+          >.
+        </li>
+        <li>
+          Pianov, V. (2024, June 13). Choosing colors for app purpose.
+          <a
+            href="https://cieden.com/book/sub-atomic/color/choosing-colors-for-app-purpose"
+            >Cieden</a
+          >.
+        </li>
+        <li>Brown, B. (2021). Atlas of the heart. Penguin Random House.</li>
+        <li>
+          Barrett, L. F. (2017). How emotions are made. Houghton Mifflin
+          Harcourt.
+        </li>
+        <li>
+          DK Publishing. (2018). How psychology works. Dorling Kindersley.
+        </li>
+      </ol>
+
+      <div style="text-align: center">
+        <a href="/" class="return-button">Return to Home Page</a>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        © 2026 MindMap - A student passion project |
+        <a href="mailto:zafira.khan@akadha.org">zafira.khan@akadha.org</a>
+      </p>
+    </footer>
+
+    <script>
+      // Floating Dark Mode Button
+      const darkModeBtn = document.createElement("button");
+      darkModeBtn.id = "darkModeBtn";
+      darkModeBtn.innerHTML = "🌙 Dark Mode";
+      darkModeBtn.style.cssText =
+        "position:fixed; bottom:20px; right:20px; z-index:1000; padding:12px 20px; border:none; border-radius:50px; background:#52b788; color:white; font-weight:bold; cursor:pointer; box-shadow:0 4px 15px rgba(0,0,0,0.2); transition:all 0.3s; font-size:1rem;";
+      document.body.appendChild(darkModeBtn);
+
+      const savedTheme = localStorage.getItem("theme") || "light";
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        darkModeBtn.innerHTML = "☀️ Light Mode";
+      }
+
+      darkModeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        darkModeBtn.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      });
+    </script>
+  </body>
+</html>

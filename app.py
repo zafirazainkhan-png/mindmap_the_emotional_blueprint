@@ -1,11 +1,15 @@
 from flask import Flask, render_template
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    template_folder="templates",  # ensure Flask looks in templates/
+    static_folder="static"        # ensure Flask serves images/css/js from static/
+)
 
 # ========================= MAIN PAGES =========================
 @app.route("/")
 def homepage():
-    return render_template("index.html")
+    return render_template("index.html")  # your homepage
 
 @app.route("/why-am-i-feeling")
 def why_am_i_feeling():
@@ -75,11 +79,14 @@ def sadness():
 
 @app.route("/guilt")
 def guilt():
-    return render_template("self-conscious.html")  # file: self-conscious.html
+    return render_template("self-conscious.html")
 
 @app.route("/wonder")
 def wonder():
-    return render_template("curiosity.html")       # file: curiosity.html
+    return render_template("curiosity.html")
 
+# ========================= RUN SERVER =========================
 if __name__ == "__main__":
-    app.run(debug=True, port=5003)  # optional: specify port to avoid conflicts
+    # debug=True allows auto reload and error messages
+    # port=5000 is standard, change if needed
+    app.run(debug=True, port=5001)

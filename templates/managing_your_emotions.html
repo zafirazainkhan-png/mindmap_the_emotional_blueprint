@@ -1,517 +1,588 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Managing Your Emotions</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Quicksand', sans-serif;
-      background: radial-gradient(circle at top, #f0f8ff, #e0f7fa, #d1f2eb);
-      text-align: center;
-      color: #2c3e50;
-      transition: background 0.5s ease, color 0.5s ease;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Managing Your Emotions</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&family=Quicksand:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Quicksand", sans-serif;
+        background: radial-gradient(circle at top, #f0f8ff, #e0f7fa, #d1f2eb);
+        text-align: center;
+        color: #2c3e50;
+        transition:
+          background 0.5s ease,
+          color 0.5s ease;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-    body.dark-mode {
-      background: radial-gradient(circle at top, #1e293b, #0f172a, #020617);
-      color: #e2e8f0;
-    }
+      body.dark-mode {
+        background: radial-gradient(circle at top, #1e293b, #0f172a, #020617);
+        color: #e2e8f0;
+      }
 
-    /* TEAL GRADIENT NAV BAR */
-    .topnav {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: linear-gradient(90deg, #006d77, #83c5be);
-      padding: 18px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      box-sizing: border-box;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
-    }
+      /* TEAL GRADIENT NAV BAR */
+      .topnav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: linear-gradient(90deg, #006d77, #83c5be);
+        padding: 18px 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+      }
 
-    body.dark-mode .topnav {
-      background: linear-gradient(90deg, #83c5be, #a0d8d8);
-    }
+      body.dark-mode .topnav {
+        background: linear-gradient(90deg, #83c5be, #a0d8d8);
+      }
 
-    .nav-links {
-      display: flex;
-      gap: 50px;
-      align-items: center;
-    }
+      .nav-links {
+        display: flex;
+        gap: 50px;
+        align-items: center;
+      }
 
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-family: 'Bubblegum Sans', cursive;
-      font-size: 1.5rem;
-      font-weight: normal;
-      transition: all 0.3s;
-    }
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-family: "Bubblegum Sans", cursive;
+        font-size: 1.5rem;
+        font-weight: normal;
+        transition: all 0.3s;
+      }
 
-    .nav-links a:hover {
-      transform: scale(1.1);
-      opacity: 0.9;
-    }
+      .nav-links a:hover {
+        transform: scale(1.1);
+        opacity: 0.9;
+      }
 
-    .nav-links a.active {
-      text-decoration: underline;
-      text-underline-offset: 6px;
-    }
+      .nav-links a.active {
+        text-decoration: underline;
+        text-underline-offset: 6px;
+      }
 
-    .nav-controls {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-shrink: 0;
-    }
+      .nav-controls {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-shrink: 0;
+      }
 
-    #soundBtn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 18px;
-      border: none;
-      border-radius: 50px;
-      background: white;
-      color: #006d77;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
+      #soundBtn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 50px;
+        background: white;
+        color: #006d77;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
 
-    #soundBtn:hover {
-      background: #e0f2f1;
-      transform: translateY(-2px);
-    }
+      #soundBtn:hover {
+        background: #e0f2f1;
+        transform: translateY(-2px);
+      }
 
-    body.dark-mode #soundBtn {
-      background: #1a2d37;
-      color: #a0d8d8;
-    }
+      body.dark-mode #soundBtn {
+        background: #1a2d37;
+        color: #a0d8d8;
+      }
 
-    #volume {
-      width: 100px;
-      height: 6px;
-      border-radius: 3px;
-      background: rgba(0,0,0,0.15);
-      outline: none;
-      -webkit-appearance: none;
-    }
+      #volume {
+        width: 100px;
+        height: 6px;
+        border-radius: 3px;
+        background: rgba(0, 0, 0, 0.15);
+        outline: none;
+        -webkit-appearance: none;
+      }
 
-    #volume::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #006d77;
-      cursor: pointer;
-    }
+      #volume::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #006d77;
+        cursor: pointer;
+      }
 
-    body.dark-mode #volume::-webkit-slider-thumb {
-      background: #83c5be;
-    }
+      body.dark-mode #volume::-webkit-slider-thumb {
+        background: #83c5be;
+      }
 
-    #dark-mode-toggle {
-      font-size: 24px;
-      padding: 6px;
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
+      #dark-mode-toggle {
+        font-size: 24px;
+        padding: 6px;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
 
-    #dark-mode-toggle:hover {
-      transform: scale(1.15);
-    }
+      #dark-mode-toggle:hover {
+        transform: scale(1.15);
+      }
 
-    body.dark-mode #dark-mode-toggle {
-      color: #e0f2f1;
-    }
+      body.dark-mode #dark-mode-toggle {
+        color: #e0f2f1;
+      }
 
-    /* CUTE TITLE */
-    h1 {
-      font-family: 'Bubblegum Sans', cursive;
-      font-size: 3.2em;
-      color: #006d77;
-      margin: 60px 0 30px;
-      letter-spacing: 3px;
-      text-shadow: 0 6px 15px rgba(0,109,119,0.2);
-    }
+      /* CUTE TITLE */
+      h1 {
+        font-family: "Bubblegum Sans", cursive;
+        font-size: 3.2em;
+        color: #006d77;
+        margin: 60px 0 30px;
+        letter-spacing: 3px;
+        text-shadow: 0 6px 15px rgba(0, 109, 119, 0.2);
+      }
 
-    body.dark-mode h1 {
-      color: #83c5be;
-    }
+      body.dark-mode h1 {
+        color: #83c5be;
+      }
 
-    /* SUBTLE INVITATION */
-    .subtitle {
-      font-family: 'Quicksand', sans-serif;
-      font-size: 1.4em;
-      max-width: 800px;
-      margin: 0 auto 60px;
-      line-height: 1.6;
-      color: #2c3e50;
-      opacity: 0.85;
-    }
+      /* SUBTLE INVITATION */
+      .subtitle {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.4em;
+        max-width: 800px;
+        margin: 0 auto 60px;
+        line-height: 1.6;
+        color: #2c3e50;
+        opacity: 0.85;
+      }
 
-    body.dark-mode .subtitle {
-      color: #d0e6e9;
-    }
+      body.dark-mode .subtitle {
+        color: #d0e6e9;
+      }
 
-    /* 12-CARD TECHNIQUE GRID */
-    .techniques {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
-      max-width: 1400px;
-      width: 92%;
-      margin: 0 auto 80px;
-    }
+      /* 12-CARD TECHNIQUE GRID */
+      .techniques {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        max-width: 1400px;
+        width: 92%;
+        margin: 0 auto 80px;
+      }
 
-    .card {
-      background: rgba(255,255,255,0.85);
-      border-radius: 30px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,109,119,0.15);
-      transition: all 0.4s ease;
-      cursor: pointer;
-      text-align: left;
-    }
+      .card {
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 30px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 109, 119, 0.15);
+        transition: all 0.4s ease;
+        cursor: pointer;
+        text-align: left;
+      }
 
-    body.dark-mode .card {
-      background: rgba(30,41,59,0.85);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }
+      body.dark-mode .card {
+        background: rgba(30, 41, 59, 0.85);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
 
-    .card:hover {
-      transform: translateY(-12px) scale(1.03);
-      box-shadow: 0 20px 40px rgba(0,109,119,0.25);
-    }
+      .card:hover {
+        transform: translateY(-12px) scale(1.03);
+        box-shadow: 0 20px 40px rgba(0, 109, 119, 0.25);
+      }
 
-    body.dark-mode .card:hover {
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    }
+      body.dark-mode .card:hover {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      }
 
-    .card h3 {
-      font-family: 'Bubblegum Sans', cursive;
-      font-size: 1.8em;
-      color: #006d77;
-      margin: 0 0 15px;
-    }
+      .card h3 {
+        font-family: "Bubblegum Sans", cursive;
+        font-size: 1.8em;
+        color: #006d77;
+        margin: 0 0 15px;
+      }
 
-    body.dark-mode .card h3 {
-      color: #83c5be;
-    }
+      body.dark-mode .card h3 {
+        color: #83c5be;
+      }
 
-    .card p {
-      font-size: 1.1em;
-      line-height: 1.7;
-      margin: 0 0 20px;
-      color: #2c3e50;
-    }
+      .card p {
+        font-size: 1.1em;
+        line-height: 1.7;
+        margin: 0 0 20px;
+        color: #2c3e50;
+      }
 
-    body.dark-mode .card p {
-      color: #d0e6e9;
-    }
+      body.dark-mode .card p {
+        color: #d0e6e9;
+      }
 
-    .examples {
-      background: rgba(131,197,190,0.15);
-      padding: 18px;
-      border-radius: 20px;
-      margin-top: 15px;
-    }
+      .examples {
+        background: rgba(131, 197, 190, 0.15);
+        padding: 18px;
+        border-radius: 20px;
+        margin-top: 15px;
+      }
 
-    body.dark-mode .examples {
-      background: rgba(131,197,190,0.1);
-    }
+      body.dark-mode .examples {
+        background: rgba(131, 197, 190, 0.1);
+      }
 
-    .examples strong {
-      color: #006d77;
-      font-size: 1.1em;
-    }
+      .examples strong {
+        color: #006d77;
+        font-size: 1.1em;
+      }
 
-    body.dark-mode .examples strong {
-      color: #83c5be;
-    }
+      body.dark-mode .examples strong {
+        color: #83c5be;
+      }
 
-    .examples ul {
-      margin: 10px 0 0;
-      padding-left: 20px;
-      list-style: none;
-    }
+      .examples ul {
+        margin: 10px 0 0;
+        padding-left: 20px;
+        list-style: none;
+      }
 
-    .examples li {
-      margin: 8px 0;
-      padding-left: 10px;
-      position: relative;
-    }
+      .examples li {
+        margin: 8px 0;
+        padding-left: 10px;
+        position: relative;
+      }
 
-    .examples li::before {
-      content: "✨";
-      position: absolute;
-      left: -10px;
-    }
+      .examples li::before {
+        content: "✨";
+        position: absolute;
+        left: -10px;
+      }
 
-    @media (max-width: 768px) {
-      .topnav { padding: 16px 30px; flex-wrap: wrap; justify-content: center; gap: 20px; }
-      .nav-controls { margin-top: 10px; }
-      h1 { font-size: 2.6em; margin: 40px 0 20px; }
-      .subtitle { font-size: 1.2em; margin-bottom: 50px; }
-      .techniques { grid-template-columns: 1fr; gap: 25px; }
-      .card { padding: 25px; }
-    }
-  </style>
-</head>
-<body>
+      @media (max-width: 768px) {
+        .topnav {
+          padding: 16px 30px;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 20px;
+        }
+        .nav-controls {
+          margin-top: 10px;
+        }
+        h1 {
+          font-size: 2.6em;
+          margin: 40px 0 20px;
+        }
+        .subtitle {
+          font-size: 1.2em;
+          margin-bottom: 50px;
+        }
+        .techniques {
+          grid-template-columns: 1fr;
+          gap: 25px;
+        }
+        .card {
+          padding: 25px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topnav">
+      <div class="nav-links">
+        <a href="{{ url_for('homepage') }}">Home</a>
+        <a href="{{ url_for('why_am_i_feeling') }}">Why am I feeling?</a>
+        <a href="{{ url_for('managing_emotions') }}" class="active"
+          >Managing Emotions</a
+        >
+        <a href="{{ url_for('what_am_i_feeling') }}">What am I feeling?</a>
+        <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
+      </div>
 
-<div class="topnav">
-  <div class="nav-links">
-    <a href="{{ url_for('homepage') }}">Home</a>
-    <a href="{{ url_for('why_am_i_feeling') }}">Why am I feeling?</a>
-    <a href="{{ url_for('managing_emotions') }}" class="active">Managing Emotions</a>
-    <a href="{{ url_for('what_am_i_feeling') }}">What am I feeling?</a>
-    <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
-  </div>
-
-  <div class="nav-controls">
-    <button id="soundBtn">
-      <span id="soundIcon">🔊</span> Sound On
-      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
-    </button>
-    <button id="dark-mode-toggle">🌙</button>
-  </div>
-</div>
-
-<h1>Managing Your Emotions 🌿</h1>
-
-<p class="subtitle">
-  Gentle tools to help you feel calmer and happier every day ✨<br>
-  Hover or tap each card for fun, easy ways to balance your feelings!
-</p>
-
-<div class="techniques">
-  <!-- 1 -->
-  <div class="card">
-    <h3>Controlled Breathing 🫁</h3>
-    <p>Slow deep breaths calm your body, lower cortisol, and help your brain feel less overwhelmed.</p>
-    <div class="examples">
-      <strong>For Example You Can:</strong>
-      <ul>
-        <li>Take 3 deep breaths before a test</li>
-        <li>Pause and breathe during an argument</li>
-        <li>Breathe slowly before sports or performance</li>
-      </ul>
+      <div class="nav-controls">
+        <button id="soundBtn">
+          <span id="soundIcon">🔊</span> Sound On
+          <input
+            type="range"
+            id="volume"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.5"
+          />
+        </button>
+        <button id="dark-mode-toggle">🌙</button>
+      </div>
     </div>
-  </div>
 
-  <!-- 2 -->
-  <div class="card">
-    <h3>Movement & Exercise 🏃‍♂️</h3>
-    <p>Physical activity releases endorphins and burns adrenaline, helping you feel calmer and more in control.</p>
-    <div class="examples">
-      <strong>For Example You Can:</strong>
-      <ul>
-        <li>Dance to your favorite song</li>
-        <li>Walk around the block</li>
-        <li>Do 5-10 jumping jacks</li>
-      </ul>
+    <h1>Managing Your Emotions 🌿</h1>
+
+    <p class="subtitle">
+      Gentle tools to help you feel calmer and happier every day ✨<br />
+      Hover or tap each card for fun, easy ways to balance your feelings!
+    </p>
+
+    <div class="techniques">
+      <!-- 1 -->
+      <div class="card">
+        <h3>Controlled Breathing 🫁</h3>
+        <p>
+          Slow deep breaths calm your body, lower cortisol, and help your brain
+          feel less overwhelmed.
+        </p>
+        <div class="examples">
+          <strong>For Example You Can:</strong>
+          <ul>
+            <li>Take 3 deep breaths before a test</li>
+            <li>Pause and breathe during an argument</li>
+            <li>Breathe slowly before sports or performance</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="card">
+        <h3>Movement & Exercise 🏃‍♂️</h3>
+        <p>
+          Physical activity releases endorphins and burns adrenaline, helping
+          you feel calmer and more in control.
+        </p>
+        <div class="examples">
+          <strong>For Example You Can:</strong>
+          <ul>
+            <li>Dance to your favorite song</li>
+            <li>Walk around the block</li>
+            <li>Do 5 to 10 jumping jacks</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="card">
+        <h3>Grounding Your Senses 👂</h3>
+        <p>
+          Paying attention to your senses pulls your mind back from stress,
+          preventing your amygdala from overreacting.
+        </p>
+        <div class="examples">
+          <strong>For Example You Can:</strong>
+          <ul>
+            <li>Notice 5 things you see around you</li>
+            <li>Touch something soft like a pillow</li>
+            <li>Listen carefully to 3 different sounds nearby</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="card">
+        <h3>Express Yourself ✍️</h3>
+        <p>
+          Writing, drawing, or journaling helps process emotions and reduces
+          mental overload.
+        </p>
+        <div class="examples">
+          <strong>For Example You Can:</strong>
+          <ul>
+            <li>Journal about your day</li>
+            <li>Sketch your feelings</li>
+            <li>Write a short poem</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="card">
+        <h3>Positive Distraction 🎨</h3>
+        <p>
+          Engaging in enjoyable activities activates dopamine and refocuses your
+          mind.
+        </p>
+        <div class="examples">
+          <strong>For Example You Can:</strong>
+          <ul>
+            <li>Watch a funny video</li>
+            <li>Try a DIY project</li>
+            <li>Listen to new music</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="card">
+        <h3>Mindful Observation 🧘</h3>
+        <p>
+          Focusing on the present moment lowers anxiety and helps the
+          hippocampus process your thoughts calmly.
+        </p>
+        <div class="examples">
+          <strong>For Example You Can:</strong>
+          <ul>
+            <li>Watch birds or nature for 5 minutes</li>
+            <li>Observe the details in a painting or poster</li>
+            <li>Listen to your surroundings without judgment</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="card">
+        <h3>Music & Rhythm 🎶</h3>
+        <p>
+          Listening to or creating music boosts serotonin and can calm your mood
+          quickly.
+        </p>
+        <div class="examples">
+          <strong>For Example You Can:</strong>
+          <ul>
+            <li>Play an instrument for 10 minutes</li>
+            <li>Listen to relaxing or upbeat music</li>
+            <li>Clap or tap along to a favorite song</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="card">
+        <h3>Connect with Someone 🤗</h3>
+        <p>
+          Talking with friends or family releases oxytocin and creates emotional
+          support, reducing stress.
+        </p>
+        <div class="examples">
+          <strong>For Example You Can:</strong>
+          <ul>
+            <li>Call a close friend to vent</li>
+            <li>Hug a family member</li>
+            <li>Share a small accomplishment with someone you trust</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="card">
+        <h3>Visualization & Imagination 🌈</h3>
+        <p>
+          Imagining positive scenarios reduces stress hormones and shifts focus
+          away from worries.
+        </p>
+        <div class="examples">
+          <strong>For Example You Can:</strong>
+          <ul>
+            <li>Picture your favorite vacation spot</li>
+            <li>Imagine successfully giving a presentation</li>
+            <li>Visualize a relaxing walk through a forest</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="card">
+        <h3>Self-Compassion 💕</h3>
+        <p>
+          Being kind to yourself lowers amygdala activation and increases
+          feelings of safety and calm.
+        </p>
+        <div class="examples">
+          <strong>For Example You Can:</strong>
+          <ul>
+            <li>Say reassuring words to yourself after a mistake</li>
+            <li>Treat yourself to a favorite snack or activity</li>
+            <li>Remind yourself that everyone makes mistakes</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="card">
+        <h3>Gratitude Practice 🙏</h3>
+        <p>
+          Thinking of things you’re thankful for boosts serotonin and helps
+          shift your mood positively.
+        </p>
+        <div class="examples">
+          <strong>For Example You Can:</strong>
+          <ul>
+            <li>Write down 3 things you’re grateful for today</li>
+            <li>Think of someone who makes you smile</li>
+            <li>Appreciate a small moment like a warm drink</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <div class="card">
+        <h3>Progressive Muscle Relaxation 🛌</h3>
+        <p>
+          Tensing and relaxing muscles releases physical tension and calms your
+          nervous system.
+        </p>
+        <div class="examples">
+          <strong>For Example You Can:</strong>
+          <ul>
+            <li>Tense your fists for 5 seconds, then let go</li>
+            <li>Relax your shoulders while breathing out slowly</li>
+            <li>Work from toes to head before bed</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- 3 -->
-  <div class="card">
-    <h3>Grounding Your Senses 👂</h3>
-    <p>Paying attention to your senses pulls your mind back from stress, preventing your amygdala from overreacting.</p>
-    <div class="examples">
-      <strong>For Example You Can:</strong>
-      <ul>
-        <li>Notice 5 things you see around you</li>
-        <li>Touch something soft like a pillow</li>
-        <li>Listen carefully to 3 different sounds nearby</li>
-      </ul>
-    </div>
-  </div>
+    <audio id="bg-music" loop>
+      <source
+        src="{{ url_for('static', filename='background.mp3') }}"
+        type="audio/mpeg"
+      />
+    </audio>
 
-  <!-- 4 -->
-  <div class="card">
-    <h3>Express Yourself ✍️</h3>
-    <p>Writing, drawing, or journaling helps process emotions and reduces mental overload.</p>
-    <div class="examples">
-      <strong>For Example You Can:</strong>
-      <ul>
-        <li>Journal about your day</li>
-        <li>Sketch your feelings</li>
-        <li>Write a short poem</li>
-      </ul>
-    </div>
-  </div>
+    <script>
+      // Dark Mode
+      const darkModeBtn = document.getElementById("dark-mode-toggle");
+      darkModeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        darkModeBtn.textContent = document.body.classList.contains("dark-mode")
+          ? "☀️"
+          : "🌙";
+      });
 
-  <!-- 5 -->
-  <div class="card">
-    <h3>Positive Distraction 🎨</h3>
-    <p>Engaging in enjoyable activities activates dopamine and refocuses your mind.</p>
-    <div class="examples">
-      <strong>For Example You Can:</strong>
-      <ul>
-        <li>Watch a funny video</li>
-        <li>Try a DIY project</li>
-        <li>Listen to new music</li>
-      </ul>
-    </div>
-  </div>
+      // Sound Controls
+      const soundBtn = document.getElementById("soundBtn");
+      const soundIcon = document.getElementById("soundIcon");
+      const audio = document.getElementById("bg-music");
+      const volumeSlider = document.getElementById("volume");
 
-  <!-- 6 -->
-  <div class="card">
-    <h3>Mindful Observation 🧘</h3>
-    <p>Focusing on the present moment lowers anxiety and helps the hippocampus process your thoughts calmly.</p>
-    <div class="examples">
-      <strong>For Example You Can:</strong>
-      <ul>
-        <li>Watch birds or nature for 5 minutes</li>
-        <li>Observe the details in a painting or poster</li>
-        <li>Listen to your surroundings without judgment</li>
-      </ul>
-    </div>
-  </div>
+      let isMuted = false;
+      audio.volume = 0.5;
+      volumeSlider.value = 0.5;
+      audio.play().catch(() => {});
 
-  <!-- 7 -->
-  <div class="card">
-    <h3>Music & Rhythm 🎶</h3>
-    <p>Listening to or creating music boosts serotonin and can calm your mood quickly.</p>
-    <div class="examples">
-      <strong>For Example You Can:</strong>
-      <ul>
-        <li>Play an instrument for 10 minutes</li>
-        <li>Listen to relaxing or upbeat music</li>
-        <li>Clap or tap along to a favorite song</li>
-      </ul>
-    </div>
-  </div>
+      soundBtn.addEventListener("click", () => {
+        isMuted = !isMuted;
+        audio.muted = isMuted;
+        soundIcon.textContent = isMuted ? "🔇" : "🔊";
+      });
 
-  <!-- 8 -->
-  <div class="card">
-    <h3>Connect with Someone 🤗</h3>
-    <p>Talking with friends or family releases oxytocin and creates emotional support, reducing stress.</p>
-    <div class="examples">
-      <strong>For Example You Can:</strong>
-      <ul>
-        <li>Call a close friend to vent</li>
-        <li>Hug a family member</li>
-        <li>Share a small accomplishment with someone you trust</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 9 -->
-  <div class="card">
-    <h3>Visualization & Imagination 🌈</h3>
-    <p>Imagining positive scenarios reduces stress hormones and shifts focus away from worries.</p>
-    <div class="examples">
-      <strong>For Example You Can:</strong>
-      <ul>
-        <li>Picture your favorite vacation spot</li>
-        <li>Imagine successfully giving a presentation</li>
-        <li>Visualize a relaxing walk through a forest</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 10 -->
-  <div class="card">
-    <h3>Self-Compassion 💕</h3>
-    <p>Being kind to yourself lowers amygdala activation and increases feelings of safety and calm.</p>
-    <div class="examples">
-      <strong>For Example You Can:</strong>
-      <ul>
-        <li>Say reassuring words to yourself after a mistake</li>
-        <li>Treat yourself to a favorite snack or activity</li>
-        <li>Remind yourself that everyone makes mistakes</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 11 -->
-  <div class="card">
-    <h3>Gratitude Practice 🙏</h3>
-    <p>Thinking of things you’re thankful for boosts serotonin and helps shift your mood positively.</p>
-    <div class="examples">
-      <strong>For Example You Can:</strong>
-      <ul>
-        <li>Write down 3 things you’re grateful for today</li>
-        <li>Think of someone who makes you smile</li>
-        <li>Appreciate a small moment like a warm drink</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 12 -->
-  <div class="card">
-    <h3>Progressive Muscle Relaxation 🛌</h3>
-    <p>Tensing and relaxing muscles releases physical tension and calms your nervous system.</p>
-    <div class="examples">
-      <strong>For Example You Can:</strong>
-      <ul>
-        <li>Tense your fists for 5 seconds, then let go</li>
-        <li>Relax your shoulders while breathing out slowly</li>
-        <li>Work from toes to head before bed</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<audio id="bg-music" loop>
-  <source src="{{ url_for('static', filename='background.mp3') }}" type="audio/mpeg">
-</audio>
-
-<script>
-  // Dark Mode
-  const darkModeBtn = document.getElementById('dark-mode-toggle');
-  darkModeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    darkModeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-  });
-
-  // Sound Controls
-  const soundBtn = document.getElementById('soundBtn');
-  const soundIcon = document.getElementById('soundIcon');
-  const audio = document.getElementById('bg-music');
-  const volumeSlider = document.getElementById('volume');
-
-  let isMuted = false;
-  audio.volume = 0.5;
-  volumeSlider.value = 0.5;
-  audio.play().catch(() => {});
-
-  soundBtn.addEventListener('click', () => {
-    isMuted = !isMuted;
-    audio.muted = isMuted;
-    soundIcon.textContent = isMuted ? '🔇' : '🔊';
-  });
-
-  volumeSlider.addEventListener('input', (e) => {
-    audio.volume = e.target.value;
-    if (audio.volume > 0 && isMuted) {
-      isMuted = false;
-      audio.muted = false;
-      soundIcon.textContent = '🔊';
-    }
-  });
-</script>
-
-</body>
+      volumeSlider.addEventListener("input", (e) => {
+        audio.volume = e.target.value;
+        if (audio.volume > 0 && isMuted) {
+          isMuted = false;
+          audio.muted = false;
+          soundIcon.textContent = "🔊";
+        }
+      });
+    </script>
+  </body>
 </html>

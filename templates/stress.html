@@ -1,517 +1,865 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stress & Overwhelm – What Am I Feeling?</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stress & Overwhelm – What Am I Feeling?</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-<style>
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
-    margin: 0;
-    padding: 0;
-    color: #2c3e50;
-    min-height: 100vh;
-    transition: background 0.5s ease, color 0.5s ease;
-  }
+    <style>
+      body {
+        font-family: "Nunito", sans-serif;
+        background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+        min-height: 100vh;
+        transition:
+          background 0.5s ease,
+          color 0.5s ease;
+      }
 
-  /* NAV BAR */
-  .topnav {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: linear-gradient(90deg, #ff8a80, #ff5252);
-    padding: 18px 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    flex-wrap: wrap;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    width: 100%;
-    box-sizing: border-box;
-  }
+      /* NAV BAR */
+      .topnav {
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: linear-gradient(90deg, #ff8a80, #ff5252);
+        padding: 18px 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 60px;
+        flex-wrap: wrap;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        width: 100%;
+        box-sizing: border-box;
+      }
 
-  .topnav a {
-    color: white;
-    text-decoration: none;
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.6rem;
-    font-weight: bold;
-    transition: all 0.3s;
-  }
+      .topnav a {
+        color: white;
+        text-decoration: none;
+        font-family: "Fredoka One", cursive;
+        font-size: 1.6rem;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
 
-  .topnav a:hover {
-    transform: scale(1.1);
-    opacity: 0.9;
-  }
+      .topnav a:hover {
+        transform: scale(1.1);
+        opacity: 0.9;
+      }
 
-  .topnav button {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 50px;
-    background: white;
-    color: #ff5252;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: all 0.3s;
-    min-width: 140px;
-  }
+      .topnav button {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 50px;
+        background: white;
+        color: #ff5252;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+        min-width: 140px;
+      }
 
-  .topnav button:hover {
-    background: #ffebee;
-    transform: scale(1.08);
-  }
+      .topnav button:hover {
+        background: #ffebee;
+        transform: scale(1.08);
+      }
 
-  /* DARK MODE */
-  body.dark-mode {
-    background: #121212;
-    color: #e0e0e0;
-  }
+      /* DARK MODE */
+      body.dark-mode {
+        background: #121212;
+        color: #e0e0e0;
+      }
 
-  body.dark-mode .topnav { background: linear-gradient(90deg, #333, #555); }
-  body.dark-mode .topnav a { color: #ffd54f; }
-  body.dark-mode .topnav button { background: #444; color: #ff8a65; }
-  body.dark-mode .topnav button:hover { background: #666; }
-  body.dark-mode .flashcard-front { background: linear-gradient(145deg, #37474f, #455a64); }
-  body.dark-mode .flashcard-back { background: linear-gradient(145deg, #455a64, #546e7a); }
-  body.dark-mode .section-title { color: #ffab91; }
+      body.dark-mode .topnav {
+        background: linear-gradient(90deg, #333, #555);
+      }
+      body.dark-mode .topnav a {
+        color: #ffd54f;
+      }
+      body.dark-mode .topnav button {
+        background: #444;
+        color: #ff8a65;
+      }
+      body.dark-mode .topnav button:hover {
+        background: #666;
+      }
+      body.dark-mode .flashcard-front {
+        background: linear-gradient(145deg, #37474f, #455a64);
+      }
+      body.dark-mode .flashcard-back {
+        background: linear-gradient(145deg, #455a64, #546e7a);
+      }
+      body.dark-mode .section-title {
+        color: #ffab91;
+      }
 
-  /* MAIN CONTENT */
-  .container {
-    max-width: 1350px;
-    margin: 40px auto 0 auto;
-    padding: 0 20px;
-    text-align: center;
-  }
+      /* MAIN CONTENT */
+      .container {
+        max-width: 1350px;
+        margin: 40px auto 0 auto;
+        padding: 0 20px;
+        text-align: center;
+      }
 
-  h1 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 3.2rem;
-    color: #c62828;
-    margin-bottom: 12px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-  }
+      h1 {
+        font-family: "Fredoka One", cursive;
+        font-size: 3.2rem;
+        color: #c62828;
+        margin-bottom: 12px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-  .subtitle {
-    font-size: 1.35rem;
-    line-height: 1.6;
-    color: #d32f2f;
-    margin-bottom: 50px;
-    font-weight: 600;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-  }
+      .subtitle {
+        font-size: 1.35rem;
+        line-height: 1.6;
+        color: #d32f2f;
+        margin-bottom: 50px;
+        font-weight: 600;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+      }
 
-  /* FLASHCARDS GRID */
-  .flashcards-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    margin-bottom: 60px;
-  }
+      /* FLASHCARDS GRID */
+      .flashcards-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 60px;
+      }
 
-  .flashcard {
-    width: 400px;
-    height: 600px;
-    border-radius: 28px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
-    perspective: 1200px;
-    cursor: pointer;
-    transition: transform 0.4s ease;
-  }
+      .flashcard {
+        width: 400px;
+        height: 600px;
+        border-radius: 28px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+        perspective: 1200px;
+        cursor: pointer;
+        transition: transform 0.4s ease;
+      }
 
-  .flashcard:hover {
-    transform: translateY(-12px);
-  }
+      .flashcard:hover {
+        transform: translateY(-12px);
+      }
 
-  .flashcard-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    transform-style: preserve-3d;
-  }
+      .flashcard-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transform-style: preserve-3d;
+      }
 
-  .flashcard.flipped .flashcard-inner {
-    transform: rotateY(180deg);
-  }
+      .flashcard.flipped .flashcard-inner {
+        transform: rotateY(180deg);
+      }
 
-  .flashcard-front,
-  .flashcard-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    border-radius: 28px;
-    padding: 30px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    color: white;
-  }
+      .flashcard-front,
+      .flashcard-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        border-radius: 28px;
+        padding: 30px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        color: white;
+      }
 
-  .flashcard-front {
-    background: linear-gradient(145deg, #e53935, #c62828);
-    padding-top: 80px;
-  }
+      .flashcard-front {
+        background: linear-gradient(145deg, #e53935, #c62828);
+        padding-top: 80px;
+      }
 
-  .flashcard-back {
-    transform: rotateY(180deg);
-    background: linear-gradient(145deg, #c62828, #b71c1c);
-    text-align: left;
-  }
+      .flashcard-back {
+        transform: rotateY(180deg);
+        background: linear-gradient(145deg, #c62828, #b71c1c);
+        text-align: left;
+      }
 
-  .flashcard-back h2 {
-    text-align: center;
-  }
+      .flashcard-back h2 {
+        text-align: center;
+      }
 
-  .flashcard-front img {
-    max-height: 300px;
-    width: auto;
-    margin-bottom: 25px;
-    border-radius: 20px;
-    object-fit: contain;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-  }
+      .flashcard-front img {
+        max-height: 300px;
+        width: auto;
+        margin-bottom: 25px;
+        border-radius: 20px;
+        object-fit: contain;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+      }
 
-  .flashcard-front h2 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 2.4rem;
-    margin: 15px 0 12px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-  }
+      .flashcard-front h2 {
+        font-family: "Fredoka One", cursive;
+        font-size: 2.4rem;
+        margin: 15px 0 12px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      }
 
-  .flashcard-front p {
-    font-size: 1.15rem;
-    line-height: 1.5;
-    opacity: 0.95;
-  }
+      .flashcard-front p {
+        font-size: 1.15rem;
+        line-height: 1.5;
+        opacity: 0.95;
+      }
 
-  .flashcard-back h2 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.9rem;
-    margin: 0 0 20px 0;
-    text-align: center;
-    width: 100%;
-  }
+      .flashcard-back h2 {
+        font-family: "Fredoka One", cursive;
+        font-size: 1.9rem;
+        margin: 0 0 20px 0;
+        text-align: center;
+        width: 100%;
+      }
 
-  .section-title {
-    font-weight: 700;
-    color: #ff8a80;
-    margin: 18px 0 8px;
-    font-size: 1.15rem;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-align: center;
-  }
+      .section-title {
+        font-weight: 700;
+        color: #ff8a80;
+        margin: 18px 0 8px;
+        font-size: 1.15rem;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-align: center;
+      }
 
-  .flashcard-back p:not(.section-title) {
-    font-size: 1.05rem;
-    line-height: 1.65;
-    margin: 8px 0;
-    text-align: left;
-  }
+      .flashcard-back p:not(.section-title) {
+        font-size: 1.05rem;
+        line-height: 1.65;
+        margin: 8px 0;
+        text-align: left;
+      }
 
-  .back-home {
-    margin: 60px auto 0;
-    padding: 14px 36px;
-    font-size: 1.25rem;
-    background: #6e8efb;
-    color: white;
-    border-radius: 50px;
-    font-family: 'Fredoka One', cursive;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s;
-    box-shadow: 0 6px 15px rgba(110,142,251,0.4);
-  }
+      .back-home {
+        margin: 60px auto 0;
+        padding: 14px 36px;
+        font-size: 1.25rem;
+        background: #6e8efb;
+        color: white;
+        border-radius: 50px;
+        font-family: "Fredoka One", cursive;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s;
+        box-shadow: 0 6px 15px rgba(110, 142, 251, 0.4);
+      }
 
-  .back-home:hover {
-    background: #5c7aea;
-    transform: scale(1.08);
-  }
+      .back-home:hover {
+        background: #5c7aea;
+        transform: scale(1.08);
+      }
 
-  /* Calming techniques hover effect */
-  section div[style*="linear-gradient"] {
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-  }
-  section div[style*="linear-gradient"]:hover {
-    transform: translateY(-12px) rotate(-2deg);
-    box-shadow: 0 18px 35px rgba(0,0,0,0.22);
-  }
+      /* Calming techniques hover effect */
+      section div[style*="linear-gradient"] {
+        transition:
+          transform 0.4s ease,
+          box-shadow 0.4s ease;
+      }
+      section div[style*="linear-gradient"]:hover {
+        transform: translateY(-12px) rotate(-2deg);
+        box-shadow: 0 18px 35px rgba(0, 0, 0, 0.22);
+      }
 
-  /* Responsive adjustments */
-  @media (max-width: 1300px) {
-    .flashcard { width: 360px; height: 580px; }
-  }
-  @media (max-width: 1200px) {
-    .flashcards-grid { gap: 25px; }
-    .flashcard { width: 340px; }
-  }
-  @media (max-width: 900px) {
-    .flashcards-grid { gap: 30px; }
-    .flashcard { width: 380px; }
-  }
-</style>
-</head>
-<body>
+      /* Responsive adjustments */
+      @media (max-width: 1300px) {
+        .flashcard {
+          width: 360px;
+          height: 580px;
+        }
+      }
+      @media (max-width: 1200px) {
+        .flashcards-grid {
+          gap: 25px;
+        }
+        .flashcard {
+          width: 340px;
+        }
+      }
+      @media (max-width: 900px) {
+        .flashcards-grid {
+          gap: 30px;
+        }
+        .flashcard {
+          width: 380px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topnav">
+      <a href="{{ url_for('homepage') }}">Home</a>
+      <a href="{{ url_for('why_am_i_feeling') }}">Why am I Feeling?</a>
+      <a href="{{ url_for('managing_emotions') }}">Managing Emotions</a>
+      <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
 
-<div class="topnav">
-  <a href="{{ url_for('homepage') }}">Home</a>
-  <a href="{{ url_for('why_am_i_feeling') }}">Why am I Feeling?</a>
-  <a href="{{ url_for('managing_emotions') }}">Managing Emotions</a>
-  <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
-
-  <button id="darkModeBtn">Dark Mode</button>
-  <button id="soundBtn">Sound On</button>
-</div>
-
-<div class="container">
-  <h1>Stress & Overwhelm</h1>
-  <p class="subtitle">
-    Feeling like the demands of life are too much to handle at once? Your mind races and your body reacts.
-  </p>
-  
-  <!-- FLASHCARDS -->
-  <div class="flashcards-grid">
-
-    <!-- Stress -->
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">
-          <img src="{{ url_for('static', filename='stress.png') }}" alt="Stress">
-          <h2>Stress</h2>
-          <p>Feeling tense, pressured, and restless.</p>
-        </div>
-        <div class="flashcard-back">
-          <h2>Stress</h2>
-          <p class="section-title">Feelings</p>
-          <p>Anxious, jittery, restless, mentally exhausted, emotionally drained, and physically tense. Your heart races and muscles tighten as you feel under constant pressure.</p>
-          <p class="section-title">Brain</p>
-          <p>The amygdala heightens alertness and perceives threats, while the hypothalamus triggers the body’s stress response, preparing you to react to challenges.</p>
-          <p class="section-title">Neurotransmitters</p>
-          <p>Cortisol surges, giving your body energy, and adrenaline sharpens your focus, making you hyper-aware of your surroundings.</p>
-          <p class="section-title">Real-life Scenarios</p>
-          <p>Facing looming deadlines, juggling multiple responsibilities, dealing with unexpected obstacles, or preparing for exams that feel overwhelming.</p>
-          <p class="section-title">Quick Tip</p>
-          <p>Take three slow, deep breaths. Inhale for 4, hold for 2, exhale for 6. Repeat 3 times to calm your nervous system.</p>
-        </div>
-      </div>
+      <button id="darkModeBtn">Dark Mode</button>
+      <button id="soundBtn">Sound On</button>
     </div>
 
-    <!-- Overwhelm -->
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">
-          <img src="{{ url_for('static', filename='Overwhelmed.png') }}" alt="Overwhelm">
-          <h2>Overwhelm</h2>
-          <p>Feeling swamped, confused, and exhausted.</p>
+    <div class="container">
+      <h1>Stress & Overwhelm</h1>
+      <p class="subtitle">
+        Feeling like the demands of life are too much to handle at once? Your
+        mind races and your body reacts.
+      </p>
+
+      <!-- FLASHCARDS -->
+      <div class="flashcards-grid">
+        <!-- Stress -->
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <img
+                src="{{ url_for('static', filename='stress.png') }}"
+                alt="Stress"
+              />
+              <h2>Stress</h2>
+              <p>Feeling tense, pressured, and restless.</p>
+            </div>
+            <div class="flashcard-back">
+              <h2>Stress</h2>
+              <p class="section-title">Feelings</p>
+              <p>
+                Anxious, jittery, restless, mentally exhausted, emotionally
+                drained, and physically tense. Your heart races and muscles
+                tighten as you feel under constant pressure.
+              </p>
+              <p class="section-title">Brain</p>
+              <p>
+                The amygdala heightens alertness and perceives threats, while
+                the hypothalamus triggers the body’s stress response, preparing
+                you to react to challenges.
+              </p>
+              <p class="section-title">Neurotransmitters</p>
+              <p>
+                Cortisol surges, giving your body energy, and adrenaline
+                sharpens your focus, making you hyper-aware of your
+                surroundings.
+              </p>
+              <p class="section-title">Real-life Scenarios</p>
+              <p>
+                Facing looming deadlines, juggling multiple responsibilities,
+                dealing with unexpected obstacles, or preparing for exams that
+                feel overwhelming.
+              </p>
+              <p class="section-title">Quick Tip</p>
+              <p>
+                Take three slow, deep breaths. Inhale for 4, hold for 2, exhale
+                for 6. Repeat 3 times to calm your nervous system.
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="flashcard-back">
-          <h2>Overwhelm</h2>
-          <p class="section-title">Feelings</p>
-          <p>Mentally scattered, stressed, panicked, overburdened, exhausted, and unable to focus. You feel pulled in multiple directions at once.</p>
-          <p class="section-title">Brain</p>
-          <p>The amygdala intensifies emotional responses while the prefrontal cortex struggles to organize and prioritize thoughts, making decision-making difficult.</p>
-          <p class="section-title">Neurotransmitters</p>
-          <p>Cortisol and norepinephrine spike, flooding your body with stress signals and making concentration almost impossible.</p>
-          <p class="section-title">Real-life Scenarios</p>
-          <p>Multiple homework assignments, back-to-back exams, social obligations, or managing conflicting responsibilities all at once.</p>
-          <p class="section-title">Quick Tip</p>
-          <p>Break tasks into tiny, achievable steps. Focus on completing one small thing first to regain control and reduce mental clutter.</p>
+
+        <!-- Overwhelm -->
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <img
+                src="{{ url_for('static', filename='Overwhelmed.png') }}"
+                alt="Overwhelm"
+              />
+              <h2>Overwhelm</h2>
+              <p>Feeling swamped, confused, and exhausted.</p>
+            </div>
+            <div class="flashcard-back">
+              <h2>Overwhelm</h2>
+              <p class="section-title">Feelings</p>
+              <p>
+                Mentally scattered, stressed, panicked, overburdened, exhausted,
+                and unable to focus. You feel pulled in multiple directions at
+                once.
+              </p>
+              <p class="section-title">Brain</p>
+              <p>
+                The amygdala intensifies emotional responses while the
+                prefrontal cortex struggles to organize and prioritize thoughts,
+                making decision-making difficult.
+              </p>
+              <p class="section-title">Neurotransmitters</p>
+              <p>
+                Cortisol and norepinephrine spike, flooding your body with
+                stress signals and making concentration almost impossible.
+              </p>
+              <p class="section-title">Real-life Scenarios</p>
+              <p>
+                Multiple homework assignments, back-to-back exams, social
+                obligations, or managing conflicting responsibilities all at
+                once.
+              </p>
+              <p class="section-title">Quick Tip</p>
+              <p>
+                Break tasks into tiny, achievable steps. Focus on completing one
+                small thing first to regain control and reduce mental clutter.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Worried -->
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <img
+                src="{{ url_for('static', filename='worried.png') }}"
+                alt="Worried"
+              />
+              <h2>Worried</h2>
+              <p>Feeling anxious, uneasy, and preoccupied.</p>
+            </div>
+            <div class="flashcard-back">
+              <h2>Worried</h2>
+              <p class="section-title">Feelings</p>
+              <p>
+                Uneasy, apprehensive, nervous, restless, overthinking, and
+                mentally spinning. Repetitive thoughts keep replaying, creating
+                a sense of impending doom.
+              </p>
+              <p class="section-title">Brain</p>
+              <p>
+                The amygdala amplifies perceived threats, while the prefrontal
+                cortex struggles to plan effectively, often creating repetitive
+                thought loops.
+              </p>
+              <p class="section-title">Neurotransmitters</p>
+              <p>
+                Cortisol rises, heightening alertness; serotonin and GABA try to
+                stabilize mood and calm the nervous system.
+              </p>
+              <p class="section-title">Real-life Scenarios</p>
+              <p>
+                Obsessing over past conversations, constantly checking messages,
+                or anticipating every possible mistake or negative outcome.
+              </p>
+              <p class="section-title">Quick Tip</p>
+              <p>
+                Write down worries and set them aside. Helps your mind reset and
+                reduces mental looping.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Anxiety -->
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <img
+                src="{{ url_for('static', filename='Anxiety.png') }}"
+                alt="Anxiety"
+              />
+              <h2>Anxiety</h2>
+              <p>Feeling nervous, tense, and restless.</p>
+            </div>
+            <div class="flashcard-back">
+              <h2>Anxiety</h2>
+              <p class="section-title">Feelings</p>
+              <p>
+                Restless, jittery, tense, uneasy, apprehensive, and on edge.
+                Thoughts constantly jump to “what if” scenarios.
+              </p>
+              <p class="section-title">Brain</p>
+              <p>
+                The amygdala detects potential threats, the hypothalamus
+                triggers the fight-or-flight response, and the prefrontal cortex
+                struggles to reason clearly under pressure.
+              </p>
+              <p class="section-title">Neurotransmitters</p>
+              <p>
+                Cortisol and adrenaline rise, GABA decreases, and serotonin
+                fluctuates, making you feel restless and apprehensive.
+              </p>
+              <p class="section-title">Real-life Scenarios</p>
+              <p>
+                Feeling nervous before a test, big presentation, or an
+                unfamiliar event. Worrying excessively about outcomes.
+              </p>
+              <p class="section-title">Quick Tip</p>
+              <p>
+                Try the 5-4-3-2-1 grounding technique: notice 5 things you see,
+                4 things you touch, 3 things you hear, 2 things you smell, and 1
+                thing you taste.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Avoidance -->
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <img
+                src="{{ url_for('static', filename='avoidance.png') }}"
+                alt="Avoidance"
+              />
+              <h2>Avoidance</h2>
+              <p>Trying to escape tasks that make you anxious.</p>
+            </div>
+            <div class="flashcard-back">
+              <h2>Avoidance</h2>
+              <p class="section-title">Feelings</p>
+              <p>
+                Anxious, nervous, hesitant, conflicted, and temporarily relieved
+                by avoidance. Stress remains beneath the surface.
+              </p>
+              <p class="section-title">Brain</p>
+              <p>
+                The amygdala signals danger, while the prefrontal cortex may
+                rationalize skipping tasks, reinforcing avoidance patterns.
+              </p>
+              <p class="section-title">Neurotransmitters</p>
+              <p>
+                Dopamine provides temporary reward and relief, linking avoidance
+                to short-term comfort.
+              </p>
+              <p class="section-title">Real-life Scenarios</p>
+              <p>
+                Skipping assignments, delaying difficult conversations, avoiding
+                social interactions, or procrastinating important tasks.
+              </p>
+              <p class="section-title">Quick Tip</p>
+              <p>
+                Pick one small task today and face it. Small wins reduce
+                avoidance habits and boost confidence.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Worried -->
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">
-          <img src="{{ url_for('static', filename='worried.png') }}" alt="Worried">
-          <h2>Worried</h2>
-          <p>Feeling anxious, uneasy, and preoccupied.</p>
-        </div>
-        <div class="flashcard-back">
-          <h2>Worried</h2>
-          <p class="section-title">Feelings</p>
-          <p>Uneasy, apprehensive, nervous, restless, overthinking, and mentally spinning. Thoughts keep replaying, creating a sense of impending doom.</p>
-          <p class="section-title">Brain</p>
-          <p>The amygdala amplifies perceived threats, while the prefrontal cortex struggles to plan effectively, often creating repetitive thought loops.</p>
-          <p class="section-title">Neurotransmitters</p>
-          <p>Cortisol rises, heightening alertness; serotonin and GABA try to stabilize mood and calm the nervous system.</p>
-          <p class="section-title">Real-life Scenarios</p>
-          <p>Obsessing over past conversations, constantly checking messages, or anticipating every possible mistake or negative outcome.</p>
-          <p class="section-title">Quick Tip</p>
-          <p>Write down worries and set them aside. Helps your mind reset and reduces mental looping.</p>
-        </div>
-      </div>
-    </div>
+      <a href="{{ url_for('what_am_i_feeling') }}" class="back-home"
+        >Back to Wheel</a
+      >
 
-    <!-- Anxiety -->
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">
-          <img src="{{ url_for('static', filename='Anxiety.png') }}" alt="Anxiety">
-          <h2>Anxiety</h2>
-          <p>Feeling nervous, tense, and restless.</p>
-        </div>
-        <div class="flashcard-back">
-          <h2>Anxiety</h2>
-          <p class="section-title">Feelings</p>
-          <p>Restless, jittery, tense, uneasy, apprehensive, and on edge. Thoughts constantly jump to “what if” scenarios.</p>
-          <p class="section-title">Brain</p>
-          <p>The amygdala detects potential threats, the hypothalamus triggers the fight-or-flight response, and the prefrontal cortex struggles to reason clearly under pressure.</p>
-          <p class="section-title">Neurotransmitters</p>
-          <p>Cortisol and adrenaline rise, GABA decreases, and serotonin fluctuates, making you feel restless and apprehensive.</p>
-          <p class="section-title">Real-life Scenarios</p>
-          <p>Feeling nervous before a test, big presentation, or an unfamiliar event. Worrying excessively about outcomes.</p>
-          <p class="section-title">Quick Tip</p>
-          <p>Try the 5-4-3-2-1 grounding technique: notice 5 things you see, 4 things you touch, 3 things you hear, 2 things you smell, 1 thing you taste.</p>
-        </div>
-      </div>
-    </div>
+      <!-- Divider -->
+      <hr style="border: none; height: 2px; background: #eee; margin: 80px 0" />
 
-    <!-- Avoidance -->
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">
-          <img src="{{ url_for('static', filename='avoidance.png') }}" alt="Avoidance">
-          <h2>Avoidance</h2>
-          <p>Trying to escape tasks that make you anxious.</p>
-        </div>
-        <div class="flashcard-back">
-          <h2>Avoidance</h2>
-          <p class="section-title">Feelings</p>
-          <p>Anxious, nervous, hesitant, conflicted, and temporarily relieved by avoidance. Stress remains beneath the surface.</p>
-          <p class="section-title">Brain</p>
-          <p>The amygdala signals danger, while the prefrontal cortex may rationalize skipping tasks, reinforcing avoidance patterns.</p>
-          <p class="section-title">Neurotransmitters</p>
-          <p>Dopamine provides temporary reward and relief, linking avoidance to short-term comfort.</p>
-          <p class="section-title">Real-life Scenarios</p>
-          <p>Skipping assignments, delaying difficult conversations, avoiding social interactions, or procrastinating important tasks.</p>
-          <p class="section-title">Quick Tip</p>
-          <p>Pick one small task today and face it. Small wins reduce avoidance habits and boost confidence.</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <a href="{{ url_for('what_am_i_feeling') }}" class="back-home">Back to Wheel</a>
-
-  <!-- Divider -->
-  <hr style="border:none; height:2px; background:#eee; margin:80px 0;">
-
-  <!-- CALMING TECHNIQUES -->
-<section style="background:#f9f9f9; padding:80px 20px; border-radius:20px; margin-top:40px;">
-  <h2 style="font-family:'Fredoka One'; color:#6a4c93; text-align:center; font-size:2.7rem; margin-bottom:20px;">
-    Find the Calm in the Storm
-  </h2>
-  <p style="font-size:1.25rem; text-align:left; max-width:900px; margin:0 auto 60px; color:#555;">
-    Feeling overwhelmed or stressed? Here are playful, simple, and effective ways to reset your body and mind.
-  </p>
-
-  <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
-
-    <!-- Row 1: 3 cards -->
-    <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center; width:100%; margin-bottom:30px;">
-
-      <!-- Card 1: Quick Calm Reset -->
-      <div style="background:linear-gradient(135deg,#a8edea,#fed6e3); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
-        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Quick Calm Reset</h3>
-        <p><strong>What to do:</strong> Take three slow, deep breaths. Feel your chest rise and fall. Exhale slowly, letting your shoulders drop.</p>
-        <p><strong>Why it works:</strong> Deep breathing lowers heart rate, reduces cortisol, and helps your body enter a calmer state.</p>
-        <p><strong>Quick tip:</strong> Count to 4 on inhale, hold 2, exhale 6. Repeat 3 times.</p>
-        <p style="margin-top:10px; font-weight:bold; font-size:0.9rem;">
-          <a href="https://www.healthline.com/health/stress/relieve-stress" target="_blank" style="color:#4a148c; text-decoration:underline;">Learn more →</a>
+      <!-- CALMING TECHNIQUES -->
+      <section
+        style="
+          background: #f9f9f9;
+          padding: 80px 20px;
+          border-radius: 20px;
+          margin-top: 40px;
+        "
+      >
+        <h2
+          style="
+            font-family: &quot;Fredoka One&quot;;
+            color: #6a4c93;
+            text-align: center;
+            font-size: 2.7rem;
+            margin-bottom: 20px;
+          "
+        >
+          Find the Calm in the Storm
+        </h2>
+        <p
+          style="
+            font-size: 1.25rem;
+            text-align: left;
+            max-width: 900px;
+            margin: 0 auto 60px;
+            color: #555;
+          "
+        >
+          Feeling overwhelmed or stressed? Here are playful, simple, and
+          effective ways to reset your body and mind.
         </p>
-      </div>
 
-      <!-- Card 2: Grounding Exercise -->
-      <div style="background:linear-gradient(135deg,#ffe7a3,#ffc9de); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
-        <h3 style="font-family:'Fredoka One'; color:#b71c1c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Grounding Exercise</h3>
-        <p><strong>What to do:</strong> Use the 5-4-3-2-1 exercise: notice 5 things you see, 4 things you feel, 3 things you hear, 2 things you smell, 1 thing you taste.</p>
-        <p><strong>Why it works:</strong> Focusing on your senses pulls attention away from anxious thoughts, helping you feel present and safe.</p>
-        <p><strong>Quick tip:</strong> Move slowly and notice small details you usually ignore.</p>
-        <p style="margin-top:10px; font-weight:bold; font-size:0.9rem;">
-          <a href="https://www.psychologytoday.com/us/blog/mindful-anger/202007/the-5-4-3-2-1-grounding-exercise" target="_blank" style="color:#b71c1c; text-decoration:underline;">Learn more →</a>
-        </p>
-      </div>
+        <div
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+          "
+        >
+          <!-- Row 1: 3 cards -->
+          <div
+            style="
+              display: flex;
+              gap: 30px;
+              flex-wrap: wrap;
+              justify-content: center;
+              width: 100%;
+              margin-bottom: 30px;
+            "
+          >
+            <!-- Card 1: Quick Calm Reset -->
+            <div
+              style="
+                background: linear-gradient(135deg, #a8edea, #fed6e3);
+                border-radius: 28px;
+                width: 310px;
+                padding: 28px;
+                min-height: 390px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                text-align: left;
+              "
+            >
+              <h3
+                style="
+                  font-family: &quot;Fredoka One&quot;;
+                  color: #4a148c;
+                  font-size: 1.7rem;
+                  margin-bottom: 12px;
+                  text-align: center;
+                "
+              >
+                Quick Calm Reset
+              </h3>
+              <p>
+                <strong>What to do:</strong> Take three slow, deep breaths. Feel
+                your chest rise and fall. Exhale slowly, letting your shoulders
+                drop.
+              </p>
+              <p>
+                <strong>Why it works:</strong> Deep breathing lowers heart rate,
+                reduces cortisol, and helps your body enter a calmer state.
+              </p>
+              <p>
+                <strong>Quick tip:</strong> Count to 4 on inhale, hold 2, exhale
+                6. Repeat 3 times.
+              </p>
+              <p style="margin-top: 10px; font-weight: bold; font-size: 0.9rem">
+                <a
+                  href="https://www.healthline.com/health/stress/relieve-stress"
+                  target="_blank"
+                  style="color: #4a148c; text-decoration: underline"
+                  >Learn more →</a
+                >
+              </p>
+            </div>
 
-      <!-- Card 3: Tiny Steps Technique -->
-      <div style="background:linear-gradient(135deg,#c1fba4,#b2ebf2); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
-        <h3 style="font-family:'Fredoka One'; color:#00695c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Tiny Steps Technique</h3>
-        <p><strong>What to do:</strong> Break tasks into tiny steps: "Write one sentence," or "Start the timer for 5 minutes."</p>
-        <p><strong>Why it works:</strong> Small steps make tasks feel manageable and prevent overwhelm. Completing tiny goals boosts confidence.</p>
-        <p><strong>Quick tip:</strong> Celebrate each small win to reinforce progress.</p>
-        <p style="margin-top:10px; font-weight:bold; font-size:0.9rem;">
-          <a href="https://www.apa.org/news/press/releases/stress/2020/small-steps" target="_blank" style="color:#00695c; text-decoration:underline;">Learn more →</a>
-        </p>
-      </div>
+            <!-- Card 2: Grounding Exercise -->
+            <div
+              style="
+                background: linear-gradient(135deg, #ffe7a3, #ffc9de);
+                border-radius: 28px;
+                width: 310px;
+                padding: 28px;
+                min-height: 390px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                text-align: left;
+              "
+            >
+              <h3
+                style="
+                  font-family: &quot;Fredoka One&quot;;
+                  color: #b71c1c;
+                  font-size: 1.7rem;
+                  margin-bottom: 12px;
+                  text-align: center;
+                "
+              >
+                Grounding Exercise
+              </h3>
+              <p>
+                <strong>What to do:</strong> Use the 5-4-3-2-1 exercise: notice
+                5 things you see, 4 things you feel, 3 things you hear, 2 things
+                you smell, 1 thing you taste.
+              </p>
+              <p>
+                <strong>Why it works:</strong> Focusing on your senses pulls
+                attention away from anxious thoughts, helping you feel present
+                and safe.
+              </p>
+              <p>
+                <strong>Quick tip:</strong> Move slowly and notice small details
+                you usually ignore.
+              </p>
+              <p style="margin-top: 10px; font-weight: bold; font-size: 0.9rem">
+                <a
+                  href="https://www.psychologytoday.com/us/blog/mindful-anger/202007/the-5-4-3-2-1-grounding-exercise"
+                  target="_blank"
+                  style="color: #b71c1c; text-decoration: underline"
+                  >Learn more →</a
+                >
+              </p>
+            </div>
 
+            <!-- Card 3: Tiny Steps Technique -->
+            <div
+              style="
+                background: linear-gradient(135deg, #c1fba4, #b2ebf2);
+                border-radius: 28px;
+                width: 310px;
+                padding: 28px;
+                min-height: 390px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                text-align: left;
+              "
+            >
+              <h3
+                style="
+                  font-family: &quot;Fredoka One&quot;;
+                  color: #00695c;
+                  font-size: 1.7rem;
+                  margin-bottom: 12px;
+                  text-align: center;
+                "
+              >
+                Tiny Steps Technique
+              </h3>
+              <p>
+                <strong>What to do:</strong> Break tasks into tiny steps: "Write
+                one sentence," or "Start the timer for 5 minutes."
+              </p>
+              <p>
+                <strong>Why it works:</strong> Small steps make tasks feel
+                manageable and prevent overwhelm. Completing tiny goals boosts
+                confidence.
+              </p>
+              <p>
+                <strong>Quick tip:</strong> Celebrate each small win to
+                reinforce progress.
+              </p>
+              <p style="margin-top: 10px; font-weight: bold; font-size: 0.9rem">
+                <a
+                  href="https://www.apa.org/news/press/releases/stress/2020/small-steps"
+                  target="_blank"
+                  style="color: #00695c; text-decoration: underline"
+                  >Learn more →</a
+                >
+              </p>
+            </div>
+          </div>
+
+          <!-- Row 2: 2 cards -->
+          <div
+            style="
+              display: flex;
+              gap: 30px;
+              justify-content: center;
+              width: 100%;
+              flex-wrap: wrap;
+            "
+          >
+            <!-- Card 4: Body Reset -->
+            <div
+              style="
+                background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+                border-radius: 28px;
+                width: 310px;
+                padding: 28px;
+                min-height: 390px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                text-align: left;
+              "
+            >
+              <h3
+                style="
+                  font-family: &quot;Fredoka One&quot;;
+                  color: #4a148c;
+                  font-size: 1.7rem;
+                  margin-bottom: 12px;
+                  text-align: center;
+                "
+              >
+                Body Reset
+              </h3>
+              <p>
+                <strong>What to do:</strong> Stretch your arms, shake your
+                muscles, or take a short walk or gentle yoga session.
+              </p>
+              <p>
+                <strong>Why it works:</strong> Physical movement releases
+                built-up tension, lowers adrenaline, and signals your brain to
+                calm down.
+              </p>
+              <p>
+                <strong>Quick tip:</strong> Roll your shoulders and gently
+                rotate your neck to release stiffness.
+              </p>
+              <p style="margin-top: 10px; font-weight: bold; font-size: 0.9rem">
+                <a
+                  href="https://www.mayoclinic.org/healthy-lifestyle/stress-management/in-depth/exercise-and-stress/art-20044469"
+                  target="_blank"
+                  style="color: #4a148c; text-decoration: underline"
+                  >Learn more →</a
+                >
+              </p>
+            </div>
+
+            <!-- Card 5: Mind Recharge -->
+            <div
+              style="
+                background: linear-gradient(135deg, #ffd3b6, #ffaaa5);
+                border-radius: 28px;
+                width: 310px;
+                padding: 28px;
+                min-height: 390px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                text-align: left;
+              "
+            >
+              <h3
+                style="
+                  font-family: &quot;Fredoka One&quot;;
+                  color: #bf360c;
+                  font-size: 1.7rem;
+                  margin-bottom: 12px;
+                  text-align: center;
+                "
+              >
+                Mind Recharge
+              </h3>
+              <p>
+                <strong>What to do:</strong> Drink water, rest for 10 minutes
+                with eyes closed, or listen to calming music.
+              </p>
+              <p>
+                <strong>Why it works:</strong> Hydration and short breaks reset
+                your nervous system, reduce stress hormones, and improve focus.
+              </p>
+              <p>
+                <strong>Quick tip:</strong> Try a mindful sip of water: notice
+                its temperature and taste while breathing deeply.
+              </p>
+              <p style="margin-top: 10px; font-weight: bold; font-size: 0.9rem">
+                <a
+                  href="https://www.nhs.uk/mental-health/self-help/tips-and-support/stress/"
+                  target="_blank"
+                  style="color: #bf360c; text-decoration: underline"
+                  >Learn more →</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
 
-    <!-- Row 2: 2 cards -->
-    <div style="display:flex; gap:30px; justify-content:center; width:100%; flex-wrap:wrap;">
+    <script>
+      const darkModeBtn = document.getElementById("darkModeBtn");
 
-      <!-- Card 4: Body Reset -->
-      <div style="background:linear-gradient(135deg,#fbc2eb,#a6c1ee); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
-        <h3 style="font-family:'Fredoka One'; color:#4a148c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Body Reset</h3>
-        <p><strong>What to do:</strong> Stretch your arms, shake your muscles, or take a short walk or gentle yoga session.</p>
-        <p><strong>Why it works:</strong> Physical movement releases built-up tension, lowers adrenaline, and signals your brain to calm down.</p>
-        <p><strong>Quick tip:</strong> Roll your shoulders and gently rotate your neck to release stiffness.</p>
-        <p style="margin-top:10px; font-weight:bold; font-size:0.9rem;">
-          <a href="https://www.mayoclinic.org/healthy-lifestyle/stress-management/in-depth/exercise-and-stress/art-20044469" target="_blank" style="color:#4a148c; text-decoration:underline;">Learn more →</a>
-        </p>
-      </div>
+      darkModeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
 
-      <!-- Card 5: Mind Recharge -->
-      <div style="background:linear-gradient(135deg,#ffd3b6,#ffaaa5); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
-        <h3 style="font-family:'Fredoka One'; color:#bf360c; font-size:1.7rem; margin-bottom:12px; text-align: center;">Mind Recharge</h3>
-        <p><strong>What to do:</strong> Drink water, rest for 10 minutes with eyes closed, or listen to calming music.</p>
-        <p><strong>Why it works:</strong> Hydration and short breaks reset your nervous system, reduce stress hormones, and improve focus.</p>
-        <p><strong>Quick tip:</strong> Try a mindful sip of water: notice its temperature and taste while breathing deeply.</p>
-        <p style="margin-top:10px; font-weight:bold; font-size:0.9rem;">
-          <a href="https://www.nhs.uk/mental-health/self-help/tips-and-support/stress/" target="_blank" style="color:#bf360c; text-decoration:underline;">Learn more →</a>
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-
-</div>
-
-<script>
-  const darkModeBtn = document.getElementById('darkModeBtn');
-
-  darkModeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-
-    if (document.body.classList.contains('dark-mode')) {
-      darkModeBtn.textContent = 'Light Mode';
-    } else {
-      darkModeBtn.textContent = 'Dark Mode';
-    }
-  });
-</script>
-
-</body>
+        if (document.body.classList.contains("dark-mode")) {
+          darkModeBtn.textContent = "Light Mode";
+        } else {
+          darkModeBtn.textContent = "Dark Mode";
+        }
+      });
+    </script>
+  </body>
 </html>

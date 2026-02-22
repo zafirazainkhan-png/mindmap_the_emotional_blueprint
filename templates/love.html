@@ -1,495 +1,804 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Love & Connection – What Am I Feeling?</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love & Connection – What Am I Feeling?</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-<style>
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-    margin: 0;
-    padding: 0;
-    color: #2e7d32;
-    min-height: 100vh;
-    transition: background 0.5s ease, color 0.5s ease;
-  }
+    <style>
+      body {
+        font-family: "Nunito", sans-serif;
+        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        margin: 0;
+        padding: 0;
+        color: #2e7d32;
+        min-height: 100vh;
+        transition:
+          background 0.5s ease,
+          color 0.5s ease;
+      }
 
-  /* NAV BAR */
-  .topnav {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: linear-gradient(90deg, #4caf50, #388e3c);
-    padding: 18px 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    flex-wrap: wrap;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    width: 100%;
-    box-sizing: border-box;
-  }
+      /* NAV BAR */
+      .topnav {
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: linear-gradient(90deg, #4caf50, #388e3c);
+        padding: 18px 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 60px;
+        flex-wrap: wrap;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        width: 100%;
+        box-sizing: border-box;
+      }
 
-  .topnav a {
-    color: white;
-    text-decoration: none;
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.6rem;
-    font-weight: bold;
-    transition: all 0.3s;
-  }
+      .topnav a {
+        color: white;
+        text-decoration: none;
+        font-family: "Fredoka One", cursive;
+        font-size: 1.6rem;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
 
-  .topnav a:hover {
-    transform: scale(1.1);
-    opacity: 0.9;
-  }
+      .topnav a:hover {
+        transform: scale(1.1);
+        opacity: 0.9;
+      }
 
-  .topnav button {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 50px;
-    background: #e8f5e9;
-    color: #2e7d32;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: all 0.3s;
-    min-width: 140px;
-  }
+      .topnav button {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 50px;
+        background: #e8f5e9;
+        color: #2e7d32;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+        min-width: 140px;
+      }
 
-  .topnav button:hover {
-    background: white;
-    transform: scale(1.08);
-  }
+      .topnav button:hover {
+        background: white;
+        transform: scale(1.08);
+      }
 
-  /* DARK MODE */
-  body.dark-mode {
-    background: #121212;
-    color: #a5d6a7;
-  }
+      /* DARK MODE */
+      body.dark-mode {
+        background: #121212;
+        color: #a5d6a7;
+      }
 
-  body.dark-mode .topnav { background: linear-gradient(90deg, #1b5e20, #2e7d32); }
-  body.dark-mode .topnav a { color: #c8e6c9; }
-  body.dark-mode .topnav button { background: #33691e; color: #a5d6a7; }
-  body.dark-mode .topnav button:hover { background: #558b2f; }
-  body.dark-mode .flashcard-front, body.dark-mode .flashcard-back { background: #2e7d32; }
-  body.dark-mode .section-title { color: #c8e6c9; }
+      body.dark-mode .topnav {
+        background: linear-gradient(90deg, #1b5e20, #2e7d32);
+      }
+      body.dark-mode .topnav a {
+        color: #c8e6c9;
+      }
+      body.dark-mode .topnav button {
+        background: #33691e;
+        color: #a5d6a7;
+      }
+      body.dark-mode .topnav button:hover {
+        background: #558b2f;
+      }
+      body.dark-mode .flashcard-front,
+      body.dark-mode .flashcard-back {
+        background: #2e7d32;
+      }
+      body.dark-mode .section-title {
+        color: #c8e6c9;
+      }
 
-  /* MAIN CONTENT */
-  .container {
-    max-width: 1350px;
-    margin: 40px auto 0 auto;
-    padding: 0 20px;
-    text-align: center;
-  }
+      /* MAIN CONTENT */
+      .container {
+        max-width: 1350px;
+        margin: 40px auto 0 auto;
+        padding: 0 20px;
+        text-align: center;
+      }
 
-  h1 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 3.2rem;
-    color: #386642;
-    margin-bottom: 12px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-  }
+      h1 {
+        font-family: "Fredoka One", cursive;
+        font-size: 3.2rem;
+        color: #386642;
+        margin-bottom: 12px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-  .subtitle {
-    font-size: 1.35rem;
-    line-height: 1.6;
-    color: #2e7d32;
-    margin-bottom: 50px;
-    font-weight: 600;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-  }
+      .subtitle {
+        font-size: 1.35rem;
+        line-height: 1.6;
+        color: #2e7d32;
+        margin-bottom: 50px;
+        font-weight: 600;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+      }
 
-  /* FLASHCARDS GRID */
-  .flashcards-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    margin-bottom: 60px;
-  }
+      /* FLASHCARDS GRID */
+      .flashcards-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 60px;
+      }
 
-  .flashcard {
-    width: 400px;
-    height: 600px;
-    border-radius: 28px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
-    perspective: 1200px;
-    cursor: pointer;
-    transition: transform 0.4s ease;
-  }
+      .flashcard {
+        width: 400px;
+        height: 600px;
+        border-radius: 28px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+        perspective: 1200px;
+        cursor: pointer;
+        transition: transform 0.4s ease;
+      }
 
-  .flashcard:hover {
-    transform: translateY(-12px);
-  }
+      .flashcard:hover {
+        transform: translateY(-12px);
+      }
 
-  .flashcard-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    transform-style: preserve-3d;
-  }
+      .flashcard-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transform-style: preserve-3d;
+      }
 
-  .flashcard.flipped .flashcard-inner {
-    transform: rotateY(180deg);
-  }
+      .flashcard.flipped .flashcard-inner {
+        transform: rotateY(180deg);
+      }
 
-  .flashcard-front,
-  .flashcard-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    border-radius: 28px;
-    padding: 30px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    color: white;
-    background: #386642;
-  }
+      .flashcard-front,
+      .flashcard-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        border-radius: 28px;
+        padding: 30px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        color: white;
+        background: #386642;
+      }
 
-  .flashcard-back {
-    transform: rotateY(180deg);
-    text-align: left;
-  }
+      .flashcard-back {
+        transform: rotateY(180deg);
+        text-align: left;
+      }
 
-  .flashcard-back h2 {
-    text-align: center;
-  }
+      .flashcard-back h2 {
+        text-align: center;
+      }
 
-  .flashcard-front img {
-    max-height: 300px;
-    width: auto;
-    margin-bottom: 25px;
-    border-radius: 20px;
-    object-fit: contain;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-  }
+      .flashcard-front img {
+        max-height: 300px;
+        width: auto;
+        margin-bottom: 25px;
+        border-radius: 20px;
+        object-fit: contain;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+      }
 
-  .flashcard-front h2 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 2.4rem;
-    margin: 15px 0 12px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-  }
+      .flashcard-front h2 {
+        font-family: "Fredoka One", cursive;
+        font-size: 2.4rem;
+        margin: 15px 0 12px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      }
 
-  .flashcard-front p {
-    font-size: 1.15rem;
-    line-height: 1.5;
-    opacity: 0.95;
-  }
+      .flashcard-front p {
+        font-size: 1.15rem;
+        line-height: 1.5;
+        opacity: 0.95;
+      }
 
-  .flashcard-back h2 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.9rem;
-    margin: 0 0 20px 0;
-    text-align: center;
-    width: 100%;
-  }
+      .flashcard-back h2 {
+        font-family: "Fredoka One", cursive;
+        font-size: 1.9rem;
+        margin: 0 0 20px 0;
+        text-align: center;
+        width: 100%;
+      }
 
-  .section-title {
-    font-weight: 700;
-    color: #c8e6c9;
-    margin: 18px 0 8px;
-    font-size: 1.15rem;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-align: center;
-  }
+      .section-title {
+        font-weight: 700;
+        color: #c8e6c9;
+        margin: 18px 0 8px;
+        font-size: 1.15rem;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-align: center;
+      }
 
-  .flashcard-back p:not(.section-title) {
-    font-size: 1.05rem;
-    line-height: 1.65;
-    margin: 8px 0;
-    text-align: left;
-  }
+      .flashcard-back p:not(.section-title) {
+        font-size: 1.05rem;
+        line-height: 1.65;
+        margin: 8px 0;
+        text-align: left;
+      }
 
-  .back-home {
-    margin: 60px auto 0;
-    padding: 14px 36px;
-    font-size: 1.25rem;
-    background: #6e8efb;
-    color: white;
-    border-radius: 50px;
-    font-family: 'Fredoka One', cursive;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s;
-    box-shadow: 0 6px 15px rgba(110,142,251,0.4);
-  }
+      .back-home {
+        margin: 60px auto 0;
+        padding: 14px 36px;
+        font-size: 1.25rem;
+        background: #6e8efb;
+        color: white;
+        border-radius: 50px;
+        font-family: "Fredoka One", cursive;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s;
+        box-shadow: 0 6px 15px rgba(110, 142, 251, 0.4);
+      }
 
-  .back-home:hover {
-    background: #5c7aea;
-    transform: scale(1.08);
-  }
+      .back-home:hover {
+        background: #5c7aea;
+        transform: scale(1.08);
+      }
 
-  /* Calming techniques hover effect */
-  section div[style*="linear-gradient"] {
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-  }
-  section div[style*="linear-gradient"]:hover {
-    transform: translateY(-12px) rotate(-2deg);
-    box-shadow: 0 18px 35px rgba(0,0,0,0.22);
-  }
+      /* Calming techniques hover effect */
+      section div[style*="linear-gradient"] {
+        transition:
+          transform 0.4s ease,
+          box-shadow 0.4s ease;
+      }
+      section div[style*="linear-gradient"]:hover {
+        transform: translateY(-12px) rotate(-2deg);
+        box-shadow: 0 18px 35px rgba(0, 0, 0, 0.22);
+      }
 
-  /* Responsive adjustments */
-  @media (max-width: 1300px) {
-    .flashcard { width: 360px; height: 580px; }
-  }
-  @media (max-width: 1200px) {
-    .flashcards-grid { gap: 25px; }
-    .flashcard { width: 340px; }
-  }
-  @media (max-width: 900px) {
-    .flashcards-grid { gap: 30px; }
-    .flashcard { width: 380px; }
-  }
-</style>
-</head>
-<body>
+      /* Responsive adjustments */
+      @media (max-width: 1300px) {
+        .flashcard {
+          width: 360px;
+          height: 580px;
+        }
+      }
+      @media (max-width: 1200px) {
+        .flashcards-grid {
+          gap: 25px;
+        }
+        .flashcard {
+          width: 340px;
+        }
+      }
+      @media (max-width: 900px) {
+        .flashcards-grid {
+          gap: 30px;
+        }
+        .flashcard {
+          width: 380px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topnav">
+      <a href="{{ url_for('homepage') }}">Home</a>
+      <a href="{{ url_for('why_am_i_feeling') }}">Why am I Feeling?</a>
+      <a href="{{ url_for('managing_emotions') }}">Managing Emotions</a>
+      <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
 
-<div class="topnav">
-  <a href="{{ url_for('homepage') }}">Home</a>
-  <a href="{{ url_for('why_am_i_feeling') }}">Why am I Feeling?</a>
-  <a href="{{ url_for('managing_emotions') }}">Managing Emotions</a>
-  <a href="{{ url_for('mood_messengers') }}">Mood Messengers</a>
-
-  <button id="darkModeBtn">Dark Mode</button>
-  <button id="soundBtn">Sound On</button>
-</div>
-
-<div class="container">
-  <h1>Love & Connection</h1>
-  <p class="subtitle">
-    Emotions triggered by meaningful relationships, social bonding, and caring for others.
-  </p>
-  
-  <!-- FLASHCARDS -->
-  <div class="flashcards-grid">
-
-    <!-- Compassion -->
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">
-          <img src="{{ url_for('static', filename='compassion.png') }}" alt="Compassion">
-          <h2>Compassion</h2>
-          <p>Feeling care and concern for others.</p>
-        </div>
-        <div class="flashcard-back">
-          <h2>Compassion</h2>
-          <p class="section-title">Feelings</p>
-          <p>Warmth, kindness, concern, and motivation to help. You may feel drawn to comfort or support someone emotionally.</p>
-          <p class="section-title">Brain</p>
-          <p>The amygdala detects emotional cues in others, the prefrontal cortex regulates empathetic responses, and the cingulate gyrus helps process social and emotional conflict.</p>
-          <p class="section-title">Neurotransmitters & Hormones</p>
-          <p>Oxytocin promotes caregiving and social bonding, serotonin stabilizes mood, and dopamine reinforces the rewarding feeling of helping others.</p>
-          <p class="section-title">Real-life Scenarios</p>
-          <p>Comforting a friend who is upset, helping a sibling, or supporting a classmate emotionally.</p>
-          <p class="section-title">Enhancing Compassion</p>
-          <p>Do a small act of kindness—offer a smile, listen attentively, or help someone. Notice how it strengthens both your connection and mood.</p>
-        </div>
-      </div>
+      <button id="darkModeBtn">Dark Mode</button>
+      <button id="soundBtn">Sound On</button>
     </div>
 
-    <!-- Empathy -->
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">
-          <img src="{{ url_for('static', filename='empathy.png') }}" alt="Empathy">
-          <h2>Empathy</h2>
-          <p>Understanding and sharing someone else’s emotions.</p>
+    <div class="container">
+      <h1>Love & Connection</h1>
+      <p class="subtitle">
+        Emotions triggered by meaningful relationships, social bonding, and
+        caring for others.
+      </p>
+
+      <!-- FLASHCARDS -->
+      <div class="flashcards-grid">
+        <!-- Compassion -->
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <img
+                src="{{ url_for('static', filename='compassion.png') }}"
+                alt="Compassion"
+              />
+              <h2>Compassion</h2>
+              <p>Feeling care and concern for others.</p>
+            </div>
+            <div class="flashcard-back">
+              <h2>Compassion</h2>
+              <p class="section-title">Feelings</p>
+              <p>
+                Warmth, kindness, concern, and motivation to help. You may feel
+                drawn to comfort or support someone emotionally.
+              </p>
+              <p class="section-title">Brain</p>
+              <p>
+                The amygdala detects emotional cues in others, the prefrontal
+                cortex regulates empathetic responses, and the cingulate gyrus
+                helps process social and emotional conflict.
+              </p>
+              <p class="section-title">Neurotransmitters & Hormones</p>
+              <p>
+                Oxytocin promotes caregiving and social bonding, serotonin
+                stabilizes mood, and dopamine reinforces the rewarding feeling
+                of helping others.
+              </p>
+              <p class="section-title">Real-life Scenarios</p>
+              <p>
+                Comforting a friend who is upset, helping a sibling, or
+                supporting a classmate emotionally.
+              </p>
+              <p>
+                Do a small act of kindness: offer a smile, listen attentively,
+                or help someone. Notice how it strengthens both your connection
+                and mood.
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="flashcard-back">
-          <h2>Empathy</h2>
-          <p class="section-title">Feelings</p>
-          <p>Sensitivity, understanding, emotional resonance, and perspective-taking. You may feel what another person feels.</p>
-          <p class="section-title">Brain</p>
-          <p>The amygdala detects emotional signals, the anterior cingulate cortex processes social and emotional conflict, and the prefrontal cortex helps regulate responses and perspective-taking.</p>
-          <p class="section-title">Neurotransmitters & Hormones</p>
-          <p>Oxytocin strengthens social bonds, and serotonin maintains emotional stability.</p>
-          <p class="section-title">Real-life Scenarios</p>
-          <p>Listening actively to a friend’s worries, imagining another’s experience, or validating someone’s feelings.</p>
-          <p class="section-title">Enhancing Empathy</p>
-          <p>Practice active listening—maintain eye contact, reflect their feelings, and avoid interrupting.</p>
+
+        <!-- Empathy -->
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <img
+                src="{{ url_for('static', filename='empathy.png') }}"
+                alt="Empathy"
+              />
+              <h2>Empathy</h2>
+              <p>Understanding and sharing someone else’s emotions.</p>
+            </div>
+            <div class="flashcard-back">
+              <h2>Empathy</h2>
+              <p class="section-title">Feelings</p>
+              <p>
+                Sensitivity, understanding, emotional resonance, and
+                perspective-taking. You may feel what another person feels.
+              </p>
+              <p class="section-title">Brain</p>
+              <p>
+                The amygdala detects emotional signals, the anterior cingulate
+                cortex processes social and emotional conflict, and the
+                prefrontal cortex helps regulate responses and
+                perspective-taking.
+              </p>
+              <p class="section-title">Neurotransmitters & Hormones</p>
+              <p>
+                Oxytocin strengthens social bonds, and serotonin maintains
+                emotional stability.
+              </p>
+              <p class="section-title">Real-life Scenarios</p>
+              <p>
+                Listening actively to a friend’s worries, imagining another’s
+                experience, or validating someone’s feelings.
+              </p>
+              <p>
+                Practice active listening: maintain eye contact, reflect their
+                feelings, and avoid interrupting.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust -->
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <img
+                src="{{ url_for('static', filename='trust.png') }}"
+                alt="Trust"
+              />
+              <h2>Trust</h2>
+              <p>Confidence in the reliability and support of others.</p>
+            </div>
+            <div class="flashcard-back">
+              <h2>Trust</h2>
+              <p class="section-title">Feelings</p>
+              <p>Safety, security, reliance, and openness in relationships.</p>
+              <p class="section-title">Brain</p>
+              <p>
+                The ventral striatum processes reward and social reinforcement,
+                the amygdala evaluates trustworthiness, and the hippocampus
+                stores positive relational memories.
+              </p>
+              <p class="section-title">Neurotransmitters & Hormones</p>
+              <p>
+                Oxytocin enhances bonding, and dopamine reinforces rewarding
+                social interactions.
+              </p>
+              <p class="section-title">Real-life Scenarios</p>
+              <p>
+                Sharing a secret with a friend, relying on a teammate, or
+                cooperating on a project.
+              </p>
+              <p class="section-title">Enhancing Trust</p>
+              <p>
+                Engage in small collaborative actions—help someone or share a
+                task. Builds trust and emotional security.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Belonging -->
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <img
+                src="{{ url_for('static', filename='belonging.png') }}"
+                alt="Belonging"
+              />
+              <h2>Belonging</h2>
+              <p>Feeling accepted, included, and part of a group.</p>
+            </div>
+            <div class="flashcard-back">
+              <h2>Belonging</h2>
+              <p class="section-title">Feelings</p>
+              <p>
+                Warmth, inclusion, safety, and connection. You feel like you
+                “fit in.”
+              </p>
+              <p class="section-title">Brain</p>
+              <p>
+                The ventral striatum signals social reward, the amygdala
+                evaluates social inclusion or threat, and the hippocampus stores
+                positive group memories.
+              </p>
+              <p class="section-title">Neurotransmitters & Hormones</p>
+              <p>
+                Oxytocin strengthens social bonds, and serotonin stabilizes
+                mood.
+              </p>
+              <p class="section-title">Real-life Scenarios</p>
+              <p>
+                Joining a team, collaborating on a group project, or feeling
+                included in a social activity.
+              </p>
+              <p class="section-title">Enhancing Belonging</p>
+              <p>
+                Participate actively—say hello, join discussions, or offer help.
+                Small actions boost connection and confidence.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admiration -->
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <img
+                src="{{ url_for('static', filename='admiration.png') }}"
+                alt="Admiration"
+              />
+              <h2>Admiration</h2>
+              <p>
+                Respect and positive recognition for someone’s qualities or
+                actions.
+              </p>
+            </div>
+            <div class="flashcard-back">
+              <h2>Admiration</h2>
+              <p class="section-title">Feelings</p>
+              <p>
+                Inspiration, respect, appreciation, and motivation. You may feel
+                drawn to emulate or celebrate someone.
+              </p>
+              <p class="section-title">Brain</p>
+              <p>
+                The ventral striatum processes social reward, the amygdala
+                detects meaningful behaviors, and the hippocampus stores
+                positive memories of role models.
+              </p>
+              <p class="section-title">Neurotransmitters & Hormones</p>
+              <p>
+                Oxytocin deepens social connection, dopamine reinforces
+                rewarding interactions, and serotonin supports calmness.
+              </p>
+              <p class="section-title">Real-life Scenarios</p>
+              <p>
+                Watching a teammate succeed, appreciating a friend’s effort, or
+                learning from a mentor.
+              </p>
+              <p class="section-title">Enhancing Admiration</p>
+              <p>
+                Express appreciation—say “well done,” compliment effort, or
+                reflect on what inspires you.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+
+      <a href="{{ url_for('what_am_i_feeling') }}" class="back-home"
+        >Back to Wheel</a
+      >
+
+      <!-- Divider -->
+      <hr style="border: none; height: 2px; background: #eee; margin: 80px 0" />
+
+      <!-- REGULATION TECHNIQUES -->
+      <section
+        style="
+          background: #f1f8e9;
+          padding: 80px 20px;
+          border-radius: 20px;
+          margin-top: 40px;
+        "
+      >
+        <h2
+          style="
+            font-family: &quot;Fredoka One&quot;;
+            color: #386642;
+            text-align: center;
+            font-size: 2.7rem;
+            margin-bottom: 20px;
+          "
+        >
+          Find the Calm in the Middle of Love & Connection
+        </h2>
+        <p
+          style="
+            font-size: 1.25rem;
+            text-align: left;
+            max-width: 900px;
+            margin: 0 auto 60px;
+            color: #558b2f;
+          "
+        >
+          When emotions around caring, bonding, or social connection feel
+          intense, try these techniques to stay grounded, balanced, and present.
+        </p>
+
+        <div
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+          "
+        >
+          <!-- Row 1: 3 cards -->
+          <div
+            style="
+              display: flex;
+              gap: 30px;
+              flex-wrap: wrap;
+              justify-content: center;
+              width: 100%;
+              margin-bottom: 30px;
+            "
+          >
+            <!-- Card 1: Quick Calm Reset -->
+            <div
+              style="
+                background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+                border-radius: 28px;
+                width: 310px;
+                padding: 28px;
+                min-height: 390px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                text-align: left;
+              "
+            >
+              <h3
+                style="
+                  font-family: &quot;Fredoka One&quot;;
+                  color: #2e7d32;
+                  font-size: 1.7rem;
+                  margin-bottom: 12px;
+                  text-align: center;
+                "
+              >
+                Quick Calm Reset
+              </h3>
+              <p>
+                <strong>What to do:</strong> Take three slow, deep breaths. Feel
+                your chest rise and fall. Exhale slowly, letting your shoulders
+                drop.
+              </p>
+              <p>
+                <strong>Why it works:</strong> Deep breathing lowers heart rate,
+                reduces stress, and helps you stay fully present in social
+                interactions.
+              </p>
+              <p>
+                <strong>Quick tip:</strong> Inhale for 4, hold 2, exhale 6.
+                Repeat 3 times to feel grounded and connected.
+              </p>
+            </div>
+
+            <!-- Card 2: Grounding Exercise -->
+            <div
+              style="
+                background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+                border-radius: 28px;
+                width: 310px;
+                padding: 28px;
+                min-height: 390px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                text-align: left;
+              "
+            >
+              <p>
+                <strong>What to do:</strong> Use the 5-4-3-2-1 method: notice 5
+                things you see, 4 you feel, 3 you hear, 2 you smell, and 1 you
+                taste.
+              </p>
+              <p>
+                <strong>Why it works:</strong> Pulls attention into the present
+                moment, making social interactions richer and emotionally
+                satisfying.
+              </p>
+              <p>
+                <strong>Quick tip:</strong> Move slowly and notice small details
+                you usually overlook in others or the environment.
+              </p>
+            </div>
+
+            <!-- Card 3: Tiny Steps Technique -->
+            <div
+              style="
+                background: linear-gradient(135deg, #a5d6a7, #81c784);
+                border-radius: 28px;
+                width: 310px;
+                padding: 28px;
+                min-height: 390px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                text-align: left;
+              "
+            >
+              <h3
+                style="
+                  font-family: &quot;Fredoka One&quot;;
+                  color: #2e7d32;
+                  font-size: 1.7rem;
+                  margin-bottom: 12px;
+                  text-align: center;
+                "
+              >
+                Tiny Steps Technique
+              </h3>
+              <p>
+                <strong>What to do:</strong> Break social interactions into
+                small steps: “Send a short thank-you message,” or “Ask one
+                thoughtful question.”
+              </p>
+              <p>
+                <strong>Why it works:</strong> Small steps make connecting with
+                others easier and more manageable, boosting confidence and
+                social reward.
+              </p>
+              <p>
+                <strong>Quick tip:</strong> Celebrate small social wins to
+                strengthen bonds and positive emotions.
+              </p>
+            </div>
+          </div>
+
+          <!-- Row 2: 2 cards -->
+          <div
+            style="
+              display: flex;
+              gap: 30px;
+              justify-content: center;
+              width: 100%;
+              flex-wrap: wrap;
+            "
+          >
+            <!-- Card 4: Body Reset -->
+            <div
+              style="
+                background: linear-gradient(135deg, #81c784, #e8f5e9);
+                border-radius: 28px;
+                width: 310px;
+                padding: 28px;
+                min-height: 390px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                text-align: left;
+              "
+            >
+              <h3
+                style="
+                  font-family: &quot;Fredoka One&quot;;
+                  color: #1b5e20;
+                  font-size: 1.7rem;
+                  margin-bottom: 12px;
+                  text-align: center;
+                "
+              >
+                Body Reset
+              </h3>
+              <p>
+                <strong>What to do:</strong> Stretch, shake your muscles, or
+                take a short walk before or during social activities.
+              </p>
+              <p>
+                <strong>Why it works:</strong> Physical movement releases
+                tension, boosts endorphins, and enhances enjoyment of social
+                interaction.
+              </p>
+              <p>
+                <strong>Quick tip:</strong> Roll your shoulders, relax your
+                neck, and take a few steps to release excess energy.
+              </p>
+            </div>
+
+            <!-- Card 5: Mind Recharge -->
+            <div
+              style="
+                background: linear-gradient(135deg, #66bb6a, #c8e6c9);
+                border-radius: 28px;
+                width: 310px;
+                padding: 28px;
+                min-height: 390px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                text-align: left;
+              "
+            >
+              <h3
+                style="
+                  font-family: &quot;Fredoka One&quot;;
+                  color: #2e7d32;
+                  font-size: 1.7rem;
+                  margin-bottom: 12px;
+                  text-align: center;
+                "
+              >
+                Mind Recharge
+              </h3>
+              <p>
+                <strong>What to do:</strong> Rest briefly, drink water, or
+                engage in a calming activity before connecting with others.
+              </p>
+              <p>
+                <strong>Why it works:</strong> Supports emotional regulation,
+                prevents overwhelm, and sustains positive connection.
+              </p>
+              <p>
+                <strong>Quick tip:</strong> Take a mindful sip of water: notice
+                its temperature and taste while breathing slowly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
 
-    <!-- Trust -->
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">
-          <img src="{{ url_for('static', filename='trust.png') }}" alt="Trust">
-          <h2>Trust</h2>
-          <p>Confidence in the reliability and support of others.</p>
-        </div>
-        <div class="flashcard-back">
-          <h2>Trust</h2>
-          <p class="section-title">Feelings</p>
-          <p>Safety, security, reliance, and openness in relationships.</p>
-          <p class="section-title">Brain</p>
-          <p>The ventral striatum processes reward and social reinforcement, the amygdala evaluates trustworthiness, and the hippocampus stores positive relational memories.</p>
-          <p class="section-title">Neurotransmitters & Hormones</p>
-          <p>Oxytocin enhances bonding, and dopamine reinforces rewarding social interactions.</p>
-          <p class="section-title">Real-life Scenarios</p>
-          <p>Sharing a secret with a friend, relying on a teammate, or cooperating on a project.</p>
-          <p class="section-title">Enhancing Trust</p>
-          <p>Engage in small collaborative actions—help someone or share a task. Builds trust and emotional security.</p>
-        </div>
-      </div>
-    </div>
+    <script>
+      const darkModeBtn = document.getElementById("darkModeBtn");
 
-    <!-- Belonging -->
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">
-          <img src="{{ url_for('static', filename='belonging.png') }}" alt="Belonging">
-          <h2>Belonging</h2>
-          <p>Feeling accepted, included, and part of a group.</p>
-        </div>
-        <div class="flashcard-back">
-          <h2>Belonging</h2>
-          <p class="section-title">Feelings</p>
-          <p>Warmth, inclusion, safety, and connection. You feel like you “fit in.”</p>
-          <p class="section-title">Brain</p>
-          <p>The ventral striatum signals social reward, the amygdala evaluates social inclusion or threat, and the hippocampus stores positive group memories.</p>
-          <p class="section-title">Neurotransmitters & Hormones</p>
-          <p>Oxytocin strengthens social bonds, and serotonin stabilizes mood.</p>
-          <p class="section-title">Real-life Scenarios</p>
-          <p>Joining a team, collaborating on a group project, or feeling included in a social activity.</p>
-          <p class="section-title">Enhancing Belonging</p>
-          <p>Participate actively—say hello, join discussions, or offer help. Small actions boost connection and confidence.</p>
-        </div>
-      </div>
-    </div>
+      darkModeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
 
-    <!-- Admiration -->
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">
-          <img src="{{ url_for('static', filename='admiration.png') }}" alt="Admiration">
-          <h2>Admiration</h2>
-          <p>Respect and positive recognition for someone’s qualities or actions.</p>
-        </div>
-        <div class="flashcard-back">
-          <h2>Admiration</h2>
-          <p class="section-title">Feelings</p>
-          <p>Inspiration, respect, appreciation, and motivation. You may feel drawn to emulate or celebrate someone.</p>
-          <p class="section-title">Brain</p>
-          <p>The ventral striatum processes social reward, the amygdala detects meaningful behaviors, and the hippocampus stores positive memories of role models.</p>
-          <p class="section-title">Neurotransmitters & Hormones</p>
-          <p>Oxytocin deepens social connection, dopamine reinforces rewarding interactions, and serotonin supports calmness.</p>
-          <p class="section-title">Real-life Scenarios</p>
-          <p>Watching a teammate succeed, appreciating a friend’s effort, or learning from a mentor.</p>
-          <p class="section-title">Enhancing Admiration</p>
-          <p>Express appreciation—say “well done,” compliment effort, or reflect on what inspires you.</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <a href="{{ url_for('what_am_i_feeling') }}" class="back-home">Back to Wheel</a>
-
-  <!-- Divider -->
-  <hr style="border:none; height:2px; background:#eee; margin:80px 0;">
-
-  <!-- REGULATION TECHNIQUES -->
-<section style="background:#f1f8e9; padding:80px 20px; border-radius:20px; margin-top:40px;">
-  <h2 style="font-family:'Fredoka One'; color:#386642; text-align:center; font-size:2.7rem; margin-bottom:20px;">
-    Find the Calm in the Middle of Love & Connection
-  </h2>
-  <p style="font-size:1.25rem; text-align:left; max-width:900px; margin:0 auto 60px; color:#558b2f;">
-    When emotions around caring, bonding, or social connection feel intense, try these techniques to stay grounded, balanced, and present.
-  </p>
-
-  <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
-
-    <!-- Row 1: 3 cards -->
-    <div style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center; width:100%; margin-bottom:30px;">
-
-      <!-- Card 1: Quick Calm Reset -->
-      <div style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
-        <h3 style="font-family:'Fredoka One'; color:#2e7d32; font-size:1.7rem; margin-bottom:12px; text-align: center;">Quick Calm Reset</h3>
-        <p><strong>What to do:</strong> Take three slow, deep breaths. Feel your chest rise and fall. Exhale slowly, letting your shoulders drop.</p>
-        <p><strong>Why it works:</strong> Deep breathing lowers heart rate, reduces stress, and helps you stay fully present in social interactions.</p>
-        <p><strong>Quick tip:</strong> Inhale for 4, hold 2, exhale 6. Repeat 3 times to feel grounded and connected.</p>
-      </div>
-
-      <!-- Card 2: Grounding Exercise -->
-      <div style="background:linear-gradient(135deg,#c8e6c9,#a5d6a7); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
-        <h3 style="font-family:'Fredoka One'; color:#1b5e20; font-size:1.7rem; margin-bottom:12px; text-align: center;">Grounding Exercise</h3>
-        <p><strong>What to do:</strong> Use the 5-4-3-2-1 method—notice 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste.</p>
-        <p><strong>Why it works:</strong> Pulls attention into the present moment, making social interactions richer and emotionally satisfying.</p>
-        <p><strong>Quick tip:</strong> Move slowly and notice small details you usually overlook in others or the environment.</p>
-      </div>
-
-      <!-- Card 3: Tiny Steps Technique -->
-      <div style="background:linear-gradient(135deg,#a5d6a7,#81c784); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
-        <h3 style="font-family:'Fredoka One'; color:#2e7d32; font-size:1.7rem; margin-bottom:12px; text-align: center;">Tiny Steps Technique</h3>
-        <p><strong>What to do:</strong> Break social interactions into small steps: “Send a short thank-you message,” or “Ask one thoughtful question.”</p>
-        <p><strong>Why it works:</strong> Small steps make connecting with others easier and more manageable, boosting confidence and social reward.</p>
-        <p><strong>Quick tip:</strong> Celebrate small social wins to strengthen bonds and positive emotions.</p>
-      </div>
-
-    </div>
-
-    <!-- Row 2: 2 cards -->
-    <div style="display:flex; gap:30px; justify-content:center; width:100%; flex-wrap:wrap;">
-
-      <!-- Card 4: Body Reset -->
-      <div style="background:linear-gradient(135deg,#81c784,#e8f5e9); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
-        <h3 style="font-family:'Fredoka One'; color:#1b5e20; font-size:1.7rem; margin-bottom:12px; text-align: center;">Body Reset</h3>
-        <p><strong>What to do:</strong> Stretch, shake your muscles, or take a short walk before or during social activities.</p>
-        <p><strong>Why it works:</strong> Physical movement releases tension, boosts endorphins, and enhances enjoyment of social interaction.</p>
-        <p><strong>Quick tip:</strong> Roll your shoulders, relax your neck, and take a few steps to release excess energy.</p>
-      </div>
-
-      <!-- Card 5: Mind Recharge -->
-      <div style="background:linear-gradient(135deg,#66bb6a,#c8e6c9); border-radius:28px; width:310px; padding:28px; min-height:390px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align: left;">
-        <h3 style="font-family:'Fredoka One'; color:#2e7d32; font-size:1.7rem; margin-bottom:12px; text-align: center;">Mind Recharge</h3>
-        <p><strong>What to do:</strong> Rest briefly, drink water, or engage in a calming activity before connecting with others.</p>
-        <p><strong>Why it works:</strong> Supports emotional regulation, prevents overwhelm, and sustains positive connection.</p>
-        <p><strong>Quick tip:</strong> Take a mindful sip of water—notice its temperature and taste while breathing slowly.</p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-</div>
-
-<script>
-  const darkModeBtn = document.getElementById('darkModeBtn');
-
-  darkModeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-
-    if (document.body.classList.contains('dark-mode')) {
-      darkModeBtn.textContent = 'Light Mode';
-    } else {
-      darkModeBtn.textContent = 'Dark Mode';
-    }
-  });
-</script>
-
-</body>
+        if (document.body.classList.contains("dark-mode")) {
+          darkModeBtn.textContent = "Light Mode";
+        } else {
+          darkModeBtn.textContent = "Dark Mode";
+        }
+      });
+    </script>
+  </body>
 </html>
