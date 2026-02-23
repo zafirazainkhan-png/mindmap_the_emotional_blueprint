@@ -232,6 +232,16 @@
       to { filter: brightness(1.3) drop-shadow(0 0 35px rgba(0, 109, 119, 1)); }
     }
 
+    /* Zoom Effect when landing */
+    .zoom-in {
+      animation: zoomWheel 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes zoomWheel {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(8); opacity: 0; }
+    }
+
     body.dark-mode .slice:hover {
       filter: brightness(1.3) drop-shadow(0 0 35px rgba(131,197,190, 0.9));
     }
@@ -440,8 +450,8 @@
     text.setAttribute("x", labelX);
     text.setAttribute("y", labelY);
     text.setAttribute("class", "label");
-    // Using tspan for better SVG support of multi-line text
-    text.innerHTML = `<tspan x="${labelX}" dy="-1.2em">${item.name}</tspan><tspan x="${labelX}" dy="1.2em">${item.emoji}</tspan>`;
+    // Using tspan for better centering of multi-line text
+    text.innerHTML = `<tspan x="${labelX}" dy="-0.3em">${item.name}</tspan><tspan x="${labelX}" dy="1.2em">${item.emoji}</tspan>`;
     text.setAttribute("transform", `rotate(${midAngle + 90}, ${labelX}, ${labelY})`);
     svg.appendChild(text);
 
@@ -510,9 +520,10 @@
     svg.style.transform = `rotate(${totalDegrees}deg)`;
 
     setTimeout(() => {
-      hub.innerHTML = `<strong>Zooming into<br>${emotionName}...</strong><br><small>🚀</small>`;
+      hub.innerHTML = `<strong>Zooming into<br>${selectedEmotion.name}...</strong><br><small>🚀</small>`;
       hub.style.transform = "scale(1.2)";
       hub.style.fontSize = "24px";
+      document.getElementById("chart").classList.add("zoom-in");
     }, 3500);
 
     setTimeout(() => {
