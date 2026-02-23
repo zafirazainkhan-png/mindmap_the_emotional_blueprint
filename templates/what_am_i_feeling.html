@@ -248,7 +248,7 @@
 
     .label {
       pointer-events: none;
-      font-size: 11px;
+      font-size: 9px; /* Adjusted from 11px */
       text-anchor: middle;
       alignment-baseline: central;
       fill: #1a3c40;
@@ -324,9 +324,9 @@
 
     /* SPIN BUTTON MOVED EVEN MORE UP */
     #spin-button {
-      margin: 10px 0 40px; /* Reduced from 80px */
+      margin: 20px 0 60px; /* adjusted margins */
       padding: 16px 45px;
-      font-size: 22px;
+      font-size: 20px; /* slightly smaller */
       cursor: pointer;
       border: none;
       border-radius: 50px;
@@ -388,7 +388,7 @@
   <div class="hub" id="emotion-hub">Hover over a section<br>to explore ✨</div>
 </div>
 
-<button id="spin-button">Spin the Wheel! 🎡</button>
+<button id="spin-button">Spin the Wheel!</button>
 
 <audio id="bg-music" loop>
   <source src="{{ url_for('static', filename='background.mp3') }}" type="audio/mpeg">
@@ -410,7 +410,7 @@
   const hub = document.getElementById("emotion-hub");
   const sparklesContainer = document.getElementById("sparkles");
 
-  const centerY = 50, radius = 50;
+  const centerX = 50, centerY = 50, radius = 50;
   const sliceAngle = 360 / emotions.length;
   let currentRotation = 0;
   let isSpinning = false;
