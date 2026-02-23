@@ -175,14 +175,33 @@
     /* WHEEL MOVED EVEN MORE UP */
     #chart {
       position: relative;
-      width: 750px;
-      height: 750px;
+      width: 600px; /* Reduced from 750px */
+      height: 600px;
       display: flex;
       align-items: center;
       justify-content: center;
       filter: drop-shadow(0px 15px 30px rgba(0, 109, 119, 0.2));
-      margin: 0 0 30px 0; /* almost no top margin */
-      overflow: hidden;
+      margin: 0 0 20px 0; /* reduced top margin */
+      overflow: visible; /* changed from hidden to see the pointer */
+    }
+
+    /* Arrow Pointer */
+    #pointer {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-top: 35px solid #006d77;
+      z-index: 50;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    }
+
+    body.dark-mode #pointer {
+      border-top-color: #83c5be;
     }
 
     body.dark-mode #chart {
@@ -295,9 +314,9 @@
 
     /* SPIN BUTTON MOVED EVEN MORE UP */
     #spin-button {
-      margin: 10px 0 80px; /* very close to the wheel */
-      padding: 20px 60px;
-      font-size: 20px;
+      margin: 10px 0 40px; /* Reduced from 80px */
+      padding: 16px 45px;
+      font-size: 22px;
       cursor: pointer;
       border: none;
       border-radius: 50px;
@@ -353,6 +372,7 @@
 <h1>What am I Feeling?</h1>
 
 <div id="chart">
+  <div id="pointer"></div>
   <svg viewBox="0 0 100 100"></svg>
   <div class="sparkles" id="sparkles"></div>
   <div class="hub" id="emotion-hub">Hover over a section<br>to explore ✨</div>
@@ -366,14 +386,14 @@
 
 <script>
   const emotions = [
-    { name: "Fear",     color: "#7e60bf", text: "Fear &<br>Vulnerability 😨",       page: "/fear" },
-    { name: "Stress",   color: "#F28B82", text: "Stress &<br>Overwhelm 😰",         page: "/stress" },
-    { name: "Anger",    color: "#F9AB64", text: "Anger &<br>Frustration 😠",        page: "/anger" },
-    { name: "Joy",      color: "#FDD663", text: "Joy &<br>Excitement 😄",           page: "/joy" },
-    { name: "Love",     color: "#81C995", text: "Love &<br>Connection ❤️",          page: "/love" },
-    { name: "Sad",      color: "#9AB9E2", text: "Sadness &<br>Loss 😢",             page: "/sadness" },
-    { name: "Guilt",    color: "#D1C7C0", text: "Guilt &<br>Self-consciousness 😔", page: "/guilt" },
-    { name: "Wonder",   color: "#c4b5e2", text: "Curiosity &<br>Wonder 🤩",         page: "/wonder" }
+    { name: "Fear",     emoji: "😨", color: "#7e60bf", text: "Fear &<br>Vulnerability 😨",       page: "/fear" },
+    { name: "Stress",   emoji: "😰", color: "#F28B82", text: "Stress &<br>Overwhelm 😰",         page: "/stress" },
+    { name: "Anger",    emoji: "😠", color: "#F9AB64", text: "Anger &<br>Frustration 😠",        page: "/anger" },
+    { name: "Joy",      emoji: "😄", color: "#FDD663", text: "Joy &<br>Excitement 😄",           page: "/joy" },
+    { name: "Love",     emoji: "❤️", color: "#81C995", text: "Love &<br>Connection ❤️",          page: "/love" },
+    { name: "Sadness",  emoji: "😢", color: "#9AB9E2", text: "Sadness &<br>Loss 😢",             page: "/sadness" },
+    { name: "Guilt",    emoji: "😔", color: "#D1C7C0", text: "Guilt &<br>Self-consciousness 😔", page: "/guilt" },
+    { name: "Wonder",   emoji: "🤩", color: "#c4b5e2", text: "Curiosity &<br>Wonder 🤩",         page: "/wonder" }
   ];
 
   const svg = document.querySelector("svg");
@@ -420,7 +440,8 @@
     text.setAttribute("x", labelX);
     text.setAttribute("y", labelY);
     text.setAttribute("class", "label");
-    text.innerHTML = item.name;
+    // Using tspan for better SVG support of multi-line text
+    text.innerHTML = `<tspan x="${labelX}" dy="-1.2em">${item.name}</tspan><tspan x="${labelX}" dy="1.2em">${item.emoji}</tspan>`;
     text.setAttribute("transform", `rotate(${midAngle + 90}, ${labelX}, ${labelY})`);
     svg.appendChild(text);
 
@@ -482,10 +503,11 @@
     const emotionName = selectedEmotion.name;
 
     const fullSpins = 6 + Math.floor(Math.random() * 4);
-    const extraDegrees = randomIndex * sliceAngle + sliceAngle / 2;
-    const totalDegrees = fullSpins * 360 + extraDegrees;
+    // Correct rotation to land the slice at the TOP (pointer position)
+    const midAngle = randomIndex * sliceAngle + sliceAngle / 2;
+    const totalDegrees = (fullSpins * 360) + (360 - (midAngle + 90));
 
-    svg.style.transform = `rotate(${totalDegrees - 90}deg)`;
+    svg.style.transform = `rotate(${totalDegrees}deg)`;
 
     setTimeout(() => {
       hub.innerHTML = `<strong>Zooming into<br>${emotionName}...</strong><br><small>🚀</small>`;
