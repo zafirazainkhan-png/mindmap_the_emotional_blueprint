@@ -410,8 +410,10 @@
   const hub = document.getElementById("emotion-hub");
   const sparklesContainer = document.getElementById("sparkles");
 
-  const centerX = 50, centerY = 50, radius = 50;
+  const centerY = 50, radius = 50;
   const sliceAngle = 360 / emotions.length;
+  let currentRotation = 0;
+  let isSpinning = false;
   let startAngle = 0;
 
   // Create sparkles
@@ -455,6 +457,7 @@
     svg.appendChild(text);
 
     path.addEventListener("mouseenter", () => {
+      if (isSpinning) return;
       hub.innerHTML = item.text;
       hub.style.transform = "scale(1.2)";
       sparklesContainer.style.opacity = "1";
@@ -505,18 +508,32 @@
     }
   });
 
-  // SPIN THE WHEEL - WITH "Zooming into [Emotion]..." MESSAGE
+  // SPIN THE WHEEL - Cumulative & Robust
   document.getElementById("spin-button").addEventListener("click", () => {
+    if (isSpinning) return;
+    isSpinning = true;
+
+    const spinBtn = document.getElementById("spin-button");
+    spinBtn.disabled = true;
+    spinBtn.style.opacity = "0.5";
+    spinBtn.style.cursor = "not-allowed";
+
     const randomIndex = Math.floor(Math.random() * emotions.length);
     const selectedEmotion = emotions[randomIndex];
-    const emotionName = selectedEmotion.name;
 
-    const fullSpins = 6 + Math.floor(Math.random() * 4);
-    // Correct rotation to land the slice at the TOP (pointer position)
+    const fullSpins = 7 + Math.floor(Math.random() * 5);
     const midAngle = randomIndex * sliceAngle + sliceAngle / 2;
-    const totalDegrees = (fullSpins * 360) + (360 - (midAngle + 90));
+    
+    // Total degree math:
+    // (midAngle + currentRotation + extra) % 360 should be 270 (top)
+    const extraDegrees = (270 - midAngle - (currentRotation % 360) + 1440) % 360;
+    currentRotation += (fullSpins * 360) + extraDegrees;
 
-    svg.style.transform = `rotate(${totalDegrees}deg)`;
+    svg.style.transform = `rotate(${currentRotation}deg)`;
+
+    // Clear hub immediately when starting spin
+    hub.innerHTML = "Spinning...<br>✨";
+    hub.style.transform = "scale(1.1)";
 
     setTimeout(() => {
       hub.innerHTML = `<strong>Zooming into<br>${selectedEmotion.name}...</strong><br><small>🚀</small>`;
