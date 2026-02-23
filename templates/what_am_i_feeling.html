@@ -248,7 +248,7 @@
 
     .label {
       pointer-events: none;
-      font-size: 7.8px;
+      font-size: 11px;
       text-anchor: middle;
       alignment-baseline: central;
       fill: #1a3c40;
@@ -450,8 +450,7 @@
     text.setAttribute("x", labelX);
     text.setAttribute("y", labelY);
     text.setAttribute("class", "label");
-    // Using tspan for better centering of multi-line text
-    text.innerHTML = `<tspan x="${labelX}" dy="-0.3em">${item.name}</tspan><tspan x="${labelX}" dy="1.2em">${item.emoji}</tspan>`;
+    text.innerHTML = item.name;
     text.setAttribute("transform", `rotate(${midAngle + 90}, ${labelX}, ${labelY})`);
     svg.appendChild(text);
 
